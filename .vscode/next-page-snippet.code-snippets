@@ -1,0 +1,16 @@
+{
+  "Nextjs Page Component With Typescript": {
+    "prefix": "npc",
+    "scope": "typescriptreact",
+    "body": [
+      "import type { NextPage } from 'next';",
+      "",
+      "interface ${5:${TM_FILENAME_BASE}}Props {}",
+      "",
+      "const ${6:${TM_FILENAME_BASE}}: NextPage<${7:${TM_FILENAME_BASE}}Props> = () => <div />;",
+      "",
+      "export default ${10:${TM_FILENAME_BASE}};"
+    ],
+    "description": "Nextjs Page Component With Typescript (made by qudwnbj)"
+  }
+}

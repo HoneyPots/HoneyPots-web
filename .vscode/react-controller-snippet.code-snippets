@@ -1,0 +1,22 @@
+{
+  "React Controller Component With Typescript": {
+    "prefix": "rcc",
+    "scope": "typescriptreact",
+    "body": [
+      "import ${1:${TM_FILENAME_BASE}}View from './${2:${TM_FILENAME_BASE}}View';",
+      "",
+      "import type { FC } from 'react';",
+      "import type { ${3:${TM_FILENAME_BASE}}ViewProps } from './${4:${TM_FILENAME_BASE}}View';",
+      "",
+      "interface ${5:${TM_FILENAME_BASE}}ControllerProps {}",
+      "",
+      "const ${6:${TM_FILENAME_BASE}}Controller: FC<${7:${TM_FILENAME_BASE}}ControllerProps> = () => {",
+      "  const viewProps: ${8:${TM_FILENAME_BASE}}ViewProps = {};",
+      "  return <${9:${TM_FILENAME_BASE}}View {...viewProps} />;",
+      "};",
+      "",
+      "export default ${10:${TM_FILENAME_BASE}}Controller;"
+    ],
+    "description": "React Controller Component With Typescript (made by qudwnbj)"
+  }
+}
