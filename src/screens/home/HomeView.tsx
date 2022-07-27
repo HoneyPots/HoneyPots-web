@@ -1,7 +1,5 @@
 import type { FC } from 'react';
 
-export interface HomeViewProps {}
-
-const HomeView: FC<HomeViewProps> = () => <div />;
+const HomeView: FC = () => <div />;
 
 export default HomeView;
