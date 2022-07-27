@@ -5,12 +5,12 @@ interface LoginParameter {
 }
 
 const login = async ({ code }: LoginParameter) => {
-  //   const { data } = await axios.get<string>('api/auth/login', {
-  //     params: {
-  //       authorizationCode: code,
-  //     },
-  //   });
-  //   return data;
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}/api/auth/login/kakao`, {
+    params: {
+      authorizationCode: code,
+    },
+  });
+  return data;
 };
 
 export default login;
