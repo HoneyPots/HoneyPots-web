@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import login from 'api/auth/login';
+import axios from 'libs/axios';
 import KakaoLoginView from './KakaoLoginView';
 
 import type { FC } from 'react';
@@ -11,12 +11,13 @@ const KakaoLoginController: FC<KakaoLoginPageProps> = ({ code }) => {
   const router = useRouter();
 
   useEffect(() => {
-    login({ code })
-      .then((token) => {
-        // set token
-        router.replace('/');
+    axios
+      .get(`${process.env.NEXT_PUBLIC_WEB_HOST}/api/auth/login`, {
+        params: {
+          authorizationCode: code,
+        },
       })
-      .catch((error) => router.replace('/auth/error'));
+      .then(console.log);
   }, [router, code]);
 
   return (
