@@ -5,9 +5,10 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyles from 'styles/GlobalStyles';
 import { wrapper } from 'libs/store';
 import theme from 'styles/theme';
-import type { AppProps } from 'next/app';
+import BottomTabNav from 'components/navigation/BottomTabNav';
+import { AppPropsWithLayout } from 'types/nextjs';
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -18,8 +19,9 @@ const App = ({ Component, pageProps }: AppProps) => {
         },
       }),
   );
+  const getLayout = Component.getLayout ?? ((page) => page);
 
-  return (
+  return getLayout(
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <ThemeProvider theme={theme}>
@@ -33,7 +35,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           <Component {...pageProps} />
         </ThemeProvider>
       </Hydrate>
-    </QueryClientProvider>
+    </QueryClientProvider>,
   );
 };
 

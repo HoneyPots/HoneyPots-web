@@ -3,6 +3,7 @@ import type { FC } from 'react';
 
 const HomeController: FC = () => {
   const viewProps = {};
+
   return <HomeView {...viewProps} />;
 };
 

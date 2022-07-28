@@ -19,7 +19,7 @@ const KakaoLoginController: FC<KakaoLoginPageProps> = ({ code }) => {
     //     },
     //   })
     //   .then(console.log);
-    login({ code }).then(console.log);
+    login({ code }).then(() => router.replace('/'));
   }, [router, code]);
 
   return (
