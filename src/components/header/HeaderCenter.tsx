@@ -4,14 +4,14 @@ import styled from 'styled-components';
 const Container = styled.div<{ hasSubtitle: boolean }>`
   font-size: 17px;
   line-height: 22px;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
   color: #191919;
   padding-top: ${(props) => (props.hasSubtitle ? '6px' : '0px')};
   small {
     line-height: 11px;
     display: block;
-    font-size: 10px;
+    font-size: 12px;
   }
 `;
 

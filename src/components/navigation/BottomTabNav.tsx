@@ -35,16 +35,32 @@ const BottomTabNav: FC = () => {
   return (
     <Container>
       <TabWrapper onClick={() => replace('/')}>
-        <Image src={pathname === '/' ? home : homeOutline} height={28} width={28} />
+        {pathname === '/' ? (
+          <Image src={home} height={28} width={28} priority />
+        ) : (
+          <Image src={homeOutline} height={28} width={28} priority />
+        )}
       </TabWrapper>
       <TabWrapper onClick={() => replace('/trade')}>
-        <Image src={pathname === '/trade' ? bag : bagOutline} height={24} width={23} />
+        {pathname === '/trade' ? (
+          <Image src={bag} height={24} width={23} priority />
+        ) : (
+          <Image src={bagOutline} height={24} width={23} priority />
+        )}
       </TabWrapper>
       <TabWrapper onClick={() => replace('/group-buying')}>
-        <Image src={pathname === '/group-buying' ? bike : bikeOutline} height={24} width={36.2} />
+        {pathname === '/group-buying' ? (
+          <Image src={bike} height={24} width={36.2} priority />
+        ) : (
+          <Image src={bikeOutline} height={24} width={36.2} priority />
+        )}
       </TabWrapper>
       <TabWrapper onClick={() => replace('/me')}>
-        <Image src={pathname === '/me' ? user : userOutline} height={28} width={28} />
+        {pathname === '/me' ? (
+          <Image src={user} height={28} width={28} priority />
+        ) : (
+          <Image src={userOutline} height={28} width={28} priority />
+        )}
       </TabWrapper>
     </Container>
   );
