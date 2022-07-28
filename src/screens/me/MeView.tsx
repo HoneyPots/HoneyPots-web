@@ -1,10 +1,9 @@
-import Layout from 'components/layout/Layout';
-import React from 'react';
+import type { FC } from 'react';
 
-interface MeViewProps {}
+export interface MeViewProps {
+  examples?: any;
+}
 
-const MeView: React.FC<MeViewProps> = ({}) => {
-  return <Layout></Layout>;
-};
+const MeView: FC<MeViewProps> = () => <div />;
 
 export default MeView;

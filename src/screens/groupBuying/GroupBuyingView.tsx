@@ -1,10 +1,9 @@
-import Layout from 'components/layout/Layout';
-import React from 'react';
+import type { FC } from 'react';
 
-interface GroupBuyingViewProps {}
+export interface GroupBuyingViewProps {
+  examples?: any;
+}
 
-const GroupBuyingView: React.FC<GroupBuyingViewProps> = ({}) => {
-  return <Layout></Layout>;
-};
+const GroupBuyingView: FC<GroupBuyingViewProps> = () => <div />;
 
 export default GroupBuyingView;

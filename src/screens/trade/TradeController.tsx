@@ -1,10 +1,15 @@
-import React from 'react';
 import TradeView from './TradeView';
 
-interface TradeControllerProps {}
+import type { FC } from 'react';
+import type { TradeViewProps } from './TradeView';
 
-const TradeController: React.FC<TradeControllerProps> = ({}) => {
-  return <TradeView />;
+interface TradeControllerControllerProps {
+  examples?: any;
+}
+
+const TradeControllerController: FC<TradeControllerControllerProps> = () => {
+  const viewProps: TradeViewProps = {};
+  return <TradeView {...viewProps} />;
 };
 
-export default TradeController;
+export default TradeControllerController;

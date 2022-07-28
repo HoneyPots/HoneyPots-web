@@ -1,10 +1,9 @@
-import React from 'react';
-import Layout from 'components/layout/Layout';
+import type { FC } from 'react';
 
-interface TradeViewProps {}
+export interface TradeViewProps {
+  examples?: any;
+}
 
-const TradeView: React.FC<TradeViewProps> = ({}) => {
-  return <Layout></Layout>;
-};
+const TradeView: FC<TradeViewProps> = () => <div />;
 
 export default TradeView;

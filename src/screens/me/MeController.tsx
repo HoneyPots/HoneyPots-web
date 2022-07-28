@@ -1,10 +1,15 @@
-import React from 'react';
 import MeView from './MeView';
 
-interface MeControllerProps {}
+import type { FC } from 'react';
+import type { MeViewProps } from './MeView';
 
-const MeController: React.FC<MeControllerProps> = ({}) => {
-  return <MeView />;
+interface MeControllerControllerProps {
+  examples?: any;
+}
+
+const MeControllerController: FC<MeControllerControllerProps> = () => {
+  const viewProps: MeViewProps = {};
+  return <MeView {...viewProps} />;
 };
 
-export default MeController;
+export default MeControllerController;

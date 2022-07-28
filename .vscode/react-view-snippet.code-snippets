@@ -5,7 +5,7 @@
     "body": [
       "import type { FC } from 'react';",
       "",
-      "export interface ${1:${TM_FILENAME_BASE}}Props {}",
+      "export interface ${1:${TM_FILENAME_BASE}}Props {examples?:any}",
       "",
       "const ${2:${TM_FILENAME_BASE}}: FC<${3:${TM_FILENAME_BASE}}Props> = () => <div />;",
       "",

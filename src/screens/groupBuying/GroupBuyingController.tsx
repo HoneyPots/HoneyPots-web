@@ -1,10 +1,15 @@
-import React from 'react';
-import GroupBuyingView from './GroupBuyingView';
+import GroupBuyingControllerView from './GroupBuyingView';
 
-interface GroupBuyingControllerProps {}
+import type { FC } from 'react';
+import type { GroupBuyingViewProps } from './GroupBuyingView';
 
-const GroupBuyingController: React.FC<GroupBuyingControllerProps> = ({}) => {
-  return <GroupBuyingView />;
+interface GroupBuyingControllerControllerProps {
+  examples?: any;
+}
+
+const GroupBuyingControllerController: FC<GroupBuyingControllerControllerProps> = () => {
+  const viewProps: GroupBuyingViewProps = {};
+  return <GroupBuyingControllerView {...viewProps} />;
 };
 
-export default GroupBuyingController;
+export default GroupBuyingControllerController;
