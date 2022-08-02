@@ -1,23 +1,29 @@
-import axios from 'api/axios';
-import { GetPostsResponse } from './types';
+import axios from 'libs/axios';
 
-export interface GetPostsRequest {
-  sortField: 'createdAt';
+import type { Page, Post } from 'types/api/common';
+
+interface GetPostsRequest {
+  sortField: 'createdAt'; // keyof Post
   sortOption: 'asc' | 'desc';
   pageNumber: number;
   pageSize: number;
 }
+
+export const getPostsKey = () => ['/api/posts/normal'];
 
 export default async function getPosts({
   sortOption,
   sortField,
   pageNumber,
   pageSize,
-}: GetPostsRequest): Promise<GetPostsResponse> {
-  const {
-    data: { result: data },
-  } = await axios.get(
-    `/api/posts/normal?page=${pageNumber}&size=${pageSize}&sort=${sortField},${sortOption}`,
-  );
+}: GetPostsRequest) {
+  const { data } = await axios.get<Page<Post>>('/api/posts/normal', {
+    params: {
+      page: pageNumber,
+      size: pageSize,
+      sort: sortField.concat(',', sortOption),
+    },
+  });
+
   return data;
 }

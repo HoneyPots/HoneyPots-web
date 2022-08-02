@@ -1,19 +1,18 @@
-import axios from 'api/axios';
+import axios from 'libs/axios';
+
+import type { Post } from 'types/api/common';
 
 interface PostPostRequest {
   title: string;
   content: string;
 }
 
-function postPost({ title, content }: PostPostRequest) {
-  return axios({
-    method: 'POST',
-    url: '/api/posts/normal',
-    data: {
-      title,
-      content,
-    },
-  });
-}
+export default async function postPost({ title, content }: PostPostRequest) {
+  const { data } = await axios.post<Post>(
+    '/api/posts/normal',
+    { title, content },
+    { headers: { 'Content-type': 'application/json' } },
+  );
 
-export default postPost;
+  return data;
+}

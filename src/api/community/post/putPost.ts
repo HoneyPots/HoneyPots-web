@@ -1,4 +1,4 @@
-import axios from 'api/axios';
+import axios from 'libs/axios';
 
 interface PutPostRequest {
   postId: string;
@@ -6,15 +6,12 @@ interface PutPostRequest {
   content: string;
 }
 
-function putPost({ postId, content, title }: PutPostRequest) {
-  return axios({
-    method: 'PUT',
-    url: `/api/pists/normal/${postId}`,
-    data: {
-      title,
-      content,
-    },
-  });
-}
+export default async function putPost({ postId, content, title }: PutPostRequest) {
+  const { data } = await axios.put(
+    `/api/posts/normal/${postId}`,
+    { title, content },
+    { headers: { 'Content-type': 'application/json' } },
+  );
 
-export default putPost;
+  return data;
+}

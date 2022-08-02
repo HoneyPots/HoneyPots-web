@@ -1,14 +1,17 @@
-import { Post } from 'api/@types';
-import axios from 'api/axios';
+import axios from 'libs/axios';
+import { Post } from 'types/api/common';
 
-export interface GetPostRequest {
+interface GetPostParameter {
   postId: string;
 }
 
-export default async function getPost({ postId }: GetPostRequest): Promise<Post> {
-  const {
-    data: { result },
-  } = await axios.get(`/api/posts/normal/${postId}`);
+export const getPostKey = (params: GetPostParameter): [string, GetPostParameter] => [
+  '/api/posts/normal',
+  params,
+];
 
-  return result;
+export default async function getPost({ postId }: GetPostParameter) {
+  const { data } = await axios.get<Post>(`/api/posts/normal/${postId}`);
+
+  return data;
 }

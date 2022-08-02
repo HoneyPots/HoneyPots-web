@@ -34,7 +34,6 @@ const GlobalStyles = createGlobalStyle`
   }
   body {
   	line-height: 1;
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ;
   }
   ol, ul {
   	list-style: none;
@@ -53,9 +52,9 @@ const GlobalStyles = createGlobalStyle`
   }
   /* <---------- RESET CSS ----------> */
 
-  /* * {
-    box-sizing: border-box; 
-  } */
+  body {
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ;
+  }
 
   input {
     border: none;
