@@ -1,11 +1,11 @@
-import axios from 'api/axios';
+import axios from 'libs/axios';
 
 interface DeletePostRequest {
   postId: string;
 }
 
-function delPost({ postId }: DeletePostRequest) {
-  return axios({ method: 'DELETE', url: `/api/posts/normal/${postId}` });
-}
+export default async function delPost({ postId }: DeletePostRequest) {
+  const { data } = await axios.delete(`/api/posts/normal/${postId}`);
 
-export default delPost;
+  return data;
+}

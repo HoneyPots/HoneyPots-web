@@ -1,19 +1,15 @@
-/**
- * yyyyMMddHHmmss
- */
-type Time = string;
-/**
- * ex) 2022-07-28T23:56:21.8215431
- */
-type LongTime = string;
-
+/* eslint-disable @typescript-eslint/no-empty-interface */
 export interface User {
   id: number;
   nickname: string;
 }
 
-type Writer = User;
-type Reactor = User;
+type ReactionType = 'LIKE';
+
+type TargetType = 'POST' | 'COMMENT';
+
+interface Writer extends User {}
+interface Reactor extends User {}
 
 export interface Post {
   postId: number;
@@ -21,28 +17,24 @@ export interface Post {
   content: string;
   writer: Writer;
   commentCount: number;
-  uploadedAt: LongTime;
-  lastModifiedAt: LongTime;
+  uploadedAt: string;
+  lastModifiedAt: string;
 }
 
 export interface Comment {
   postId: number;
   commentId: number;
   writer: Writer;
-  createdAt: LongTime;
-  lastModifiedAt: LongTime;
+  createdAt: string;
+  lastModifiedAt: string;
 }
-
-type ReactionType = 'LIKE';
-
-type TargetType = 'POST' | 'COMMENT';
 
 export interface Reaction {
   reactionId: number;
   targetId: number;
   targetType: TargetType;
   reactionType: ReactionType;
-  reator: Reactor;
+  reactor: Reactor;
   alreadyExists: boolean;
 }
 
@@ -74,10 +66,3 @@ export interface Page<T> {
   numberOfElements: number;
   empty: boolean;
 }
-
-// export type ApiResponse<T = any> = {
-//   result: T;
-//   code: number;
-//   status: 'OK' | 'ERROR';
-//   messages: string[];
-// };
