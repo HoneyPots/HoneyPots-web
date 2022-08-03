@@ -16,7 +16,6 @@ const PostDetailControllerController: FC<PostDetailControllerControllerProps> = 
   const router = useRouter();
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [comment, setComment] = useState<string>('');
-  const [totalComments, setTotalComments] = useState<number>(0);
 
   const { data } = useQuery(
     getPostKey({ postId: router.query.postId as string }),
@@ -44,7 +43,6 @@ const PostDetailControllerController: FC<PostDetailControllerControllerProps> = 
       enabled: Boolean(router.query.postId),
       getNextPageParam: (lastPage) => lastPage.pageable.pageNumber + 1,
       onSuccess(res) {
-        setTotalComments(res.pages[0].totalElements);
         if (res.pages[res.pages.length - 1].last) {
           setIsLastPage(true);
         }
@@ -86,7 +84,6 @@ const PostDetailControllerController: FC<PostDetailControllerControllerProps> = 
       },
       value: comment,
     },
-    totalComments,
     onHeaderClick: () => router.push('/'),
   };
   return <PostDetailView {...viewProps} />;

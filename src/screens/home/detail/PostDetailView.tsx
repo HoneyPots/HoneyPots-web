@@ -10,7 +10,6 @@ import type { FC } from 'react';
 export interface PostDetailViewProps {
   post?: PostType;
   comments: Comment[];
-  totalComments: number;
   handleObserver: VoidFunction;
   commentInputProps: CommentInputProps;
   onHeaderClick: VoidFunction;
@@ -19,7 +18,6 @@ export interface PostDetailViewProps {
 const PostDetailView: FC<PostDetailViewProps> = ({
   post,
   comments,
-  totalComments,
   handleObserver,
   commentInputProps,
   onHeaderClick,
@@ -29,10 +27,14 @@ const PostDetailView: FC<PostDetailViewProps> = ({
       <Header.Left iconType="back" onClick={onHeaderClick} />
       <Header.Center title="게시글" />
     </Header>
-    {post ? <Post {...post} full /> : null}
-    <CommentInput {...commentInputProps} />
-    <Comments comments={comments} totalCount={totalComments} />
-    <Observer onObserve={handleObserver} height="55px" />
+    {post ? (
+      <>
+        <Post {...post} full />
+        <CommentInput {...commentInputProps} />
+        <Comments comments={comments} totalCount={post.commentCount} />
+        <Observer onObserve={handleObserver} height="55px" />
+      </>
+    ) : null}
   </Layout>
 );
 
