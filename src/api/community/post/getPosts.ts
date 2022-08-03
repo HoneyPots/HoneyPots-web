@@ -1,6 +1,6 @@
 import axios from 'libs/axios';
 
-import type { Page, Post } from 'types/api/common';
+import type { Page, PostType } from 'types/api/common';
 
 interface GetPostsRequest {
   sortField: 'createdAt'; // keyof Post
@@ -17,7 +17,7 @@ export default async function getPosts({
   pageNumber,
   pageSize,
 }: GetPostsRequest) {
-  const { data } = await axios.get<Page<Post>>('/api/posts/normal', {
+  const { data } = await axios.get<Page<PostType>>('/api/posts/normal', {
     params: {
       page: pageNumber,
       size: pageSize,

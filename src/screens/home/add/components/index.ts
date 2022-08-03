@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const WriteButton = styled.a`
+const DoneButton = styled.a`
   position: fixed;
   bottom: 62px;
   padding: 8px 18px;
@@ -13,7 +13,8 @@ const WriteButton = styled.a`
   line-height: 22px;
   color: #fff;
 `;
+const PostAddComponents = {
+  DoneButton,
+};
 
-const HomeComponents = { WriteButton };
-
-export default HomeComponents;
+export default PostAddComponents;

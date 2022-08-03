@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Head from 'next/head';
 import { ThemeProvider } from 'styled-components';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import GlobalStyles from 'styles/GlobalStyles';
 import { wrapper } from 'libs/store';
 import theme from 'styles/theme';
@@ -35,6 +36,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
           <Component {...pageProps} />
         </ThemeProvider>
       </Hydrate>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>,
   );
 };

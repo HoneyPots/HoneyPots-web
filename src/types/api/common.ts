@@ -11,7 +11,7 @@ type TargetType = 'POST' | 'COMMENT';
 interface Writer extends User {}
 interface Reactor extends User {}
 
-export interface Post {
+export interface PostType {
   postId: number;
   title: string;
   content: string;

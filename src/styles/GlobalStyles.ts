@@ -68,7 +68,11 @@ const GlobalStyles = createGlobalStyle`
     &:focus {
       outline: none;
     }
+   
     cursor: pointer;
+  }
+  a{
+    text-decoration:none ;
   }
 
 `;

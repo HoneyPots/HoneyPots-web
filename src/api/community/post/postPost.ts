@@ -1,6 +1,6 @@
 import axios from 'libs/axios';
 
-import type { Post } from 'types/api/common';
+import type { PostType } from 'types/api/common';
 
 interface PostPostRequest {
   title: string;
@@ -8,11 +8,7 @@ interface PostPostRequest {
 }
 
 export default async function postPost({ title, content }: PostPostRequest) {
-  const { data } = await axios.post<Post>(
-    '/api/posts/normal',
-    { title, content },
-    { headers: { 'Content-type': 'application/json' } },
-  );
+  const { data } = await axios.post<PostType>('/api/posts/normal', { title, content });
 
   return data;
 }
