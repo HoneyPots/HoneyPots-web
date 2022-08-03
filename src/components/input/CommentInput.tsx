@@ -9,10 +9,10 @@ const Backdrop = styled.div`
   position: fixed;
   bottom: 52px;
   width: 100%;
-
   box-sizing: border-box;
-  backdrop-filter: blur(10px);
-  padding: 0px 16px 16px;
+  -webkit-backdrop-filter: blur(5px) brightness(1.1) grayscale(1.1);
+  backdrop-filter: blur(5px) brightness(1.2);
+  padding: 8px 16px 16px;
 `;
 
 const Container = styled.div<{ isFocused: boolean }>`
@@ -44,7 +44,7 @@ const Input = styled.textarea`
   overflow: auto;
   vertical-align: top;
   resize: none;
-  height: 20px;
+  height: 22px;
   max-height: 200px;
   border: none;
   :focus {
@@ -54,10 +54,10 @@ const Input = styled.textarea`
 
 const Submit = styled.div``;
 
-interface CommentInputProps {
+export interface CommentInputProps {
   onSubmitClick: VoidFunction;
   value: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: ChangeEventHandler<HTMLTextAreaElement>;
 }
 
 const CommentInput: FC<CommentInputProps> = ({ onChange, onSubmitClick, value }) => {
@@ -72,6 +72,7 @@ const CommentInput: FC<CommentInputProps> = ({ onChange, onSubmitClick, value })
           placeholder="댓글 달기..."
           ref={textAreaRef}
           onChange={(e) => {
+            onChange(e);
             if (textAreaRef.current) {
               textAreaRef.current.style.height = '16px';
               textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
@@ -83,9 +84,10 @@ const CommentInput: FC<CommentInputProps> = ({ onChange, onSubmitClick, value })
           onBlur={(e) => {
             setIsFocused(false);
           }}
+          value={value}
           typeof="string"
         />
-        <Submit>
+        <Submit onClick={onSubmitClick}>
           <SubmitSvg />
         </Submit>
       </Container>

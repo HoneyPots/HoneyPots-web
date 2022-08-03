@@ -1,7 +1,7 @@
 import Header from 'components/header';
 import { InputLabel, TextArea, TextInput } from 'components/input';
 import Layout from 'components/layout/Layout';
-import Alert, { AlertProps } from 'components/chakra/alert';
+import Alert, { AlertProps } from 'components/chakra/Alert';
 import PostAddComponents from './components';
 import type { ChangeEventHandler, FC } from 'react';
 

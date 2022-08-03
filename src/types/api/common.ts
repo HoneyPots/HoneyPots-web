@@ -27,6 +27,7 @@ export interface Comment {
   writer: Writer;
   createdAt: string;
   lastModifiedAt: string;
+  content: string;
 }
 
 export interface Reaction {

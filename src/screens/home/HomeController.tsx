@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import { FC, useCallback, useEffect, useState } from 'react';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { FC, useCallback, useState } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import getPosts, { getPostsKey } from 'api/community/post/getPosts';
 import { PostType } from 'types/api/common';
 import HomeView, { HomeViewProps } from './HomeView';
