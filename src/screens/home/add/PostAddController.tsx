@@ -1,9 +1,10 @@
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useMutation } from '@tanstack/react-query';
+import { useDisclosure } from '@chakra-ui/react';
+import postPost from 'api/community/post/postPost';
 import PostAddView from './PostAddView';
 import type { PostAddViewProps } from './PostAddView';
-import { useMutation } from '@tanstack/react-query';
-import postPost from 'api/community/post/postPost';
 
 interface PostAddControllerControllerProps {
   examples?: any;
@@ -12,6 +13,7 @@ interface PostAddControllerControllerProps {
 const PostAddControllerController: FC<PostAddControllerControllerProps> = () => {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
+  const { isOpen, onClose, onOpen } = useDisclosure({});
 
   const router = useRouter();
 
@@ -20,6 +22,14 @@ const PostAddControllerController: FC<PostAddControllerControllerProps> = () => 
       router.push('/');
     },
   });
+
+  const errorMsg = useMemo(() => {
+    if (title.length === 0) return '제목을 입력해주세요';
+    if (title.length > 30) return '제목이 30자를 초과했습니다';
+    if (content.length > 1000) return '내용이 1000자를 초과했습니다';
+    if (content.length === 0) return '내용을 입력해주세요';
+    return '';
+  }, [title, content]);
 
   const viewProps: PostAddViewProps = {
     contentInputProps: {
@@ -31,7 +41,17 @@ const PostAddControllerController: FC<PostAddControllerControllerProps> = () => 
       onChange: (e) => setTitle(e.target.value),
     },
     onButtonClick: () => {
-      add.mutate({ content, title });
+      if (errorMsg.length === 0) {
+        add.mutate({ content, title });
+      } else {
+        onOpen();
+      }
+    },
+    alertProps: {
+      body: errorMsg,
+      header: '오류',
+      isOpen,
+      onClose,
     },
   };
 

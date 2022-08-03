@@ -17,7 +17,7 @@ const TextInput = styled.input`
   ::placeholder {
     color: #717171;
   }
-  width: calc(100% - 40px);
+  width: 100%;
 
   border-radius: 4px;
   border: 1px solid #e1e1e1;
@@ -36,7 +36,7 @@ const TextArea = styled.textarea`
   :focus {
     outline: ${(props) => props.theme.color.main} solid 1px;
   }
-  width: calc(100% - 40px);
+  width: calc(100%);
   height: 300px;
 
   border-radius: 4px;

@@ -1,6 +1,7 @@
 import Header from 'components/header';
 import { InputLabel, TextArea, TextInput } from 'components/input';
 import Layout from 'components/layout/Layout';
+import Alert, { AlertProps } from 'components/chakra/alert';
 import PostAddComponents from './components';
 import type { ChangeEventHandler, FC } from 'react';
 
@@ -14,12 +15,14 @@ export interface PostAddViewProps {
     onChange: ChangeEventHandler<HTMLTextAreaElement>;
   };
   onButtonClick: VoidFunction;
+  alertProps: AlertProps;
 }
 
 const PostAddView: FC<PostAddViewProps> = ({
   contentInputProps,
   titleInputProps,
   onButtonClick,
+  alertProps,
 }) => (
   <Layout>
     <Header>
@@ -31,6 +34,7 @@ const PostAddView: FC<PostAddViewProps> = ({
     <InputLabel>내용</InputLabel>
     <TextArea placeholder="제목을 입력해 주세요" {...contentInputProps} />
     <PostAddComponents.DoneButton onClick={onButtonClick}>완료</PostAddComponents.DoneButton>
+    <Alert {...alertProps} />
   </Layout>
 );
 

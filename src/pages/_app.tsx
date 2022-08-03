@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Head from 'next/head';
 import { ThemeProvider } from 'styled-components';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import Head from 'next/head';
+import { ChakraProvider } from '@chakra-ui/react';
 import GlobalStyles from 'styles/GlobalStyles';
 import { wrapper } from 'libs/store';
 import theme from 'styles/theme';
@@ -26,14 +27,21 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <Head>
-            <link rel="shortcut icon" href="/images/favicon.ico" />
-            <link rel="icon" href="/images/favicon.ico" />
-            <link rel="apple-touch-icon" href="/images/favicon.ico" />
-            <meta name="viewport" content="initial-scale=1, width=device-width" />
-          </Head>
-          <Component {...pageProps} />
+          <ChakraProvider>
+            <GlobalStyles />
+            <Head>
+              <title>꿀단지</title>
+
+              <link rel="shortcut icon" href="/images/favicon.ico" />
+              <link rel="icon" href="/images/favicon.ico" />
+              <link rel="apple-touch-icon" href="/images/favicon.ico" />
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0, user-scalable=0, maximum-scale=1.0"
+              />
+            </Head>
+            <Component {...pageProps} />
+          </ChakraProvider>
         </ThemeProvider>
       </Hydrate>
       <ReactQueryDevtools initialIsOpen={false} />

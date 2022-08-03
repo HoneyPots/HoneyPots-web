@@ -1,42 +1,54 @@
+import { ChangeEventHandler, FC, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Image from 'next/image';
-import submit from 'assets/images/input/submit.png';
-import type { ChangeEventHandler, FC } from 'react';
+import SubmitSvg from 'assets/svgs/SubmitSvg';
 
 const Backdrop = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
-  bottom: 30px;
+  bottom: 52px;
   width: 100%;
 
+  box-sizing: border-box;
   backdrop-filter: blur(10px);
   padding: 0px 16px 16px;
-  background: #f2ff;
 `;
 
-const Container = styled.div`
+const Container = styled.div<{ isFocused: boolean }>`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 
-  background: #f2ff;
+  background: #fff;
   box-sizing: border-box;
-  height: 40px;
+  height: max-content;
   width: 100%;
-  padding: 0px 16px;
+  padding: 10px 16px 8px;
+
+  border: ${(props) =>
+    props.isFocused ? `1px solid ${props.theme.color.main}` : '1px solid #e1e1e1'};
 
   border-radius: 20px;
 `;
 
-const Input = styled.div`
+const Input = styled.textarea`
+  flex: 1;
   font-size: 14px;
   font-weight: 500;
-  height: 30px;
   letter-spacing: -0.56px;
   color: #191919;
   ::placeholder {
     color: #717171;
+  }
+
+  overflow: auto;
+  vertical-align: top;
+  resize: none;
+  height: 20px;
+  max-height: 200px;
+  border: none;
+  :focus {
+    outline: none;
   }
 `;
 
@@ -49,12 +61,32 @@ interface CommentInputProps {
 }
 
 const CommentInput: FC<CommentInputProps> = ({ onChange, onSubmitClick, value }) => {
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+
   return (
     <Backdrop>
-      <Container>
-        <Input placeholder="댓글 달기..." />
+      <Container isFocused={isFocused}>
+        <Input
+          placeholder="댓글 달기..."
+          ref={textAreaRef}
+          onChange={(e) => {
+            if (textAreaRef.current) {
+              textAreaRef.current.style.height = '16px';
+              textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+            }
+          }}
+          onFocus={(e) => {
+            setIsFocused(true);
+          }}
+          onBlur={(e) => {
+            setIsFocused(false);
+          }}
+          typeof="string"
+        />
         <Submit>
-          <Image src={submit} width={40} />
+          <SubmitSvg />
         </Submit>
       </Container>
     </Backdrop>
