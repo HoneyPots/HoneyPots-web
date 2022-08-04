@@ -31,7 +31,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
             <GlobalStyles />
             <Head>
               <title>꿀단지</title>
-
+              <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
               <link rel="shortcut icon" href="/images/favicon.ico" />
               <link rel="icon" href="/images/favicon.ico" />
               <link rel="apple-touch-icon" href="/images/favicon.ico" />
