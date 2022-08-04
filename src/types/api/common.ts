@@ -19,6 +19,9 @@ export interface PostType {
   commentCount: number;
   uploadedAt: string;
   lastModifiedAt: string;
+  isLiked: boolean;
+  likeReactionCount: number;
+  likeReactionId: number;
 }
 
 export interface Comment {

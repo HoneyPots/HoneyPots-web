@@ -16,6 +16,7 @@ export interface PostAddViewProps {
   };
   onButtonClick: VoidFunction;
   alertProps: AlertProps;
+  onHeaderClick: VoidFunction;
 }
 
 const PostAddView: FC<PostAddViewProps> = ({
@@ -23,10 +24,11 @@ const PostAddView: FC<PostAddViewProps> = ({
   titleInputProps,
   onButtonClick,
   alertProps,
+  onHeaderClick,
 }) => (
   <Layout>
     <Header>
-      <Header.Left iconType="close" onClick={() => {}} />
+      <Header.Left iconType="close" onClick={onHeaderClick} />
       <Header.Center title="게시글 작성" />
     </Header>
     <InputLabel>제목</InputLabel>

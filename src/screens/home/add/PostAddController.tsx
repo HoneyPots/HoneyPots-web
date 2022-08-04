@@ -1,7 +1,8 @@
 import { FC, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDisclosure } from '@chakra-ui/react';
+import { getPostsKey } from 'api/community/post/getPosts';
 import postPost from 'api/community/post/postPost';
 import PostAddView from './PostAddView';
 import type { PostAddViewProps } from './PostAddView';
@@ -14,12 +15,14 @@ const PostAddControllerController: FC<PostAddControllerControllerProps> = () => 
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const { isOpen, onClose, onOpen } = useDisclosure({});
+  const queryClient = useQueryClient();
 
   const router = useRouter();
 
   const add = useMutation(postPost, {
     onSuccess() {
       router.push('/');
+      queryClient.invalidateQueries(getPostsKey());
     },
   });
 
@@ -32,6 +35,7 @@ const PostAddControllerController: FC<PostAddControllerControllerProps> = () => 
   }, [title, content]);
 
   const viewProps: PostAddViewProps = {
+    onHeaderClick: () => router.push('/'),
     contentInputProps: {
       onChange: (e) => setContent(e.target.value),
       value: content,

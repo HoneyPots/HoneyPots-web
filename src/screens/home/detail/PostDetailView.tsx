@@ -1,14 +1,14 @@
 import Header from 'components/header';
 import Layout from 'components/layout/Layout';
-import Post from 'components/post';
-import { Comment, PostType } from 'types/api/common';
+import Post, { PostProps } from 'components/post';
+import { Comment } from 'types/api/common';
 import Observer from 'components/observer/Observer';
 import CommentInput, { CommentInputProps } from 'components/input/CommentInput';
 import Comments from 'components/comment/Comments';
 import type { FC } from 'react';
 
 export interface PostDetailViewProps {
-  post?: PostType;
+  post?: PostProps;
   comments: Comment[];
   handleObserver: VoidFunction;
   commentInputProps: CommentInputProps;

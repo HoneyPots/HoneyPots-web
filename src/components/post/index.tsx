@@ -95,6 +95,8 @@ const Post: FC<PostProps> = ({
   full,
   onClick,
   onLikeClick,
+  likeReactionCount,
+  isLiked,
 }) => (
   <Container>
     <Title full={full} onClick={onClick}>
@@ -109,9 +111,13 @@ const Post: FC<PostProps> = ({
     </Infos>
     <Reactions>
       <SvgWrapper onClick={onLikeClick}>
-        <HeartSvg width="23px" height="18px" fill="none" />
+        {isLiked ? (
+          <HeartSvg width="23px" height="18px" fill="#FA383E" stroke="#FA383E" />
+        ) : (
+          <HeartSvg width="23px" height="18px" fill="none" />
+        )}
       </SvgWrapper>
-      10
+      {likeReactionCount}
       <SvgWrapper>
         <CommentSvg height="18px" width="20px" />
       </SvgWrapper>
