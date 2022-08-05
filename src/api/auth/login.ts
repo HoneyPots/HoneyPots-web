@@ -1,4 +1,4 @@
-import axios from 'libs/axios';
+import axios from 'axios';
 
 interface LoginParameter {
   code: string;
