@@ -15,7 +15,7 @@ const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (accessToken || router.pathname === '/auth/login') return <div>{children}</div>;
+  if (accessToken || router.pathname.startsWith('/auth')) return <div>{children}</div>;
 
   return <div />;
 };
