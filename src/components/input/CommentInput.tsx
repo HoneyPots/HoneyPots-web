@@ -7,7 +7,7 @@ const Backdrop = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
-  bottom: 52px;
+  bottom: 0px;
   width: 100%;
   box-sizing: border-box;
   -webkit-backdrop-filter: blur(5px) brightness(1.1) grayscale(1.1);

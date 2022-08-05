@@ -117,11 +117,17 @@ const Post: FC<PostProps> = ({
           <HeartSvg width="23px" height="18px" fill="none" />
         )}
       </SvgWrapper>
-      {likeReactionCount}
-      <SvgWrapper>
-        <CommentSvg height="18px" width="20px" />
-      </SvgWrapper>
-      {commentCount}개의 댓글
+      {Boolean(likeReactionCount) && likeReactionCount}
+      {commentCount ? (
+        <>
+          <SvgWrapper>
+            <CommentSvg height="18px" width="20px" />
+          </SvgWrapper>
+          {commentCount}개의 댓글
+        </>
+      ) : (
+        <div />
+      )}
     </Reactions>
   </Container>
 );

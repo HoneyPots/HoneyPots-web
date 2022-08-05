@@ -5,6 +5,4 @@ import { NextPageWithLayout } from 'types/nextjs';
 
 const PostAdd: NextPageWithLayout = () => <PostAddController />;
 
-PostAdd.getLayout = getButtomTabLayout;
-
 export default PostAdd;

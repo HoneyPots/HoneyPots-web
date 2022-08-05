@@ -34,7 +34,7 @@ const PostAddView: FC<PostAddViewProps> = ({
     <InputLabel>제목</InputLabel>
     <TextInput placeholder="제목을 입력해 주세요" {...titleInputProps} />
     <InputLabel>내용</InputLabel>
-    <TextArea placeholder="제목을 입력해 주세요" {...contentInputProps} />
+    <TextArea placeholder="내용을 입력해 주세요" {...contentInputProps} />
     <PostAddComponents.DoneButton onClick={onButtonClick}>완료</PostAddComponents.DoneButton>
     <Alert {...alertProps} />
   </Layout>

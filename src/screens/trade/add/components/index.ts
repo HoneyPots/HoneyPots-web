@@ -13,8 +13,7 @@ const DoneButton = styled.a`
   line-height: 22px;
   color: #fff;
 `;
-const PostAddComponents = {
-  DoneButton,
-};
 
-export default PostAddComponents;
+const TradeAddComponents = { DoneButton };
+
+export default TradeAddComponents;

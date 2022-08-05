@@ -1,6 +1,5 @@
+import { FC, useCallback } from 'react';
 import TradeView from './TradeView';
-
-import type { FC } from 'react';
 import type { TradeViewProps } from './TradeView';
 
 interface TradeControllerControllerProps {
@@ -8,7 +7,18 @@ interface TradeControllerControllerProps {
 }
 
 const TradeControllerController: FC<TradeControllerControllerProps> = () => {
-  const viewProps: TradeViewProps = {};
+  const handleObserver = useCallback(() => {
+    // if (data && data.pages[data.pages.length - 1]?.content) {
+    //   if (isLastPage) {
+    //     return;
+    //   }
+    //   fetchNextPage();
+    // }
+  }, []);
+
+  const viewProps: TradeViewProps = {
+    handleObserver,
+  };
   return <TradeView {...viewProps} />;
 };
 

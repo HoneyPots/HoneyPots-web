@@ -43,4 +43,20 @@ const TextArea = styled.textarea`
   border: 1px solid #e1e1e1;
 `;
 
-export { InputLabel, TextInput, TextArea };
+const Selection = styled.select`
+  padding: 10px 15px;
+  font-size: 14px;
+  letter-spacing: -0.4px;
+  ::placeholder {
+    color: #717171;
+  }
+  width: 100%;
+
+  border-radius: 4px;
+  border: 1px solid #e1e1e1;
+  :focus {
+    outline: ${(props) => props.theme.color.main} solid 1px;
+  }
+`;
+
+export { InputLabel, TextInput, TextArea, Selection };
