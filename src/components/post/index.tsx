@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
+import useDayjs from 'hooks/useDayjs';
 import HeartSvg from 'assets/svgs/HeartSvg';
 import CommentSvg from 'assets/svgs/CommentSvg';
 import { PostType } from 'types/api/common';
-import day from 'utills/day';
 import type { FC } from 'react';
 
 interface Full {
@@ -98,39 +98,43 @@ const Post: FC<PostProps> = ({
   onLikeClick,
   likeReactionCount,
   isLiked,
-}) => (
-  <Container>
-    <Title full={full} onClick={onClick}>
-      {title}
-    </Title>
-    <Content onClick={onClick} full={full}>
-      {content}
-    </Content>
-    <Infos onClick={onClick}>
-      <span>{writer.nickname}</span>
-      <span>{day(uploadedAt)}</span>
-    </Infos>
-    <Reactions>
-      <SvgWrapper onClick={onLikeClick}>
-        {isLiked ? (
-          <HeartSvg width="23px" height="18px" fill="#FA383E" stroke="#FA383E" />
+}) => {
+  const { day } = useDayjs();
+
+  return (
+    <Container>
+      <Title full={full} onClick={onClick}>
+        {title}
+      </Title>
+      <Content onClick={onClick} full={full}>
+        {content}
+      </Content>
+      <Infos onClick={onClick}>
+        <span>{writer.nickname}</span>
+        <span>{day(uploadedAt)}</span>
+      </Infos>
+      <Reactions>
+        <SvgWrapper onClick={onLikeClick}>
+          {isLiked ? (
+            <HeartSvg width="23px" height="18px" fill="#FA383E" stroke="#FA383E" />
+          ) : (
+            <HeartSvg width="23px" height="18px" fill="none" />
+          )}
+        </SvgWrapper>
+        {Boolean(likeReactionCount) && likeReactionCount}
+        {commentCount ? (
+          <>
+            <SvgWrapper>
+              <CommentSvg height="18px" width="20px" />
+            </SvgWrapper>
+            {commentCount}개의 댓글
+          </>
         ) : (
-          <HeartSvg width="23px" height="18px" fill="none" />
+          <div />
         )}
-      </SvgWrapper>
-      {Boolean(likeReactionCount) && likeReactionCount}
-      {commentCount ? (
-        <>
-          <SvgWrapper>
-            <CommentSvg height="18px" width="20px" />
-          </SvgWrapper>
-          {commentCount}개의 댓글
-        </>
-      ) : (
-        <div />
-      )}
-    </Reactions>
-  </Container>
-);
+      </Reactions>
+    </Container>
+  );
+};
 
 export default Post;

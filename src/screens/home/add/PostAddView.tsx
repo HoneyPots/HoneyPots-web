@@ -31,9 +31,13 @@ const PostAddView: FC<PostAddViewProps> = ({
       <Header.Left iconType="close" onClick={onHeaderClick} />
       <Header.Center title="게시글 작성" />
     </Header>
-    <InputLabel>제목</InputLabel>
+    <InputLabel>
+      제목<b> *</b>
+    </InputLabel>
     <TextInput placeholder="제목을 입력해 주세요" {...titleInputProps} />
-    <InputLabel>내용</InputLabel>
+    <InputLabel>
+      내용<b> *</b>
+    </InputLabel>
     <TextArea placeholder="내용을 입력해 주세요" {...contentInputProps} />
     <PostAddComponents.DoneButton onClick={onButtonClick}>완료</PostAddComponents.DoneButton>
     <Alert {...alertProps} />

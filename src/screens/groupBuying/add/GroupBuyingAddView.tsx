@@ -27,21 +27,25 @@ const GroupBuyingAddView: FC<GroupBuyingAddViewProps> = ({ onHeaderClick }) => {
         <Header.Left iconType="close" onClick={onHeaderClick} />
         <Header.Center title="공동구매 작성" />
       </Header>
-      <InputLabel>
-        사진<small>(선택)</small>
-      </InputLabel>
+      <InputLabel>사진</InputLabel>
       <PhotoInput append={append} fields={fields} onClick={() => {}} remove={remove} />
-      <InputLabel>진행유무</InputLabel>
+      <InputLabel>
+        진행유무<b> *</b>
+      </InputLabel>
       <Select name="진행유무" defaultValue="진행유무">
         <option value="진행중">진행중</option>
         <option value="종료">종료</option>
       </Select>
-      <InputLabel>시간</InputLabel>
+      <InputLabel>
+        시간<b> *</b>
+      </InputLabel>
       <TextInput placeholder="시간을 입력해 주세요" />
-      <InputLabel>제목</InputLabel>
+      <InputLabel>
+        제목<b> *</b>
+      </InputLabel>
       <TextInput placeholder="제목을 입력해 주세요" />
       <InputLabel>
-        카카오톡 오픈 채팅 링크<small>(선택)</small>
+        카카오톡 오픈 채팅 링크<b> *</b>
       </InputLabel>
       <TextInput placeholder="링크을 입력해 주세요" type="url" inputMode="url" />
       <InputLabel>부가 설명</InputLabel>

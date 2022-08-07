@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
 import { PostType } from 'types/api/common';
-import day from 'utills/day';
-import kakaoImage from 'assets/images/kakaotalk_sharing_btn_medium.png';
+import useDayjs from 'hooks/useDayjs';
+import kakaoImageOv from 'assets/images/kakaotalk_sharing_btn_medium_ov.png';
 import type { FC } from 'react';
 
 interface Full {
@@ -128,18 +128,27 @@ const Reactions = styled.div`
 `;
 
 const TimeCount = styled.div`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   color: blue;
   small {
-    font-size: 12px;
+    font-size: 14px;
   }
 `;
 
-const KakaoTalk = styled.div`
-  width: 30px;
-  height: 30px;
-  position: relative;
+const KakaoTalk = styled.div<Full>`
+  background-color: #fee500;
+  display: flex;
+  height: fit-content;
+  align-items: center;
+  padding: ${(props) => (props.full ? '2px 12px' : '0px')};
+  border-radius: 3px;
+  span {
+    font-size: 12px;
+    font-weight: 500;
+    color: #000;
+    margin-left: 8px;
+  }
 `;
 
 export interface GroupBuyingPostProps
@@ -162,43 +171,53 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
   onClick,
   hasImage,
   type,
-}) => (
-  <Container>
-    <Badge type={type}>{type}</Badge>
-    <Title full={full} onClick={onClick}>
-      {title}
-    </Title>
-    <ContentWrapper full={full} onClick={onClick}>
-      {content && (
-        <Content hasImage={hasImage} full={full}>
-          {content}
-        </Content>
-      )}
-      {hasImage ? (
-        <Images>
-          {full ? (
-            Array(5)
-              .fill(0)
-              .map((item, index) => <ImageWrapper key={`${index.toString()}`} />)
-          ) : (
-            <ImageWrapper />
-          )}
-        </Images>
-      ) : null}
-    </ContentWrapper>
-    <Infos onClick={onClick}>
-      <span>{writer.nickname}</span>
-      <span>{day(uploadedAt)}</span>
-    </Infos>
-    <Reactions>
-      <TimeCount>
-        10:32 <small>후 종료</small>
-      </TimeCount>
-      <KakaoTalk>
-        <Image src={kakaoImage} layout="fill" />
-      </KakaoTalk>
-    </Reactions>
-  </Container>
-);
+}) => {
+  const { day } = useDayjs();
+  return (
+    <Container>
+      <Badge type={type}>{type}</Badge>
+      <Title full={full} onClick={onClick}>
+        {title}
+      </Title>
+      <ContentWrapper full={full} onClick={onClick}>
+        {content && (
+          <Content hasImage={hasImage} full={full}>
+            {content}
+          </Content>
+        )}
+        {hasImage ? (
+          <Images>
+            {full ? (
+              Array(5)
+                .fill(0)
+                .map((item, index) => <ImageWrapper key={`${index.toString()}`} />)
+            ) : (
+              <ImageWrapper />
+            )}
+          </Images>
+        ) : null}
+      </ContentWrapper>
+      <Infos onClick={onClick}>
+        <span>{writer.nickname}</span>
+        <span>{day(uploadedAt)}</span>
+      </Infos>
+      <Reactions>
+        <TimeCount>
+          10:32 <small>후 종료</small>
+        </TimeCount>
+        {full ? (
+          <KakaoTalk full={full}>
+            <Image src={kakaoImageOv} width={30} height={30} />
+            <span>카카오톡 오픈 채팅</span>
+          </KakaoTalk>
+        ) : (
+          <KakaoTalk>
+            <Image src={kakaoImageOv} width={30} height={30} />
+          </KakaoTalk>
+        )}
+      </Reactions>
+    </Container>
+  );
+};
 
 export default GroupBuyingPost;

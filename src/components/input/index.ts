@@ -8,10 +8,8 @@ const InputLabel = styled.label`
   display: block;
   margin-bottom: 12px;
   margin-top: 24px;
-  small {
-    color: #515151;
-    font-weight: 500;
-    margin-left: 4px;
+  b {
+    color: tomato;
   }
 `;
 
