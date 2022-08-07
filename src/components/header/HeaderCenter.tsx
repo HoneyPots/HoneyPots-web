@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div<{ hasSubtitle: boolean }>`
@@ -15,16 +15,32 @@ const Container = styled.div<{ hasSubtitle: boolean }>`
   }
 `;
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface HeaderCenterWithChildrenProps extends PropsWithChildren {}
+
 export interface HeaderCenterProps {
   title: string;
   subtitle?: string;
 }
 
-const HeaderCenter: FC<HeaderCenterProps> = ({ title, subtitle }) => (
-  <Container hasSubtitle={Boolean(subtitle)}>
-    {title}
-    {subtitle && <small>{subtitle}</small>}
-  </Container>
-);
+const isChildrenType = (
+  props: HeaderCenterProps | HeaderCenterWithChildrenProps,
+): props is HeaderCenterWithChildrenProps => 'children' in props;
+
+const HeaderCenter: FC<HeaderCenterProps | HeaderCenterWithChildrenProps> = (props) => {
+  if (isChildrenType(props)) {
+    const { children } = props;
+    return <Container hasSubtitle={false}>{children}</Container>;
+  }
+
+  const { title, subtitle } = props;
+
+  return (
+    <Container hasSubtitle={Boolean(subtitle)}>
+      {title}
+      {subtitle && <small>{subtitle}</small>}
+    </Container>
+  );
+};
 
 export default HeaderCenter;

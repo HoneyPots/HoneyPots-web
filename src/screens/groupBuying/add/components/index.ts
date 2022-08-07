@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-const WriteButton = styled.a`
+const DoneButton = styled.a`
   position: fixed;
-  bottom: 62px;
+  bottom: 10px;
   padding: 8px 18px;
   background-color: ${(props) => props.theme.color.main};
   border-radius: 80px;
@@ -12,9 +12,8 @@ const WriteButton = styled.a`
   transform: translateX(-50%);
   line-height: 22px;
   color: #fff;
-  font-weight: bold;
 `;
 
-const TradeComponents = { WriteButton };
+const GroupBuyingAddComponents = { DoneButton };
 
-export default TradeComponents;
+export default GroupBuyingAddComponents;

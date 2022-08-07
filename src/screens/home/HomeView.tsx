@@ -11,13 +11,14 @@ export interface HomeViewProps {
   each(post: PostType): PostProps;
   posts: PostType[];
   handleObserver: VoidFunction;
+  onSearchClick: VoidFunction;
 }
 
-const HomeView: FC<HomeViewProps> = ({ posts, handleObserver, each }) => (
+const HomeView: FC<HomeViewProps> = ({ posts, handleObserver, each, onSearchClick }) => (
   <Layout fullWidth>
     <Header>
       <Header.Center title="게시글" subtitle="인하대 헤리움 메트로 타워" />
-      <Header.Right iconType="search" onClick={() => {}} />
+      <Header.Right iconType="search" onClick={onSearchClick} />
     </Header>
     {posts.map((item, index) => (
       <Post {...each(item)} key={`${index.toString()}`} />

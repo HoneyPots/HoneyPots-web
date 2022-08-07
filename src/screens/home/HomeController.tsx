@@ -85,6 +85,7 @@ const HomeController: FC = () => {
       ...post,
     }),
     handleObserver,
+    onSearchClick: () => router.push('post/search'),
   };
   return <HomeView {...viewProps} />;
 };

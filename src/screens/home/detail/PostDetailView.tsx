@@ -30,9 +30,9 @@ const PostDetailView: FC<PostDetailViewProps> = ({
     {post ? (
       <>
         <Post {...post} full />
-        <CommentInput {...commentInputProps} />
         <Comments comments={comments} totalCount={post.commentCount} />
         <Observer onObserve={handleObserver} height="55px" />
+        <CommentInput {...commentInputProps} />
       </>
     ) : null}
   </Layout>
