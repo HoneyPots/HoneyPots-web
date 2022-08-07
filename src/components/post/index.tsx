@@ -24,7 +24,6 @@ const Title = styled.div<Full>`
   ${(props) =>
     !props.full &&
     css`
-      cursor: pointer;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -37,7 +36,7 @@ const Content = styled.p<Full>`
   color: #191919;
   letter-spacing: -0.6px;
   margin-bottom: 16px;
-  cursor: pointer;
+
   word-break: break-all;
   overflow: hidden;
 
@@ -55,7 +54,7 @@ const Infos = styled.div`
   justify-content: space-between;
   padding-bottom: 12px;
   border-bottom: 1px solid #f1f1f1;
-  cursor: pointer;
+
   span {
     font-size: 14px;
     font-weight: 600;
@@ -74,7 +73,6 @@ const Reactions = styled.div`
 `;
 
 const SvgWrapper = styled.div`
-  cursor: pointer;
   :last-child {
     margin-left: 16px;
   }

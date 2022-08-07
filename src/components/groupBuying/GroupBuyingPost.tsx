@@ -28,7 +28,7 @@ const Title = styled.div<Full>`
     !props.full &&
     css`
       white-space: nowrap;
-      cursor: pointer;
+
       overflow: hidden;
       text-overflow: ellipsis;
     `}
@@ -95,7 +95,6 @@ const Content = styled.p<Full>`
   ${(props) =>
     !props.full &&
     css`
-      cursor: pointer;
       display: -webkit-box;
       -webkit-line-clamp: ${props.hasImage ? 6 : 3};
       -webkit-box-orient: vertical;
@@ -107,7 +106,7 @@ const Infos = styled.div`
   justify-content: space-between;
   padding-bottom: 12px;
   border-bottom: 1px solid #f1f1f1;
-  cursor: pointer;
+
   span {
     font-size: 12px;
     font-weight: 600;
