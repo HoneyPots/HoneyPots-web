@@ -7,6 +7,7 @@ import close from 'assets/images/header/close.png';
 const Container = styled.div`
   position: absolute;
   left: 16px;
+  padding-top: 3px;
 `;
 
 export interface HeaderLeftWithChildrenProps {

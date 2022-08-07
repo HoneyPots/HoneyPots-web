@@ -8,13 +8,14 @@ import type { FC } from 'react';
 
 export interface TradeViewProps {
   handleObserver: VoidFunction;
+  onSearchClick: VoidFunction;
 }
 
-const TradeView: FC<TradeViewProps> = ({ handleObserver }) => (
+const TradeView: FC<TradeViewProps> = ({ handleObserver, onSearchClick }) => (
   <Layout fullWidth>
     <Header>
       <Header.Center title="중고거래" subtitle="인하대 헤리움 메트로 타워" />
-      <Header.Right iconType="search" onClick={() => {}} />
+      <Header.Right iconType="search" onClick={onSearchClick} />
     </Header>
     <TradePost />
     <TradePost />

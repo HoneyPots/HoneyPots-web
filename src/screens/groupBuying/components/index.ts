@@ -15,6 +15,6 @@ const WriteButton = styled.a`
   font-weight: bold;
 `;
 
-const TradeComponents = { WriteButton };
+const GroupBuyingComponents = { WriteButton };
 
-export default TradeComponents;
+export default GroupBuyingComponents;

@@ -21,10 +21,11 @@ const Title = styled.div<Full>`
   font-weight: 600;
   color: #191919;
   margin-bottom: 16px;
-  cursor: pointer;
   ${(props) =>
     !props.full &&
     css`
+      cursor: pointer;
+      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     `}
