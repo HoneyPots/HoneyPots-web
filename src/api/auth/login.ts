@@ -15,7 +15,6 @@ const login = async ({ code }: LoginParameter) => {
       params: {
         authorizationCode: code,
       },
-      withCredentials: true,
     },
   );
 
