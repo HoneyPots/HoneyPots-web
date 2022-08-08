@@ -14,17 +14,22 @@ const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(accessToken, loading);
     if (loading) {
-      // refresh token => access token
-      postToken().then(({ accessToken: newToken }) => {
-        dispatch(userActions.setToken(newToken));
-        axios.defaults.headers = {
-          ...axios.defaults.headers,
-          Authorization: newToken,
-        } as HeadersDefaults;
-        setLoading(false);
-      });
+      const init = async () => {
+        try {
+          const { accessToken: newToken } = await postToken();
+          dispatch(userActions.setToken(newToken));
+          axios.defaults.headers = {
+            ...axios.defaults.headers,
+            Authorization: newToken,
+          } as HeadersDefaults;
+          setLoading(false);
+        } catch {
+          router.replace('/auth/login');
+        }
+      };
+
+      init();
     }
 
     if (!loading && !accessToken) {
