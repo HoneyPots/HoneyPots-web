@@ -35,28 +35,28 @@ const BottomTabNav: FC = () => {
   return (
     <Container>
       <TabWrapper onClick={() => replace('/')}>
-        {pathname === '/' ? (
+        {pathname === '/' || pathname.startsWith('/post') ? (
           <Image src={home} height={28} width={28} priority />
         ) : (
           <Image src={homeOutline} height={28} width={28} priority />
         )}
       </TabWrapper>
       <TabWrapper onClick={() => replace('/trade')}>
-        {pathname === '/trade' ? (
+        {pathname.startsWith('/trade') ? (
           <Image src={bag} height={24} width={23} priority />
         ) : (
           <Image src={bagOutline} height={24} width={23} priority />
         )}
       </TabWrapper>
       <TabWrapper onClick={() => replace('/group-buying')}>
-        {pathname === '/group-buying' ? (
+        {pathname.startsWith('/group-buying') ? (
           <Image src={bike} height={24} width={36.2} priority />
         ) : (
           <Image src={bikeOutline} height={24} width={36.2} priority />
         )}
       </TabWrapper>
       <TabWrapper onClick={() => replace('/me')}>
-        {pathname === '/me' ? (
+        {pathname.startsWith('/me') ? (
           <Image src={user} height={28} width={28} priority />
         ) : (
           <Image src={userOutline} height={28} width={28} priority />

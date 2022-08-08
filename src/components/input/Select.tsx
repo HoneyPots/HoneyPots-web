@@ -50,10 +50,10 @@ const Select: FC<SelectProps> = ({ children, name, defaultValue }) => {
         id="data"
         name={name}
         ref={selectRef}
-        value={value}
         onChange={(e) => setValue(e.currentTarget.value)}
+        defaultValue={defaultValue}
       >
-        <option disabled selected value={defaultValue}>
+        <option disabled value={defaultValue}>
           {defaultValue}
         </option>
         {children}

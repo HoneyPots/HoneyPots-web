@@ -41,8 +41,12 @@ const Price = styled.div`
   color: ${(props) => props.theme.color.main};
 `;
 
-const TradePost: React.FC = () => (
-  <Container>
+interface TradePostProps {
+  onClick?: VoidFunction;
+}
+
+const TradePost: React.FC<TradePostProps> = ({ onClick }) => (
+  <Container onClick={onClick}>
     <ImageWrapper>
       <Image src={image} layout="fill" />
     </ImageWrapper>

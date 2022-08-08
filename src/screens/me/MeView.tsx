@@ -20,9 +20,15 @@ const MeView: FC<MeViewProps> = () => (
     </Link>
     <MeComponents.SubTitle>계정 삭제</MeComponents.SubTitle>
     <MeComponents.Title>나의 활동</MeComponents.Title>
-    <MeComponents.SubTitle>내가 작성한 게시글</MeComponents.SubTitle>
-    <MeComponents.SubTitle>내가 작성한 중고거래</MeComponents.SubTitle>
-    <MeComponents.SubTitle>내가 작성한 공동구매</MeComponents.SubTitle>
+    <Link href="/me/posts">
+      <MeComponents.SubTitle>내가 작성한 게시글</MeComponents.SubTitle>
+    </Link>
+    <Link href="/me/trades">
+      <MeComponents.SubTitle>내가 작성한 중고거래</MeComponents.SubTitle>
+    </Link>
+    <Link href="/me/group-buyings">
+      <MeComponents.SubTitle>내가 작성한 공동구매</MeComponents.SubTitle>
+    </Link>
   </Layout>
 );
 
