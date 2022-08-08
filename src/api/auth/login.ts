@@ -9,7 +9,7 @@ interface LoginResponse {
 }
 
 const login = async ({ code }: LoginParameter) => {
-  const { data } = await axios.get<LoginResponse>(
+  const { data } = await axios.post<LoginResponse>(
     `${process.env.NEXT_PUBLIC_API_HOST}/api/auth/login/kakao`,
     {
       params: {
