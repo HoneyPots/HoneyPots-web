@@ -7,6 +7,9 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV === 'development',
 });
 
+const makeStore = () => store;
 export type RootStore = typeof store;
+export type ReduxStore = ReturnType<typeof makeStore>;
+export type ReduxState = ReturnType<ReduxStore['getState']>;
 
 export const wrapper = createWrapper<RootStore>(() => store);
