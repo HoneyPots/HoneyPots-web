@@ -21,6 +21,7 @@ const TradeControllerController: FC<TradeControllerControllerProps> = () => {
   const viewProps: TradeViewProps = {
     handleObserver,
     onSearchClick: () => router.push('/trade/search'),
+    onMockClick: () => router.push('/trade/1'),
   };
   return <TradeView {...viewProps} />;
 };

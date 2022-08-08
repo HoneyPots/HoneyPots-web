@@ -37,6 +37,16 @@ const GroupBuyingAddView: FC<GroupBuyingAddViewProps> = ({ onHeaderClick }) => {
         <option value="종료">종료</option>
       </Select>
       <InputLabel>
+        카테고리<b> *</b>
+      </InputLabel>
+      <Select name="카테고리" defaultValue="카테고리">
+        <option value="양식">양식</option>
+        <option value="일식">일식</option>
+        <option value="중식">중식</option>
+        <option value="한식">한식</option>
+        <option value="기타">기타</option>
+      </Select>
+      <InputLabel>
         시간<b> *</b>
       </InputLabel>
       <TextInput placeholder="시간을 입력해 주세요" />

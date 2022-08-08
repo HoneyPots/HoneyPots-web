@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import Image from 'next/image';
 import { PostType } from 'types/api/common';
 import useDayjs from 'hooks/useDayjs';
+import CommentSvg from 'assets/svgs/CommentSvg';
 import kakaoImageOv from 'assets/images/kakaotalk_sharing_btn_medium_ov.png';
 import type { FC } from 'react';
 
@@ -9,8 +10,6 @@ interface Full {
   full?: boolean;
   hasImage?: boolean;
 }
-
-type BadgeType = '양식' | '일식' | '중식' | '한식' | '기타';
 
 const Container = styled.div`
   padding: 16px;
@@ -32,35 +31,6 @@ const Title = styled.div<Full>`
       overflow: hidden;
       text-overflow: ellipsis;
     `}
-`;
-
-const Badge = styled.div<{ type: BadgeType }>`
-  border-radius: 30px;
-  padding: 2px 8px;
-  height: fit-content;
-  width: fit-content;
-  word-break: keep-all;
-  margin-right: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: #fff;
-  background-color: ${(props) => {
-    switch (props.type) {
-      case '기타':
-        return '#5D5D5D';
-      case '양식':
-        return '#EB8A37';
-      case '일식':
-        return '#3775EB';
-      case '중식':
-        return '#EB3737';
-      case '한식':
-        return '#0B6018';
-      default:
-        return '#fff';
-    }
-  }};
 `;
 
 const ContentWrapper = styled.div<Full>`
@@ -119,19 +89,18 @@ const Reactions = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 12px;
+`;
+
+const CommentCount = styled.div`
   font-size: 13px;
   line-height: 18px;
   letter-spacing: -0.6px;
   color: #535353;
   font-weight: 500;
-`;
-
-const TimeCount = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  color: blue;
-  small {
-    font-size: 14px;
+  display: flex;
+  width: max-content;
+  svg {
+    margin-right: 7px;
   }
 `;
 
@@ -150,18 +119,14 @@ const KakaoTalk = styled.div<Full>`
   }
 `;
 
-export interface GroupBuyingPostProps
-  extends Omit<
-    PostType,
-    'isLiked' | 'likeReactionCount' | 'likeReactionId' | 'commentCount' | 'lastModifiedAt'
-  > {
+export interface TradeDetailPostProps
+  extends Omit<PostType, 'isLiked' | 'likeReactionCount' | 'likeReactionId' | 'lastModifiedAt'> {
   full?: boolean;
   onClick?: VoidFunction;
   hasImage?: boolean;
-  type: BadgeType;
 }
 
-const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
+const TradeDetailPost: FC<TradeDetailPostProps> = ({
   content,
   title,
   writer,
@@ -169,12 +134,11 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
   full,
   onClick,
   hasImage,
-  type,
+  commentCount,
 }) => {
   const { day } = useDayjs();
   return (
     <Container>
-      <Badge type={type}>{type}</Badge>
       <Title full={full} onClick={onClick}>
         {title}
       </Title>
@@ -201,9 +165,12 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
         <span>{day(uploadedAt)}</span>
       </Infos>
       <Reactions>
-        <TimeCount>
-          10:32 <small>후 종료</small>
-        </TimeCount>
+        {commentCount && (
+          <CommentCount>
+            <CommentSvg height="18px" width="20px" />
+            {commentCount}개의 댓글
+          </CommentCount>
+        )}
         {full ? (
           <KakaoTalk full={full}>
             <Image src={kakaoImageOv} width={30} height={30} />
@@ -219,4 +186,4 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
   );
 };
 
-export default GroupBuyingPost;
+export default TradeDetailPost;
