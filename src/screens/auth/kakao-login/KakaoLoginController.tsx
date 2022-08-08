@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useDispatch } from 'react-redux';
+import { HeadersDefaults } from 'axios';
 import { userActions } from 'libs/store/modules/user';
+import axios from 'libs/axios';
 import login from 'api/auth/login';
 import KakaoLoginView from './KakaoLoginView';
 import type { FC } from 'react';
@@ -14,16 +16,12 @@ const KakaoLoginController: FC<KakaoLoginPageProps> = ({ code }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // axios
-    //   .get(`${process.env.NEXT_PUBLIC_WEB_HOST}/api/auth/login`, {
-    //     params: {
-    //       authorizationCode: code,
-    //     },
-    //   })
-    //   .then(console.log);
-
     login({ code }).then((res) => {
       dispatch(userActions.setToken(res.accessToken));
+      axios.defaults.headers = {
+        ...axios.defaults.headers,
+        Authorization: `Bearer ${res.accessToken}`,
+      } as HeadersDefaults;
       router.replace('/');
     });
   }, [router, code, dispatch]);
