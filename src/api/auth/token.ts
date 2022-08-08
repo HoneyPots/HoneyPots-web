@@ -9,7 +9,7 @@ const postToken = async () => {
   const { data } = await axios.post<PostTokenResponse>(
     '/api/auth/token',
     { grantType: 'refresh_token' },
-    { headers: { 'Content-Type': 'application/json' } },
+    { headers: { 'Content-Type': 'application/json' }, withCredentials: true },
   );
 
   return data;
