@@ -32,7 +32,7 @@ const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
       init();
     }
 
-    if (!loading && !accessToken) {
+    if (!loading && !accessToken && !router.pathname.startsWith('/auth')) {
       router.replace('/auth/login');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
