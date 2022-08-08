@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
+import useDayjs from 'hooks/useDayjs';
 import HeartSvg from 'assets/svgs/HeartSvg';
 import CommentSvg from 'assets/svgs/CommentSvg';
 import { PostType } from 'types/api/common';
-import day from 'utills/day';
 import type { FC } from 'react';
 
 interface Full {
@@ -21,10 +21,10 @@ const Title = styled.div<Full>`
   font-weight: 600;
   color: #191919;
   margin-bottom: 16px;
-  cursor: pointer;
   ${(props) =>
     !props.full &&
     css`
+      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     `}
@@ -36,7 +36,7 @@ const Content = styled.p<Full>`
   color: #191919;
   letter-spacing: -0.6px;
   margin-bottom: 16px;
-  cursor: pointer;
+
   word-break: break-all;
   overflow: hidden;
 
@@ -54,7 +54,7 @@ const Infos = styled.div`
   justify-content: space-between;
   padding-bottom: 12px;
   border-bottom: 1px solid #f1f1f1;
-  cursor: pointer;
+
   span {
     font-size: 14px;
     font-weight: 600;
@@ -73,7 +73,6 @@ const Reactions = styled.div`
 `;
 
 const SvgWrapper = styled.div`
-  cursor: pointer;
   :last-child {
     margin-left: 16px;
   }
@@ -97,39 +96,43 @@ const Post: FC<PostProps> = ({
   onLikeClick,
   likeReactionCount,
   isLiked,
-}) => (
-  <Container>
-    <Title full={full} onClick={onClick}>
-      {title}
-    </Title>
-    <Content onClick={onClick} full={full}>
-      {content}
-    </Content>
-    <Infos onClick={onClick}>
-      <span>{writer.nickname}</span>
-      <span>{day(uploadedAt)}</span>
-    </Infos>
-    <Reactions>
-      <SvgWrapper onClick={onLikeClick}>
-        {isLiked ? (
-          <HeartSvg width="23px" height="18px" fill="#FA383E" stroke="#FA383E" />
+}) => {
+  const { day } = useDayjs();
+
+  return (
+    <Container>
+      <Title full={full} onClick={onClick}>
+        {title}
+      </Title>
+      <Content onClick={onClick} full={full}>
+        {content}
+      </Content>
+      <Infos onClick={onClick}>
+        <span>{writer.nickname}</span>
+        <span>{day(uploadedAt)}</span>
+      </Infos>
+      <Reactions>
+        <SvgWrapper onClick={onLikeClick}>
+          {isLiked ? (
+            <HeartSvg width="23px" height="18px" fill="#FA383E" stroke="#FA383E" />
+          ) : (
+            <HeartSvg width="23px" height="18px" fill="none" />
+          )}
+        </SvgWrapper>
+        {Boolean(likeReactionCount) && likeReactionCount}
+        {commentCount ? (
+          <>
+            <SvgWrapper>
+              <CommentSvg height="18px" width="20px" />
+            </SvgWrapper>
+            {commentCount}개의 댓글
+          </>
         ) : (
-          <HeartSvg width="23px" height="18px" fill="none" />
+          <div />
         )}
-      </SvgWrapper>
-      {Boolean(likeReactionCount) && likeReactionCount}
-      {commentCount ? (
-        <>
-          <SvgWrapper>
-            <CommentSvg height="18px" width="20px" />
-          </SvgWrapper>
-          {commentCount}개의 댓글
-        </>
-      ) : (
-        <div />
-      )}
-    </Reactions>
-  </Container>
-);
+      </Reactions>
+    </Container>
+  );
+};
 
 export default Post;

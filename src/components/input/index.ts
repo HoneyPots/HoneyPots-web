@@ -8,6 +8,9 @@ const InputLabel = styled.label`
   display: block;
   margin-bottom: 12px;
   margin-top: 24px;
+  b {
+    color: tomato;
+  }
 `;
 
 const TextInput = styled.input`
@@ -22,7 +25,7 @@ const TextInput = styled.input`
   border-radius: 4px;
   border: 1px solid #e1e1e1;
   :focus {
-    outline: ${(props) => props.theme.color.main} solid 1px;
+    border: ${(props) => props.theme.color.main} solid 1px;
   }
 `;
 

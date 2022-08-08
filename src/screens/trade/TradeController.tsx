@@ -1,4 +1,5 @@
 import { FC, useCallback } from 'react';
+import { useRouter } from 'next/router';
 import TradeView from './TradeView';
 import type { TradeViewProps } from './TradeView';
 
@@ -7,6 +8,7 @@ interface TradeControllerControllerProps {
 }
 
 const TradeControllerController: FC<TradeControllerControllerProps> = () => {
+  const router = useRouter();
   const handleObserver = useCallback(() => {
     // if (data && data.pages[data.pages.length - 1]?.content) {
     //   if (isLastPage) {
@@ -18,6 +20,8 @@ const TradeControllerController: FC<TradeControllerControllerProps> = () => {
 
   const viewProps: TradeViewProps = {
     handleObserver,
+    onSearchClick: () => router.push('/trade/search'),
+    onMockClick: () => router.push('/trade/1'),
   };
   return <TradeView {...viewProps} />;
 };

@@ -12,6 +12,7 @@ const WriteButton = styled.a`
   transform: translateX(-50%);
   line-height: 22px;
   color: #fff;
+  font-weight: bold;
 `;
 
 const TradeComponents = { WriteButton };

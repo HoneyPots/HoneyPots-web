@@ -21,6 +21,7 @@ const KakaoLoginController: FC<KakaoLoginPageProps> = ({ code }) => {
     //     },
     //   })
     //   .then(console.log);
+
     login({ code }).then((res) => {
       dispatch(userActions.setToken(res.accessToken));
       router.replace('/');
