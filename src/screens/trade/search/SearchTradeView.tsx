@@ -8,10 +8,10 @@ export interface SearchTradeViewProps {
 
 const SearchTradeView: FC<SearchTradeViewProps> = ({ searchViewProps }) => (
   <SearchView {...searchViewProps}>
+    {/* <TradePost />
     <TradePost />
     <TradePost />
-    <TradePost />
-    <TradePost />
+    <TradePost /> */}
   </SearchView>
 );
 
