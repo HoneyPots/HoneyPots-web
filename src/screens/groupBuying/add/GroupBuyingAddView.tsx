@@ -28,7 +28,7 @@ const GroupBuyingAddView: FC<GroupBuyingAddViewProps> = ({ onHeaderClick }) => {
         <Header.Center title="공동구매 작성" />
       </Header>
       <InputLabel>사진</InputLabel>
-      <PhotoInput append={append} fields={fields} onClick={() => {}} remove={remove} />
+      <PhotoInput append={append} fields={fields} remove={remove} />
       <InputLabel>
         진행유무<b> *</b>
       </InputLabel>
