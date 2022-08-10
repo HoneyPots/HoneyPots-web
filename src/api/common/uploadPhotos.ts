@@ -13,7 +13,7 @@ const uploadPhotos = async ({ photos }: UploadPhotoParams) => {
       if (typeof photo !== 'string') {
         const formData = new FormData();
         formData.append('file', photo);
-        await axios.post(url, formData);
+        await axios.put(url, formData);
         result.push(id);
       }
     } catch (e) {

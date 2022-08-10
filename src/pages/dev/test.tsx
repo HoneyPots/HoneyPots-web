@@ -40,7 +40,6 @@ const DevTest: NextPage = () => {
         bgColor="cyan.400"
         display="block"
         onClick={() => {
-          console.log('@@@', fields);
           uploadPhotos({ photos: fields }).then((ids) => {
             post({
               attachFiles: ids.map((id) => ({
