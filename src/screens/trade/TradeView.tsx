@@ -1,36 +1,28 @@
 import Link from 'next/link';
 import Header from 'components/header';
 import Layout from 'components/layout/Layout';
+import { UsedTradePost } from 'types/api/common';
 import Observer from 'components/observer/Observer';
 import TradeComponents from './components';
-import TradePost from './components/TradePost';
+import TradePost, { TradePostProps } from './components/TradePost';
 import type { FC } from 'react';
 
 export interface TradeViewProps {
   handleObserver: VoidFunction;
   onSearchClick: VoidFunction;
-
-  onMockClick: VoidFunction;
+  posts: UsedTradePost[];
+  each: (item: UsedTradePost) => TradePostProps;
 }
 
-const TradeView: FC<TradeViewProps> = ({ handleObserver, onSearchClick, onMockClick }) => (
+const TradeView: FC<TradeViewProps> = ({ handleObserver, onSearchClick, posts, each }) => (
   <Layout fullWidth>
     <Header>
       <Header.Center title="중고거래" subtitle="인하대 헤리움 메트로 타워" />
       <Header.Right iconType="search" onClick={onSearchClick} />
     </Header>
-    <TradePost onClick={onMockClick} />
-    <TradePost onClick={onMockClick} />
-    <TradePost onClick={onMockClick} />
-    <TradePost onClick={onMockClick} />
-    <TradePost onClick={onMockClick} />
-    <TradePost onClick={onMockClick} />
-    <TradePost onClick={onMockClick} />
-    <TradePost onClick={onMockClick} />
-    <TradePost onClick={onMockClick} />
-    <TradePost onClick={onMockClick} />
-    <TradePost onClick={onMockClick} />
-    <TradePost onClick={onMockClick} />
+    {posts.map((item) => (
+      <TradePost {...each(item)} />
+    ))}
     <Link href="/trade/add" passHref>
       <TradeComponents.WriteButton>글작성</TradeComponents.WriteButton>
     </Link>

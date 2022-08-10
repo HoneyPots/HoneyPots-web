@@ -4,8 +4,7 @@ const axios = baseAxios.create({
   baseURL: process.env.NEXT_PUBLIC_API_HOST,
 
   headers: {
-    Authorization:
-      'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjU5NjE1ODg5LCJleHAiOjE2NTk3MDIyODl9.1HAH2sXJBEI1JXoC6Hv7a3_x2smxI27BHmPmzL0wzAq_QJjRb93IofxRc_hpqOkQMeE_zELSRKm6ZrvQs4I5aw',
+    Authorization: 'Bearer ',
   },
 });
 

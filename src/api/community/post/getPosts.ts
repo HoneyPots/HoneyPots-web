@@ -23,6 +23,9 @@ export default async function getPosts({
       size: pageSize,
       sort: sortField.concat(',', sortOption),
     },
+    headers: {
+      'Content-type': 'application/json',
+    },
   });
 
   return data;

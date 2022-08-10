@@ -41,21 +41,24 @@ const Price = styled.div`
   color: ${(props) => props.theme.color.main};
 `;
 
-interface TradePostProps {
+export interface TradePostProps {
   onClick?: VoidFunction;
+  title: string;
+  nickname: string;
+  cost: string;
 }
 
-const TradePost: React.FC<TradePostProps> = ({ onClick }) => (
+const TradePost: React.FC<TradePostProps> = ({ onClick, cost, nickname, title }) => (
   <Container onClick={onClick}>
     <ImageWrapper>
       <Image src={image} layout="fill" />
     </ImageWrapper>
     <InfoBox>
       <Title>
-        <small>101동 익명</small>
-        빨간 우산 무료 나눔 합니당
+        <small>{nickname}</small>
+        {title}
       </Title>
-      <Price>무료나눔</Price>
+      <Price>{cost}</Price>
     </InfoBox>
   </Container>
 );

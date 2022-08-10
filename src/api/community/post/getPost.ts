@@ -11,7 +11,9 @@ export const getPostKey = (params: GetPostParameter): [string, GetPostParameter]
 ];
 
 export default async function getPost({ postId }: GetPostParameter) {
-  const { data } = await axios.get<PostType>(`/api/posts/normal/${postId}`);
+  const { data } = await axios.get<PostType>(`/api/posts/normal/${postId}`, {
+    headers: { 'Content-type': 'application/json' },
+  });
 
   return data;
 }

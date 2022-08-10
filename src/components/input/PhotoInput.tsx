@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import xImage from 'assets/images/input/photoinput-del.webp';
 import CameraSvg from 'assets/svgs/CameraSvg';
+import getPresignedUrl from 'api/common/getPresignedUrl';
 
 const Container = styled.div`
   display: flex;
@@ -72,10 +73,9 @@ export interface PhotoInputProps {
   fields: any[];
   append: (value: any, option?: FieldArrayMethodProps) => void;
   remove: (index?: number | number[]) => void;
-  onClick: (index: number) => void;
 }
 
-const PhotoInput: FC<PhotoInputProps> = ({ fields, append, remove, onClick }) => {
+const PhotoInput: FC<PhotoInputProps> = ({ fields, append, remove }) => {
   const labelRef = useRef<HTMLLabelElement>(null);
   const extractURL = useCallback((param: File | string | undefined) => {
     switch (typeof param) {
@@ -94,11 +94,16 @@ const PhotoInput: FC<PhotoInputProps> = ({ fields, append, remove, onClick }) =>
     } = event;
     if (files) {
       for (let i = 0; i < files.length; i += 1) {
-        if (i + fields.length < 5) {
-          append({ photo: files.item(i) as File });
+        const file = files.item(i);
+        if (i + fields.length < 5 && file) {
+          getPresignedUrl({ fileType: 'USED_TRADE_POST_IMAGE', filename: file.name }).then(
+            (res) => {
+              append({ photo: file, url: res.presignedUrl, id: res.fileId });
+            },
+          );
         }
       }
-      if (files.length + fields.length > 15) {
+      if (files.length + fields.length > 5) {
         // sendCustomAlert({
         //   title: PHOTO_INPUT_ERROR_TITLE,
         //   message: PHOTO_INPUT_ERROR_DESCRIPTION,

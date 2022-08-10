@@ -70,3 +70,50 @@ export interface Page<T> {
   numberOfElements: number;
   empty: boolean;
 }
+
+interface AttachFile {
+  fileId: number;
+  fileLocationUrl: string;
+}
+
+export interface UploadAttachFile {
+  fileId: number;
+  willBeUploaded: boolean;
+}
+
+export type FileType = 'NORMAL_POST_IMAGE' | 'USED_TRADE_POST_IMAGE';
+
+export interface PreFile {
+  fileId: number;
+  filename: string;
+  originalFilename: string;
+  filePath: string;
+  fileType: FileType;
+  presignedUrl: string;
+}
+
+export interface UsedTradePost {
+  postId: number;
+  title: string;
+  content: string;
+  writer: Writer;
+  commentCount: number;
+  likeReactionCount: number;
+  isLiked: boolean;
+  likeReactionId: number;
+  thumbnailImageFile: AttachFile;
+  attachedFiles: AttachFile[];
+  uploadedAt: string;
+  lastModifiedAt: string;
+  goodsPrice: number;
+  tradeType: string;
+  tradeStatus: string;
+  chatRoomLink: string;
+}
+
+export type Photo = Record<'photo' | `photo${number}`, File | string> & Record<'id', string>;
+export interface UploadPhotoType {
+  id: number;
+  photo: Photo;
+  url: string;
+}
