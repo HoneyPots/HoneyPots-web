@@ -10,10 +10,12 @@ const uploadPhotos = async ({ photos }: UploadPhotoParams) => {
 
   photos.forEach(async ({ photo, id, url }) => {
     try {
-      const formData = new FormData();
-      formData.append('file', photo.photo);
-      await axios.post(url, formData);
-      result.push(id);
+      if (typeof photo !== 'string') {
+        const formData = new FormData();
+        formData.append('file', photo);
+        await axios.post(url, formData);
+        result.push(id);
+      }
     } catch (e) {
       console.error(e);
     }

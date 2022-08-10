@@ -39,7 +39,8 @@ const DevTest: NextPage = () => {
         marginTop={10}
         bgColor="cyan.400"
         display="block"
-        onClick={() =>
+        onClick={() => {
+          console.log('@@@', fields);
           uploadPhotos({ photos: fields }).then((ids) => {
             post({
               attachFiles: ids.map((id) => ({
@@ -52,8 +53,8 @@ const DevTest: NextPage = () => {
               title: 'test',
               tradeType: 'SELL',
             });
-          })
-        }
+          });
+        }}
       >
         getPresignedUrl
       </Button>
