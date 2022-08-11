@@ -40,12 +40,12 @@ const TradeAddControllerController: FC<TradeAddControllerControllerProps> = () =
   const onDoneButtonClick = handleSubmit(({ photos, ...data }) => {
     uploadPhotos({ photos: fields }).then((ids) => {
       post({
-        attachFiles:
-          ids &&
-          ids.map((id) => ({
+        ...(ids.length && {
+          attachFiles: ids.map((id) => ({
             fileId: id,
             willBeUploaded: true,
           })),
+        }),
         ...data,
       });
     });

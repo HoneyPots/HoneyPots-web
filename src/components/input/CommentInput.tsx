@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, useRef, useState } from 'react';
+import { ChangeEventHandler, FC, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import SubmitSvg from 'assets/svgs/SubmitSvg';
 
@@ -52,7 +52,9 @@ const Input = styled.textarea`
   }
 `;
 
-const Submit = styled.div``;
+const Submit = styled.div`
+  padding-bottom: 2px;
+`;
 
 export interface CommentInputProps {
   onSubmitClick: VoidFunction;
@@ -65,19 +67,20 @@ const CommentInput: FC<CommentInputProps> = ({ onChange, onSubmitClick, value })
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = '16px';
+      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+    }
+  }, [value]);
+
   return (
     <Backdrop>
       <Container isFocused={isFocused}>
         <Input
           placeholder="댓글 달기..."
           ref={textAreaRef}
-          onChange={(e) => {
-            onChange(e);
-            if (textAreaRef.current) {
-              textAreaRef.current.style.height = '16px';
-              textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-            }
-          }}
+          onChange={onChange}
           onFocus={(e) => {
             setIsFocused(true);
           }}

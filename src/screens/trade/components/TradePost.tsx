@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
-import { PostType } from 'types/api/common';
+import { AttachFile, PostType } from 'types/api/common';
 import useDayjs from 'hooks/useDayjs';
 import CommentSvg from 'assets/svgs/CommentSvg';
 import kakaoImageOv from 'assets/images/kakaotalk_sharing_btn_medium_ov.png';
@@ -105,6 +105,7 @@ const KakaoTalk = styled.a<Full>`
   align-items: center;
   padding: ${(props) => (props.full ? '2px 12px' : '0px')};
   border-radius: 3px;
+  margin-right: 8px;
   span {
     font-size: 12px;
     font-weight: 500;
@@ -113,16 +114,29 @@ const KakaoTalk = styled.a<Full>`
   }
 `;
 
+const ReactLeft = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #717171;
+  svg {
+    margin-right: 4px;
+  }
+`;
+
 export interface TradePostProps {
   full?: boolean;
   onClick?: VoidFunction;
-  hasImage?: boolean;
   content: string;
   title: string;
   uploadedAt: string;
   nickname: string;
   cost: string;
   kakaoLink?: string;
+  commentCount: number;
+  images?: AttachFile[];
+  thumbnail?: AttachFile;
 }
 
 const TradePost: FC<TradePostProps> = ({
@@ -132,9 +146,11 @@ const TradePost: FC<TradePostProps> = ({
   uploadedAt,
   full,
   onClick,
-  hasImage,
   cost,
   kakaoLink,
+  commentCount,
+  images,
+  thumbnail,
 }) => {
   const { day } = useDayjs();
   return (
@@ -144,35 +160,45 @@ const TradePost: FC<TradePostProps> = ({
       </Title>
       <ContentWrapper full={full} onClick={onClick}>
         {content && (
-          <Content hasImage={hasImage} full={full}>
+          <Content hasImage={Boolean(images)} full={full}>
             {content}
           </Content>
         )}
-        {hasImage ? (
+        {images && (
           <Images>
-            {full ? (
-              Array(5)
-                .fill(0)
-                .map((item, index) => <ImageWrapper key={`${index.toString()}`} />)
-            ) : (
-              <ImageWrapper />
-            )}
+            {full
+              ? images.map((item, index) => (
+                  <ImageWrapper key={`${index.toString()}`}>
+                    <Image src={item.fileLocationUrl} layout="fill" />
+                  </ImageWrapper>
+                ))
+              : thumbnail && (
+                  <ImageWrapper>
+                    <Image src={thumbnail?.fileLocationUrl} layout="fill" />
+                  </ImageWrapper>
+                )}
           </Images>
-        ) : null}
+        )}
       </ContentWrapper>
       <Infos onClick={onClick}>
         <span>{nickname}</span>
         <span>{day(uploadedAt)}</span>
       </Infos>
       <Reactions>
-        {kakaoLink ? (
-          <KakaoTalk href={kakaoLink} full={full} target="_blank">
-            <Image src={kakaoImageOv} width={30} height={30} />
-            {full && <span>카카오톡 오픈 채팅</span>}
-          </KakaoTalk>
-        ) : (
-          <div />
-        )}
+        <ReactLeft>
+          {kakaoLink && (
+            <KakaoTalk href={kakaoLink} full={full} target="_blank">
+              <Image src={kakaoImageOv} width={30} height={30} />
+              {full && <span>카카오톡 오픈 채팅</span>}
+            </KakaoTalk>
+          )}
+          {Boolean(commentCount) && !full && (
+            <>
+              <CommentSvg height="18px" width="20px" color="#717171" />
+              {commentCount}
+            </>
+          )}
+        </ReactLeft>
         <Price>{cost}</Price>
       </Reactions>
     </Container>
