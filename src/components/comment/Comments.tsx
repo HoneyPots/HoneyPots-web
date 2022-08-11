@@ -35,6 +35,13 @@ const Content = styled.div`
 
 const CommentWrapper = styled.div``;
 
+const NoComments = styled.div`
+  font-size: 14px;
+  font-weight: 600;
+  color: #717171;
+  text-align: center;
+`;
+
 interface CommentsProps {
   comments: Comment[];
   totalCount: number;
@@ -54,6 +61,7 @@ const Comments: FC<CommentsProps> = ({ comments, totalCount }) => {
           <Content>{item.content}</Content>
         </CommentWrapper>
       ))}
+      {comments.length === 0 && <NoComments>아직 댓글이 없어요</NoComments>}
     </Container>
   );
 };

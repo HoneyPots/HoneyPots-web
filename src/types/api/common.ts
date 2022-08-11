@@ -71,7 +71,7 @@ export interface Page<T> {
   empty: boolean;
 }
 
-interface AttachFile {
+export interface AttachFile {
   fileId: number;
   fileLocationUrl: string;
 }
@@ -101,8 +101,8 @@ export interface UsedTradePost {
   likeReactionCount: number;
   isLiked: boolean;
   likeReactionId: number;
-  thumbnailImageFile: AttachFile;
-  attachedFiles: AttachFile[];
+  thumbnailImageFile?: AttachFile;
+  attachedFiles?: AttachFile[];
   uploadedAt: string;
   lastModifiedAt: string;
   goodsPrice: number;

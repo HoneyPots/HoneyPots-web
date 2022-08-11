@@ -123,7 +123,7 @@ const Post: FC<PostProps> = ({
         {commentCount ? (
           <>
             <SvgWrapper>
-              <CommentSvg height="18px" width="20px" />
+              <CommentSvg height="18px" width="20px" color="#717171" />
             </SvgWrapper>
             {commentCount}개의 댓글
           </>

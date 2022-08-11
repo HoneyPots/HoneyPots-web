@@ -1,50 +1,40 @@
 import Header from 'components/header';
-import CommentInput from 'components/input/CommentInput';
-import Layout from 'components/layout/Layout';
+import CommentInput, { CommentInputProps } from 'components/input/CommentInput';
+import { Comment } from 'types/api/common';
 import Comments from 'components/comment/Comments';
-import TradeDetailPost from './components';
+import Observer from 'components/observer/Observer';
+import Layout from 'components/layout/Layout';
+import TradePost, { TradePostProps } from '../components/TradePost';
 import type { FC } from 'react';
-
-const makeComments = (name: string, content: string) => ({
-  commentId: content.length,
-  content,
-  createdAt: '',
-  lastModifiedAt: '',
-  postId: 0,
-  writer: { id: 0, nickname: name },
-});
 
 export interface TradeDetailViewProps {
   onHeaderClick: VoidFunction;
+  tradePostProps?: TradePostProps;
+  comments: Comment[];
+  handleObserver: VoidFunction;
+  commentInputProps: CommentInputProps;
 }
 
-const TradeDetailView: FC<TradeDetailViewProps> = ({ onHeaderClick }) => (
+const TradeDetailView: FC<TradeDetailViewProps> = ({
+  onHeaderClick,
+  tradePostProps,
+  commentInputProps,
+  comments,
+  handleObserver,
+}) => (
   <Layout fullWidth>
     <Header>
       <Header.Left iconType="back" onClick={onHeaderClick} />
       <Header.Center title="중고거래" />
     </Header>
-    <TradeDetailPost
-      commentCount={1}
-      content="뻘건우산 판다고요!"
-      postId={1}
-      title="빠바빠빠 빨간맛!! 궁금해 허니~"
-      uploadedAt="2022-8-2"
-      writer={{
-        id: 0,
-        nickname: '헤리움 318호',
-      }}
-      full
-      hasImage
-    />
-    <Comments
-      comments={[
-        makeComments('헤리움 12', '저 사고 싶습니다'),
-        makeComments('헤리움 379', '음 저도요!'),
-      ]}
-      totalCount={2}
-    />
-    <CommentInput onChange={() => {}} onSubmitClick={() => {}} value="비활성화" />
+    {tradePostProps && (
+      <>
+        <TradePost {...tradePostProps} full />
+        <Comments comments={comments} totalCount={tradePostProps?.commentCount} />
+        <Observer onObserve={handleObserver} height="55px" />
+        <CommentInput {...commentInputProps} />
+      </>
+    )}
   </Layout>
 );
 

@@ -52,7 +52,12 @@ const TradeControllerController: FC<TradeControllerControllerProps> = () => {
       title: item.title,
       cost: `${item.goodsPrice} 원`,
       onClick: () => router.push(`/trade/${item.postId}`),
-      image: item.thumbnailImageFile?.fileLocationUrl,
+      thumbnail: item.thumbnailImageFile,
+      content: item.content,
+      uploadedAt: item.uploadedAt,
+      kakaoLink: item.chatRoomLink,
+      commentCount: item.commentCount,
+      images: item.attachedFiles,
     }),
   };
   return <TradeView {...viewProps} />;

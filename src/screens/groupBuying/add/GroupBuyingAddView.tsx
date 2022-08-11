@@ -32,14 +32,14 @@ const GroupBuyingAddView: FC<GroupBuyingAddViewProps> = ({ onHeaderClick }) => {
       <InputLabel>
         진행유무<b> *</b>
       </InputLabel>
-      <Select name="진행유무" defaultValue="진행유무">
+      <Select name="진행유무" defaultValue="진행유무" onChange={() => {}}>
         <option value="진행중">진행중</option>
         <option value="종료">종료</option>
       </Select>
       <InputLabel>
         카테고리<b> *</b>
       </InputLabel>
-      <Select name="카테고리" defaultValue="카테고리">
+      <Select name="카테고리" defaultValue="카테고리" onChange={() => {}}>
         <option value="양식">양식</option>
         <option value="일식">일식</option>
         <option value="중식">중식</option>

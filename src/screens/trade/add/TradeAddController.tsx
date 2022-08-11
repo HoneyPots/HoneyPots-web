@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { FC, useEffect } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { FC, useEffect, useMemo } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UploadPhotoType } from 'types/api/common';
 import uploadPhotos from 'api/common/uploadPhotos';
+import { getTradePostsKey } from 'api/trade/getTradePosts';
 import postTradePost, { PostTradePostParams } from 'api/trade/postTradePost';
 import { TradeType } from 'types/api/used-trades';
 import TradeAddView, { TradeAddViewProps } from './TradeAddView';
@@ -17,30 +18,40 @@ interface FormType {
   title: string;
   content: string;
   goodsPrice: number;
-  tradeType: TradeType;
+  // tradeType: TradeType;
   chatRoomLink: string;
 }
 
 const TradeAddControllerController: FC<TradeAddControllerControllerProps> = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const { control, handleSubmit } = useForm<FormType>();
+  const { control, handleSubmit, register, watch } = useForm<FormType>();
 
   const { append, fields, remove } = useFieldArray({ control, name: 'photos' });
 
-  const { mutate: post } = useMutation(postTradePost);
+  const { mutate: post } = useMutation(postTradePost, {
+    onSuccess: () => {
+      router.back();
+      queryClient.invalidateQueries(getTradePostsKey());
+    },
+  });
 
   const onDoneButtonClick = handleSubmit(({ photos, ...data }) => {
     uploadPhotos({ photos: fields }).then((ids) => {
       post({
-        attachFiles: ids.map((id) => ({
-          fileId: id,
-          willBeUploaded: true,
-        })),
+        ...(ids.length && {
+          attachFiles: ids.map((id) => ({
+            fileId: id,
+            willBeUploaded: true,
+          })),
+        }),
         ...data,
       });
     });
   });
+
+  const isButtonDisabled = !watch('title') || !watch('goodsPrice') || !watch('content');
 
   const viewProps: TradeAddViewProps = {
     onHeaderClick: () => router.push('/trade'),
@@ -50,6 +61,8 @@ const TradeAddControllerController: FC<TradeAddControllerControllerProps> = () =
       remove,
     },
     onDoneButtonClick,
+    register,
+    isButtonDisabled,
   };
   return <TradeAddView {...viewProps} />;
 };

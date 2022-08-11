@@ -1,4 +1,4 @@
-import { FC, ReactNode, useRef, useState } from 'react';
+import { ChangeEventHandler, FC, ReactNode, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -36,9 +36,10 @@ interface SelectProps {
   name: string;
   children: ReactNode;
   defaultValue: string;
+  onChange: ChangeEventHandler<HTMLSelectElement>;
 }
 
-const Select: FC<SelectProps> = ({ children, name, defaultValue }) => {
+const Select: FC<SelectProps> = ({ children, name, defaultValue, onChange }) => {
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const [value, setValue] = useState<string>(defaultValue);
@@ -50,7 +51,10 @@ const Select: FC<SelectProps> = ({ children, name, defaultValue }) => {
         id="data"
         name={name}
         ref={selectRef}
-        onChange={(e) => setValue(e.currentTarget.value)}
+        onChange={(e) => {
+          setValue(e.currentTarget.value);
+          onChange(e);
+        }}
         defaultValue={defaultValue}
       >
         <option disabled value={defaultValue}>
