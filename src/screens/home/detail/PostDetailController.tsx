@@ -10,11 +10,7 @@ import postLike from 'api/community/reaction/postLike';
 import PostDetailView from './PostDetailView';
 import type { PostDetailViewProps } from './PostDetailView';
 
-interface PostDetailControllerControllerProps {
-  examples?: any;
-}
-
-const PostDetailControllerController: FC<PostDetailControllerControllerProps> = () => {
+const PostDetailControllerController: FC = () => {
   const router = useRouter();
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [comment, setComment] = useState<string>('');

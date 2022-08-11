@@ -2,6 +2,7 @@ import { UseFormRegister } from 'react-hook-form';
 import Header from 'components/header';
 import { InputLabel, TextArea, TextInput } from 'components/input';
 import PhotoInput, { PhotoInputProps } from 'components/input/PhotoInput';
+import Alert from 'components/chakra/Alert';
 import { UploadPhotoType } from 'types/api/common';
 import Layout from 'components/layout/Layout';
 import TradeAddComponents from './components';
@@ -20,7 +21,8 @@ export interface TradeAddViewProps {
   onDoneButtonClick: VoidFunction;
   photoInputProps: PhotoInputProps;
   register: UseFormRegister<FormType>;
-  isButtonDisabled: boolean;
+  isOpen: boolean;
+  onClose: VoidFunction;
   // onTradeTypeChange: ChangeEventHandler<HTMLSelectElement>;
 }
 
@@ -30,7 +32,8 @@ const TradeAddView: FC<TradeAddViewProps> = ({
   onDoneButtonClick,
   // onTradeTypeChange,
   register,
-  isButtonDisabled,
+  isOpen,
+  onClose,
 }) => (
   <Layout>
     <Header>
@@ -70,9 +73,8 @@ const TradeAddView: FC<TradeAddViewProps> = ({
       부가 설명<b> *</b>
     </InputLabel>
     <TextArea placeholder="내용 입력해 주세요" {...register('content')} />
-    <TradeAddComponents.DoneButton disabled={isButtonDisabled} onClick={onDoneButtonClick}>
-      완료
-    </TradeAddComponents.DoneButton>
+    <TradeAddComponents.DoneButton onClick={onDoneButtonClick}>완료</TradeAddComponents.DoneButton>
+    <Alert body="필수항목을 입력해주세요" header="알림" isOpen={isOpen} onClose={onClose} />
   </Layout>
 );
 

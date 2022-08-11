@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
-import { AttachFile, PostType } from 'types/api/common';
+import { AttachFile } from 'types/api/common';
 import useDayjs from 'hooks/useDayjs';
 import CommentSvg from 'assets/svgs/CommentSvg';
 import kakaoImageOv from 'assets/images/kakaotalk_sharing_btn_medium_ov.png';

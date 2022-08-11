@@ -1,17 +1,13 @@
 import { useRouter } from 'next/router';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { FC, useEffect, useMemo } from 'react';
+import { FC } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useDisclosure } from '@chakra-ui/react';
 import { UploadPhotoType } from 'types/api/common';
 import uploadPhotos from 'api/common/uploadPhotos';
 import { getTradePostsKey } from 'api/trade/getTradePosts';
-import postTradePost, { PostTradePostParams } from 'api/trade/postTradePost';
-import { TradeType } from 'types/api/used-trades';
+import postTradePost from 'api/trade/postTradePost';
 import TradeAddView, { TradeAddViewProps } from './TradeAddView';
-
-interface TradeAddControllerControllerProps {
-  examples?: any;
-}
 
 interface FormType {
   photos: UploadPhotoType[];
@@ -22,11 +18,12 @@ interface FormType {
   chatRoomLink: string;
 }
 
-const TradeAddControllerController: FC<TradeAddControllerControllerProps> = () => {
+const TradeAddControllerController: FC = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const { control, handleSubmit, register, watch } = useForm<FormType>();
+  const { control, handleSubmit, register } = useForm<FormType>();
 
   const { append, fields, remove } = useFieldArray({ control, name: 'photos' });
 
@@ -38,20 +35,20 @@ const TradeAddControllerController: FC<TradeAddControllerControllerProps> = () =
   });
 
   const onDoneButtonClick = handleSubmit(({ photos, ...data }) => {
+    if (!data.title || !data.content || !data.goodsPrice) {
+      onOpen();
+      return;
+    }
     uploadPhotos({ photos: fields }).then((ids) => {
       post({
-        ...(ids.length && {
-          attachFiles: ids.map((id) => ({
-            fileId: id,
-            willBeUploaded: true,
-          })),
-        }),
+        attachFiles: ids.map((id) => ({
+          fileId: id,
+          willBeUploaded: true,
+        })),
         ...data,
       });
     });
   });
-
-  const isButtonDisabled = !watch('title') || !watch('goodsPrice') || !watch('content');
 
   const viewProps: TradeAddViewProps = {
     onHeaderClick: () => router.push('/trade'),
@@ -62,7 +59,8 @@ const TradeAddControllerController: FC<TradeAddControllerControllerProps> = () =
     },
     onDoneButtonClick,
     register,
-    isButtonDisabled,
+    isOpen,
+    onClose,
   };
   return <TradeAddView {...viewProps} />;
 };
