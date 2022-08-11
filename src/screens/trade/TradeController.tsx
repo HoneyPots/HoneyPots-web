@@ -15,7 +15,7 @@ const TradeControllerController: FC<TradeControllerControllerProps> = () => {
 
   const { data, fetchNextPage } = useInfiniteQuery(
     getTradePostsKey(),
-    ({ pageParam }) =>
+    ({ pageParam = 0 }) =>
       getTradePosts({
         pageNumber: pageParam,
         pageSize: 10,
@@ -23,7 +23,7 @@ const TradeControllerController: FC<TradeControllerControllerProps> = () => {
         sortOption: 'desc',
       }),
     {
-      getNextPageParam: (lastpage) => lastpage.pageable.pageNumber,
+      getNextPageParam: (lastpage) => lastpage.pageable.pageNumber + 1,
       onSuccess(res) {
         if (res.pages[res.pages.length - 1].last) {
           setIsLastPage(true);
@@ -52,6 +52,7 @@ const TradeControllerController: FC<TradeControllerControllerProps> = () => {
       title: item.title,
       cost: `${item.goodsPrice} 원`,
       onClick: () => router.push(`/trade/${item.postId}`),
+      image: item.thumbnailImageFile?.fileLocationUrl,
     }),
   };
   return <TradeView {...viewProps} />;

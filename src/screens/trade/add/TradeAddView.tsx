@@ -8,10 +8,15 @@ import type { FC } from 'react';
 
 export interface TradeAddViewProps {
   onHeaderClick: VoidFunction;
+  onDoneButtonClick: VoidFunction;
   photoInputProps: PhotoInputProps;
 }
 
-const TradeAddView: FC<TradeAddViewProps> = ({ onHeaderClick, photoInputProps }) => (
+const TradeAddView: FC<TradeAddViewProps> = ({
+  onHeaderClick,
+  photoInputProps,
+  onDoneButtonClick,
+}) => (
   <Layout>
     <Header>
       <Header.Left iconType="close" onClick={onHeaderClick} />
@@ -38,7 +43,7 @@ const TradeAddView: FC<TradeAddViewProps> = ({ onHeaderClick, photoInputProps })
     <TextInput placeholder="링크을 입력해 주세요" type="url" inputMode="url" />
     <InputLabel>부가 설명</InputLabel>
     <TextArea placeholder="내용 입력해 주세요" />
-    <TradeAddComponents.DoneButton onClick={() => {}}>완료</TradeAddComponents.DoneButton>
+    <TradeAddComponents.DoneButton onClick={onDoneButtonClick}>완료</TradeAddComponents.DoneButton>
   </Layout>
 );
 

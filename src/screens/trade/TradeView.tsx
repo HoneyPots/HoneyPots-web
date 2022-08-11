@@ -21,7 +21,7 @@ const TradeView: FC<TradeViewProps> = ({ handleObserver, onSearchClick, posts, e
       <Header.Right iconType="search" onClick={onSearchClick} />
     </Header>
     {posts.map((item) => (
-      <TradePost {...each(item)} />
+      <TradePost {...each(item)} key={item.postId} />
     ))}
     <Link href="/trade/add" passHref>
       <TradeComponents.WriteButton>글작성</TradeComponents.WriteButton>

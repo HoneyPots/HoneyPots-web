@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
-import image from 'assets/images/um.jpeg';
 
 const Container = styled.div`
   display: flex;
@@ -46,13 +45,16 @@ export interface TradePostProps {
   title: string;
   nickname: string;
   cost: string;
+  image?: string;
 }
 
-const TradePost: React.FC<TradePostProps> = ({ onClick, cost, nickname, title }) => (
+const TradePost: React.FC<TradePostProps> = ({ onClick, cost, nickname, title, image }) => (
   <Container onClick={onClick}>
-    <ImageWrapper>
-      <Image src={image} layout="fill" />
-    </ImageWrapper>
+    {image ? (
+      <ImageWrapper>
+        <Image src={image} layout="fill" alt="thumbnail" />
+      </ImageWrapper>
+    ) : null}
     <InfoBox>
       <Title>
         <small>{nickname}</small>
