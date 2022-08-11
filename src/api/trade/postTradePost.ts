@@ -8,16 +8,23 @@ export interface PostTradePostParams {
   content: string;
   attachFiles?: UploadAttachFile[];
   goodsPrice: number;
-  tradeType: TradeType;
+  // tradeType: TradeType;
   chatRoomLink: string;
 }
 
 export default async function postTradePost(body: PostTradePostParams) {
-  const { data } = await axios.post<UsedTradePost>('/api/posts/used-trades', body, {
-    headers: {
-      'Content-Type': 'application/json',
+  const { data } = await axios.post<UsedTradePost>(
+    '/api/posts/used-trades',
+    {
+      tradeType: 'SELL',
+      ...body,
     },
-  });
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
 
   return data;
 }

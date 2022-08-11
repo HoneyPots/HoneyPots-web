@@ -201,19 +201,13 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
         <span>{day(uploadedAt)}</span>
       </Infos>
       <Reactions>
+        <KakaoTalk full={full}>
+          <Image src={kakaoImageOv} width={30} height={30} />
+          {full && <span>카카오톡 오픈 채팅</span>}
+        </KakaoTalk>
         <TimeCount>
           10:32 <small>후 종료</small>
         </TimeCount>
-        {full ? (
-          <KakaoTalk full={full}>
-            <Image src={kakaoImageOv} width={30} height={30} />
-            <span>카카오톡 오픈 채팅</span>
-          </KakaoTalk>
-        ) : (
-          <KakaoTalk>
-            <Image src={kakaoImageOv} width={30} height={30} />
-          </KakaoTalk>
-        )}
       </Reactions>
     </Container>
   );

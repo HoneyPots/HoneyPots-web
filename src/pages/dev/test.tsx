@@ -50,7 +50,6 @@ const DevTest: NextPage = () => {
               content: '사진 업로드 테스트',
               goodsPrice: 1000,
               title: 'test',
-              tradeType: 'SELL',
             });
           });
         }}

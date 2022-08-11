@@ -2,7 +2,7 @@ import Header from 'components/header';
 import CommentInput from 'components/input/CommentInput';
 import Layout from 'components/layout/Layout';
 import Comments from 'components/comment/Comments';
-import TradeDetailPost from './components';
+import TradePost from '../components/TradePost';
 import type { FC } from 'react';
 
 const makeComments = (name: string, content: string) => ({
@@ -24,18 +24,14 @@ const TradeDetailView: FC<TradeDetailViewProps> = ({ onHeaderClick }) => (
       <Header.Left iconType="back" onClick={onHeaderClick} />
       <Header.Center title="중고거래" />
     </Header>
-    <TradeDetailPost
-      commentCount={1}
+    <TradePost
       content="뻘건우산 판다고요!"
-      postId={1}
       title="빠바빠빠 빨간맛!! 궁금해 허니~"
       uploadedAt="2022-8-2"
-      writer={{
-        id: 0,
-        nickname: '헤리움 318호',
-      }}
-      full
+      nickname="test"
       hasImage
+      cost="9,000원"
+      full
     />
     <Comments
       comments={[
