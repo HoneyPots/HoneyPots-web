@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDisclosure } from '@chakra-ui/react';
 import { UploadPhotoType } from 'types/api/common';
@@ -41,7 +41,7 @@ const TradeAddControllerController: FC = () => {
     }
     uploadPhotos({ photos: fields }).then((ids) => {
       post({
-        attachFiles: ids.map((id) => ({
+        attachedFiles: ids.map((id) => ({
           fileId: id,
           willBeUploaded: true,
         })),

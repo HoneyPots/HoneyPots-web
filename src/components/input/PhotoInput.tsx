@@ -98,7 +98,8 @@ const PhotoInput: FC<PhotoInputProps> = ({ fields, append, remove }) => {
         if (i + fields.length < 5 && file) {
           getPresignedUrl({ fileType: 'USED_TRADE_POST_IMAGE', filename: file.name }).then(
             (res) => {
-              append({ photo: file, url: res.presignedUrl, id: res.fileId });
+              const a = { photo: file, url: res.presignedUrl, id_number: res.fileId };
+              append(a);
             },
           );
         }

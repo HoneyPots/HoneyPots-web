@@ -6,7 +6,7 @@ import type { UploadAttachFile, UsedTradePost } from 'types/api/common';
 export interface PostTradePostParams {
   title: string;
   content: string;
-  attachFiles?: UploadAttachFile[];
+  attachedFiles?: UploadAttachFile[];
   goodsPrice: number;
   // tradeType: TradeType;
   chatRoomLink: string;

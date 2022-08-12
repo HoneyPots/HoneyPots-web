@@ -113,7 +113,7 @@ export interface UsedTradePost {
 
 export type Photo = Record<'photo' | `photo${number}`, File | string> & Record<'id', string>;
 export interface UploadPhotoType {
-  id: number;
+  id_number: number;
   photo: File | string;
   url: string;
 }

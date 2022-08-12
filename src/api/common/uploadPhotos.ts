@@ -6,27 +6,31 @@ interface UploadPhotoParams {
 }
 
 const uploadPhotos = async ({ photos }: UploadPhotoParams) => {
-  const result: number[] = [];
+  const promises: Promise<number>[] = photos.map(
+    ({ photo, id_number, url }) =>
+      new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(photo as File);
+        fileReader.addEventListener('load', async () => {
+          const blob = await fetch(fileReader.result as string).then((res) => res.blob());
 
-  const promises = photos.map(async ({ photo, id, url }) => {
-    try {
-      if (typeof photo !== 'string') {
-        const formData = new FormData();
-        formData.append('Content-type', photo.type);
-        formData.append('file', photo);
-        await axios.put(url, formData, {
-          headers: {
-            'Content-type': photo.type,
-          },
+          // console.log(blob);
+          try {
+            if (typeof photo !== 'string') {
+              // const formData = new FormData();
+              // formData.append('Content-Type', blob.type);
+              // formData.append('file', blob);
+              await axios.put(url, blob, { headers: { 'Content-Type': blob.type } });
+              resolve(id_number);
+            }
+          } catch (e) {
+            reject(e);
+          }
         });
-        result.push(id);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  });
+      }),
+  );
 
-  await Promise.all(promises);
+  const result: number[] = await Promise.all(promises);
 
   return result;
 };

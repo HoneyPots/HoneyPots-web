@@ -5,6 +5,7 @@ import getComments, { getCommentsKey } from 'api/community/comment/getComments';
 import { Comment } from 'types/api/common';
 import getTradePost, { getTradePostKey } from 'api/trade/getTradePost';
 import postComment from 'api/community/comment/postComment';
+import { TradePostProps } from '../components/TradePost';
 import TradeDetailView from './TradeDetailView';
 
 import type { TradeDetailViewProps } from './TradeDetailView';
@@ -69,7 +70,7 @@ const TradeDetailController: FC = () => {
     }
   }, [isLastPage, comments, fetchNextPage]);
 
-  const tradePostProps: TradeDetailViewProps['tradePostProps'] = useMemo(() => {
+  const tradePostProps: TradePostProps | undefined = useMemo(() => {
     if (!data) return undefined;
     return {
       content: data.content,
@@ -78,6 +79,9 @@ const TradeDetailController: FC = () => {
       uploadedAt: data.uploadedAt,
       nickname: data.writer.nickname,
       cost: `${data.goodsPrice}원`,
+      images: data.attachedFiles,
+      thumbnail: data.thumbnailImageFile,
+      kakaoLink: data.chatRoomLink,
     };
   }, [data]);
 

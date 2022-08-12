@@ -52,6 +52,7 @@ const ImageWrapper = styled.div`
   border-radius: 10px;
   background-color: #e9e9e9;
   display: inline-block;
+  position: relative;
 `;
 
 const Content = styled.p<Full>`
@@ -164,20 +165,19 @@ const TradePost: FC<TradePostProps> = ({
             {content}
           </Content>
         )}
-        {images && (
+        {images && full && (
           <Images>
-            {full
-              ? images.map((item, index) => (
-                  <ImageWrapper key={`${index.toString()}`}>
-                    <Image src={item.fileLocationUrl} layout="fill" />
-                  </ImageWrapper>
-                ))
-              : thumbnail && (
-                  <ImageWrapper>
-                    <Image src={thumbnail?.fileLocationUrl} layout="fill" />
-                  </ImageWrapper>
-                )}
+            {images.map((item, index) => (
+              <ImageWrapper key={`${index.toString()}`}>
+                <Image src={item.fileLocationUrl} layout="fill" objectFit="cover" />
+              </ImageWrapper>
+            ))}
           </Images>
+        )}
+        {thumbnail && !full && (
+          <ImageWrapper>
+            <Image src={thumbnail?.fileLocationUrl} layout="fill" objectFit="cover" />
+          </ImageWrapper>
         )}
       </ContentWrapper>
       <Infos onClick={onClick}>
