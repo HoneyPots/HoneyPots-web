@@ -8,7 +8,7 @@ interface UploadPhotoParams {
 const uploadPhotos = async ({ photos }: UploadPhotoParams) => {
   const result: number[] = [];
 
-  photos.forEach(async ({ photo, id, url }) => {
+  const promises = photos.map(async ({ photo, id, url }) => {
     try {
       if (typeof photo !== 'string') {
         const formData = new FormData();
@@ -21,6 +21,8 @@ const uploadPhotos = async ({ photos }: UploadPhotoParams) => {
       console.error(e);
     }
   });
+
+  await Promise.all(promises);
 
   return result;
 };
