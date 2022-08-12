@@ -14,7 +14,11 @@ const uploadPhotos = async ({ photos }: UploadPhotoParams) => {
         const formData = new FormData();
         formData.append('Content-type', photo.type);
         formData.append('file', photo);
-        await axios.put(url, formData);
+        await axios.put(url, formData, {
+          headers: {
+            'Content-type': photo.type,
+          },
+        });
         result.push(id);
       }
     } catch (e) {
