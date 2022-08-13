@@ -1,8 +1,12 @@
+import { FC, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDisclosure } from '@chakra-ui/react';
+import { useMutation } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
+import patchNickname from 'api/members/patchNickname';
+import { RootState } from 'libs/store/modules';
 import CreateAccountView from './CreateAccountView';
 
-import type { FC } from 'react';
 import type { CreateAccountViewProps } from './CreateAccountView';
 
 interface CreateAccountControllerControllerProps {
@@ -11,7 +15,13 @@ interface CreateAccountControllerControllerProps {
 
 const CreateAccountControllerController: FC<CreateAccountControllerControllerProps> = () => {
   const router = useRouter();
+  const userId = useSelector<RootState, string | undefined>(({ user }) => user.userId);
+  const [inputValue, setInputValue] = useState<string>('');
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const { mutate } = useMutation(patchNickname, {
+    onSuccess: () => router.back(),
+  });
 
   const viewProps: CreateAccountViewProps = {
     onBackClick: router.back,
@@ -20,6 +30,15 @@ const CreateAccountControllerController: FC<CreateAccountControllerControllerPro
       onClose,
       body: '해당 닉네임으로 변경하시겠습니까?',
       header: '사용가능한 닉네임 입니다',
+      onButtonClick: () => {
+        if (userId) {
+          mutate({ memberId: userId, nickname: inputValue });
+        }
+      },
+    },
+    inputProps: {
+      onChange: (event) => setInputValue(event.currentTarget.value),
+      value: inputValue,
     },
     onButtonClick: onOpen,
   };

@@ -74,7 +74,13 @@ const TradeAddView: FC<TradeAddViewProps> = ({
     </InputLabel>
     <TextArea placeholder="내용 입력해 주세요" {...register('content')} />
     <TradeAddComponents.DoneButton onClick={onDoneButtonClick}>완료</TradeAddComponents.DoneButton>
-    <Alert body="필수항목을 입력해주세요" header="알림" isOpen={isOpen} onClose={onClose} />
+    <Alert
+      body="필수항목을 입력해주세요"
+      header="알림"
+      isOpen={isOpen}
+      onClose={onClose}
+      onButtonClick={onClose}
+    />
   </Layout>
 );
 

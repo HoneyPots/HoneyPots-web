@@ -56,6 +56,7 @@ const PostAddControllerController: FC<PostAddControllerControllerProps> = () => 
       header: '오류',
       isOpen,
       onClose,
+      onButtonClick: onClose,
     },
   };
 
