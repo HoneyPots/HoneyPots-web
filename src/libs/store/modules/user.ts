@@ -23,7 +23,7 @@ const userSlice = createSlice({
     setIsLogin: (state) => {
       state.isLogin = true;
     },
-    setUserId: (state, action: PayloadAction<number>) => {
+    setUserId: (state, action: PayloadAction<number | undefined>) => {
       state.userId = action.payload;
     },
   },

@@ -3,13 +3,13 @@ import Header from 'components/header';
 import HeaderCenter from 'components/header/HeaderCenter';
 import Layout from 'components/layout/Layout';
 import MeComponents from './components';
-import type { FC } from 'react';
+import type { FC, MouseEventHandler } from 'react';
 
 export interface MeViewProps {
-  examples?: any;
+  onDeleteAccountClick: MouseEventHandler<HTMLAnchorElement>;
 }
 
-const MeView: FC<MeViewProps> = () => (
+const MeView: FC<MeViewProps> = ({ onDeleteAccountClick }) => (
   <Layout>
     <Header>
       <HeaderCenter title="내정보" />
@@ -18,7 +18,7 @@ const MeView: FC<MeViewProps> = () => (
     <Link href="/auth/create-account">
       <MeComponents.SubTitle>닉네임 변경</MeComponents.SubTitle>
     </Link>
-    <MeComponents.SubTitle>계정 삭제</MeComponents.SubTitle>
+    <MeComponents.SubTitle onClick={onDeleteAccountClick}>계정 삭제</MeComponents.SubTitle>
     <MeComponents.Title>나의 활동</MeComponents.Title>
     <Link href="/me/posts">
       <MeComponents.SubTitle>내가 작성한 게시글</MeComponents.SubTitle>
