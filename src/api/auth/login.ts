@@ -6,6 +6,8 @@ interface LoginParameter {
 
 interface LoginResponse {
   accessToken: string;
+  memberId: number;
+  isNewMember: boolean;
 }
 
 const login = async ({ code }: LoginParameter) => {

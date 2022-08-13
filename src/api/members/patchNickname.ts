@@ -1,7 +1,7 @@
 import axios from 'libs/axios';
 
 interface PatchNicknameParameter {
-  memberId: string;
+  memberId: number;
   nickname: string;
 }
 

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export type UserState = {
   accessToken: string;
   isLogin: boolean;
-  userId?: string;
+  userId?: number;
 };
 
 type SetTokenAction = PayloadAction<string>;
@@ -11,7 +11,6 @@ type SetTokenAction = PayloadAction<string>;
 const initialState: UserState = {
   accessToken: '',
   isLogin: false,
-  userId: undefined,
 };
 
 const userSlice = createSlice({
@@ -24,7 +23,7 @@ const userSlice = createSlice({
     setIsLogin: (state) => {
       state.isLogin = true;
     },
-    setUserId: (state, action: PayloadAction<string | undefined>) => {
+    setUserId: (state, action: PayloadAction<number>) => {
       state.userId = action.payload;
     },
   },

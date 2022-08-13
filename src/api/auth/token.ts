@@ -3,6 +3,7 @@ import axios from 'libs/axios';
 interface PostTokenResponse {
   accessToken: string;
   refreshToken: string;
+  memberId: number;
 }
 
 const postToken = async () => {

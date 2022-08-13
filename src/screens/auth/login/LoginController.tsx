@@ -19,6 +19,7 @@ const LoginController: FC = () => {
     if (process.env.NODE_ENV === 'development') {
       login({ code: 'admin' }).then((res) => {
         dispatch(userActions.setToken(res.accessToken));
+        dispatch(userActions.setUserId(res.memberId));
         axios.defaults.headers = {
           ...axios.defaults.headers,
           Authorization: `Bearer ${res.accessToken}`,

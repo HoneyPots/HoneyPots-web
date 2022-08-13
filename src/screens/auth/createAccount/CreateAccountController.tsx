@@ -15,7 +15,7 @@ interface CreateAccountControllerControllerProps {
 
 const CreateAccountControllerController: FC<CreateAccountControllerControllerProps> = () => {
   const router = useRouter();
-  const userId = useSelector<RootState, string | undefined>(({ user }) => user.userId);
+  const userId = useSelector<RootState, number | undefined>(({ user }) => user.userId);
   const [inputValue, setInputValue] = useState<string>('');
   const { isOpen, onClose, onOpen } = useDisclosure();
 

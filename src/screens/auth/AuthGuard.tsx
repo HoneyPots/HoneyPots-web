@@ -18,8 +18,9 @@ const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
       if (!accessToken) {
         const init = async () => {
           try {
-            const { accessToken: newToken } = await postToken();
+            const { accessToken: newToken, memberId } = await postToken();
             dispatch(userActions.setToken(newToken));
+            dispatch(userActions.setUserId(memberId));
             axios.defaults.headers = {
               ...axios.defaults.headers,
               Authorization: `Bearer ${newToken}`,
