@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import React, { FC, PropsWithChildren, useEffect, useState } from 'react';
 import { HeadersDefaults } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +7,8 @@ import { RootState } from 'libs/store/modules';
 import { userActions } from 'libs/store/modules/user';
 import axios from 'libs/axios';
 import postToken from 'api/auth/token';
+import Layout from 'components/layout/Layout';
+import logoimg from 'assets/images/logo.png';
 
 const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -19,6 +22,7 @@ const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
         const init = async () => {
           try {
             const { accessToken: newToken, memberId } = await postToken();
+
             dispatch(userActions.setToken(newToken));
             dispatch(userActions.setUserId(memberId));
             axios.defaults.headers = {
@@ -43,9 +47,20 @@ const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken, router.pathname, loading, dispatch]);
 
+  if (loading)
+    return (
+      <Layout>
+        <Image priority src={logoimg} />
+      </Layout>
+    );
+
   if (!loading || accessToken || router.pathname.startsWith('/auth')) return <div>{children}</div>;
 
-  return <div>Loading</div>;
+  return (
+    <Layout>
+      <Image priority src={logoimg} />
+    </Layout>
+  );
 };
 
 export default AuthGuard;

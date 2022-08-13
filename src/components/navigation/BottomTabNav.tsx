@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import bag from 'assets/images/bottomTab/bag.png';
 import bagOutline from 'assets/images/bottomTab/bag-outline.png';
@@ -11,6 +12,7 @@ import home from 'assets/images/bottomTab/home.png';
 import homeOutline from 'assets/images/bottomTab/home-outline.png';
 import user from 'assets/images/bottomTab/user.png';
 import userOutline from 'assets/images/bottomTab/user-outline.png';
+import { RootState } from 'libs/store/modules';
 
 const Container = styled.div`
   position: fixed;
@@ -32,6 +34,12 @@ const TabWrapper = styled.a`
 
 const BottomTabNav: FC = () => {
   const { pathname } = useRouter();
+
+  const hasToken = useSelector<RootState, boolean>(({ user: u }) => Boolean(u.accessToken));
+
+  console.log(hasToken);
+
+  if (!hasToken) return <div />;
 
   return (
     <Container>

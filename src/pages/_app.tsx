@@ -33,9 +33,9 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
               <GlobalStyles />
               <Head>
                 <title>꿀단지</title>
-                <link rel="shortcut icon" href="/images/favicon.ico" />
-                <link rel="icon" href="/images/favicon.ico" />
-                <link rel="apple-touch-icon" href="/images/favicon.ico" />
+                <link rel="shortcut icon" href="/images/logo_icon.ico" />
+                <link rel="icon" href="/images/logo_icon.ico" />
+                <link rel="apple-touch-icon" href="/images/logo_icon.ico" />
                 <meta
                   name="viewport"
                   content="width=device-width, initial-scale=1.0, user-scalable=0, maximum-scale=1.0"
