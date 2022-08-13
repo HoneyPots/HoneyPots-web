@@ -10,7 +10,7 @@ const MyTradesView: FC<MyTradesViewProps> = ({ onHeaderClick }) => (
   <Layout>
     <Header>
       <Header.Left iconType="back" onClick={onHeaderClick} />
-      <Header.Center title="나의 중고거래" />
+      <Header.Center title="나의 공동구매" />
     </Header>
   </Layout>
 );

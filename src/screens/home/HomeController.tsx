@@ -13,7 +13,7 @@ const HomeController: FC = () => {
 
   const queryClient = useQueryClient();
 
-  const { data, fetchNextPage, refetch } = useInfiniteQuery(
+  const { data, fetchNextPage } = useInfiniteQuery(
     getPostsKey(),
     ({ pageParam = 0 }) =>
       getPosts({ pageNumber: pageParam, pageSize: 10, sortField: 'createdAt', sortOption: 'desc' }),
@@ -85,7 +85,7 @@ const HomeController: FC = () => {
       ...post,
     }),
     handleObserver,
-    onSearchClick: () => router.push('post/search'),
+    onSearchClick: () => router.back(),
   };
   return <HomeView {...viewProps} />;
 };
