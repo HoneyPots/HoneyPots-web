@@ -8,8 +8,8 @@ type ReactionType = 'LIKE';
 
 type TargetType = 'POST' | 'COMMENT';
 
-interface Writer extends User {}
-interface Reactor extends User {}
+export interface Writer extends User {}
+export interface Reactor extends User {}
 
 export interface PostType {
   postId: number;

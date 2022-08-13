@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
-import { PostType } from 'types/api/common';
+import { GroupBuyingPostType } from 'types/api/group-buying';
 import useDayjs from 'hooks/useDayjs';
 import kakaoImageOv from 'assets/images/kakaotalk_sharing_btn_medium_ov.png';
 import type { FC } from 'react';
@@ -135,7 +135,7 @@ const TimeCount = styled.div`
   }
 `;
 
-const KakaoTalk = styled.div<Full>`
+const KakaoTalk = styled.a<Full>`
   background-color: #fee500;
   display: flex;
   height: fit-content;
@@ -150,15 +150,9 @@ const KakaoTalk = styled.div<Full>`
   }
 `;
 
-export interface GroupBuyingPostProps
-  extends Omit<
-    PostType,
-    'isLiked' | 'likeReactionCount' | 'likeReactionId' | 'commentCount' | 'lastModifiedAt'
-  > {
+export interface GroupBuyingPostProps extends GroupBuyingPostType {
   full?: boolean;
   onClick?: VoidFunction;
-  hasImage?: boolean;
-  type: BadgeType;
 }
 
 const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
@@ -168,40 +162,45 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
   uploadedAt,
   full,
   onClick,
-  hasImage,
-  type,
+  category,
+  attachedFiles,
+  thumbnailImageFile,
+  chatRoomLink,
 }) => {
   const { day } = useDayjs();
   return (
     <Container>
-      <Badge type={type}>{type}</Badge>
+      <Badge type={category as BadgeType}>{category}</Badge>
       <Title full={full} onClick={onClick}>
         {title}
       </Title>
       <ContentWrapper full={full} onClick={onClick}>
         {content && (
-          <Content hasImage={hasImage} full={full}>
+          <Content hasImage={Boolean(attachedFiles)} full={full}>
             {content}
           </Content>
         )}
-        {hasImage ? (
+        {attachedFiles && full && (
           <Images>
-            {full ? (
-              Array(5)
-                .fill(0)
-                .map((item, index) => <ImageWrapper key={`${index.toString()}`} />)
-            ) : (
-              <ImageWrapper />
-            )}
+            {attachedFiles.map((item, index) => (
+              <ImageWrapper key={`${index.toString()}`}>
+                <Image src={item.fileLocationUrl} layout="fill" objectFit="cover" />
+              </ImageWrapper>
+            ))}
           </Images>
-        ) : null}
+        )}
+        {thumbnailImageFile && !full && (
+          <ImageWrapper>
+            <Image src={thumbnailImageFile?.fileLocationUrl} layout="fill" objectFit="cover" />
+          </ImageWrapper>
+        )}
       </ContentWrapper>
       <Infos onClick={onClick}>
         <span>{writer.nickname}</span>
         <span>{day(uploadedAt)}</span>
       </Infos>
       <Reactions>
-        <KakaoTalk full={full}>
+        <KakaoTalk full={full} href={chatRoomLink}>
           <Image src={kakaoImageOv} width={30} height={30} />
           {full && <span>카카오톡 오픈 채팅</span>}
         </KakaoTalk>

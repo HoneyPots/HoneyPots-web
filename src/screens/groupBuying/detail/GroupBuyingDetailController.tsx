@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
-import GroupBuyingDetailView from './GroupBuyingDetailView';
 
-import type { FC } from 'react';
-import type { GroupBuyingDetailViewProps } from './GroupBuyingDetailView';
+import { FC, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import getGBPost, { getGBPostKey } from 'api/groupBuying/getGBPost';
+import GroupBuyingDetailView, { GroupBuyingDetailViewProps } from './GroupBuyingDetailView';
 
 interface GroupBuyingDetailControllerControllerProps {
   examples?: any;
@@ -12,8 +13,17 @@ const GroupBuyingDetailControllerController: FC<
   GroupBuyingDetailControllerControllerProps
 > = () => {
   const router = useRouter();
+  const { data } = useQuery(
+    getGBPostKey({ postId: router.query.postId as string }),
+    () => getGBPost({ postId: router.query.postId as string }),
+    {
+      enabled: Boolean(router.query.postId),
+    },
+  );
+
   const viewProps: GroupBuyingDetailViewProps = {
     onBackClick: router.back,
+    groupBuyingPostProps: data,
   };
   return <GroupBuyingDetailView {...viewProps} />;
 };

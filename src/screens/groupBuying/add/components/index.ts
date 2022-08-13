@@ -14,6 +14,26 @@ const DoneButton = styled.a`
   color: #fff;
 `;
 
-const GroupBuyingAddComponents = { DoneButton };
+const TimeInputContainer = styled.div`
+  display: flex;
+  gap: 0px 20px;
+`;
+
+const TimeInputWrapper = styled.div`
+  min-width: 33%;
+
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  color: #191919;
+  span {
+    margin-left: 8px;
+    min-width: max-content;
+    word-break: keep-all;
+  }
+`;
+
+const GroupBuyingAddComponents = { DoneButton, TimeInputContainer, TimeInputWrapper };
 
 export default GroupBuyingAddComponents;
