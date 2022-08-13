@@ -7,7 +7,7 @@ export interface MyGroupBuyingViewProps {
 }
 
 const MyGroupBuyingView: FC<MyGroupBuyingViewProps> = ({ onHeaderClick }) => (
-  <Layout>
+  <Layout fullWidth>
     <Header>
       <Header.Left iconType="back" onClick={onHeaderClick} />
       <Header.Center title="나의 중고거래" />

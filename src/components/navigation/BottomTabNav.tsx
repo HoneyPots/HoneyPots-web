@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { FC } from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import bag from 'assets/images/bottomTab/bag.png';
@@ -22,7 +23,7 @@ const Container = styled.div`
   box-sizing: border-box;
 `;
 
-const TabWrapper = styled.div`
+const TabWrapper = styled.a`
   flex: 1 1 60px;
   display: flex;
   justify-content: center;
@@ -30,38 +31,46 @@ const TabWrapper = styled.div`
 `;
 
 const BottomTabNav: FC = () => {
-  const { pathname, replace } = useRouter();
+  const { pathname } = useRouter();
 
   return (
     <Container>
-      <TabWrapper onClick={() => replace('/')}>
-        {pathname === '/' || pathname.startsWith('/post') ? (
-          <Image src={home} height={28} width={28} priority />
-        ) : (
-          <Image src={homeOutline} height={28} width={28} priority />
-        )}
-      </TabWrapper>
-      <TabWrapper onClick={() => replace('/trade')}>
-        {pathname.startsWith('/trade') ? (
-          <Image src={bag} height={24} width={23} priority />
-        ) : (
-          <Image src={bagOutline} height={24} width={23} priority />
-        )}
-      </TabWrapper>
-      <TabWrapper onClick={() => replace('/group-buying')}>
-        {pathname.startsWith('/group-buying') ? (
-          <Image src={bike} height={24} width={36.2} priority />
-        ) : (
-          <Image src={bikeOutline} height={24} width={36.2} priority />
-        )}
-      </TabWrapper>
-      <TabWrapper onClick={() => replace('/me')}>
-        {pathname.startsWith('/me') ? (
-          <Image src={user} height={28} width={28} priority />
-        ) : (
-          <Image src={userOutline} height={28} width={28} priority />
-        )}
-      </TabWrapper>
+      <Link href="/" passHref prefetch>
+        <TabWrapper>
+          {pathname === '/' || pathname.startsWith('/post') ? (
+            <Image src={home} height={28} width={28} priority />
+          ) : (
+            <Image src={homeOutline} height={28} width={28} priority />
+          )}
+        </TabWrapper>
+      </Link>
+      <Link href="/trade" passHref prefetch>
+        <TabWrapper>
+          {pathname.startsWith('/trade') ? (
+            <Image src={bag} height={24} width={23} priority />
+          ) : (
+            <Image src={bagOutline} height={24} width={23} priority />
+          )}
+        </TabWrapper>
+      </Link>
+      <Link href="/group-buying" passHref prefetch>
+        <TabWrapper>
+          {pathname.startsWith('/group-buying') ? (
+            <Image src={bike} height={24} width={36.2} priority />
+          ) : (
+            <Image src={bikeOutline} height={24} width={36.2} priority />
+          )}
+        </TabWrapper>
+      </Link>
+      <Link href="/me" passHref prefetch>
+        <TabWrapper>
+          {pathname.startsWith('/me') ? (
+            <Image src={user} height={28} width={28} priority />
+          ) : (
+            <Image src={userOutline} height={28} width={28} priority />
+          )}
+        </TabWrapper>
+      </Link>
     </Container>
   );
 };

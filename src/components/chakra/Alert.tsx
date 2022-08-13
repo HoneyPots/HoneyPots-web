@@ -16,9 +16,19 @@ export interface AlertProps {
   header: string;
   body: string;
   onButtonClick?: MouseEventHandler<HTMLButtonElement>;
+  buttonText?: string;
+  buttonColor?: string;
 }
 
-const Alert: FC<AlertProps> = ({ isOpen, onClose, body, header, onButtonClick }) => {
+const Alert: FC<AlertProps> = ({
+  isOpen,
+  onClose,
+  body,
+  header,
+  onButtonClick,
+  buttonColor = '#EBA937',
+  buttonText = '확인',
+}) => {
   const cancelRef = useRef(null);
 
   return (
@@ -37,8 +47,8 @@ const Alert: FC<AlertProps> = ({ isOpen, onClose, body, header, onButtonClick })
         <AlertDialogCloseButton />
         <AlertDialogBody>{body}</AlertDialogBody>
         <AlertDialogFooter>
-          <Button bgColor="#EBA937" color="#fff" ml={3} onClick={onButtonClick}>
-            확인
+          <Button bgColor={buttonColor} color="#fff" ml={3} onClick={onButtonClick}>
+            {buttonText}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

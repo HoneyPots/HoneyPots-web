@@ -13,7 +13,7 @@ export interface MyPostsViewProps {
 }
 
 const MyPostsView: FC<MyPostsViewProps> = ({ onHeaderClick, each, posts, handleObserver }) => (
-  <Layout>
+  <Layout fullWidth>
     <Header>
       <Header.Left iconType="back" onClick={onHeaderClick} />
       <Header.Center title="나의 게시글" />

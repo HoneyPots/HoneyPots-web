@@ -42,7 +42,7 @@ const GroupBuyingAddController: FC<GroupBuyingAddControllerProps> = () => {
           fileId: id,
           willBeUploaded: true,
         })),
-        deadLine: (hour * 60 + min) * 60,
+        deadLine: Math.floor(new Date().getTime() / 1000) + (hour * 60 + min) * 60,
         ...data,
       });
     });

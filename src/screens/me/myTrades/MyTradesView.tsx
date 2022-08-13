@@ -13,7 +13,7 @@ export interface MyTradesViewProps {
 }
 
 const MyTradesView: FC<MyTradesViewProps> = ({ onHeaderClick, each, handleObserver, posts }) => (
-  <Layout>
+  <Layout fullWidth>
     <Header>
       <Header.Left iconType="back" onClick={onHeaderClick} />
       <Header.Center title="나의 중고거래" />

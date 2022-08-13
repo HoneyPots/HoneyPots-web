@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
+import { FC, useMemo } from 'react';
 import { GroupBuyingPostType } from 'types/api/group-buying';
 import useDayjs from 'hooks/useDayjs';
 import kakaoImageOv from 'assets/images/kakaotalk_sharing_btn_medium_ov.png';
-import type { FC } from 'react';
 
 interface Full {
   full?: boolean;
@@ -54,7 +54,7 @@ const Badge = styled.div<{ type: BadgeType }>`
       case '일식':
         return '#3775EB';
       case '중식':
-        return '#EB3737';
+        return props.theme.color.red;
       case '한식':
         return '#0B6018';
       default:
@@ -150,6 +150,12 @@ const KakaoTalk = styled.a<Full>`
   }
 `;
 
+const Dead = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  color: ${(props) => props.theme.color.red};
+`;
+
 export interface GroupBuyingPostProps extends GroupBuyingPostType {
   full?: boolean;
   onClick?: VoidFunction;
@@ -166,8 +172,15 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
   attachedFiles,
   thumbnailImageFile,
   chatRoomLink,
+  deadline,
 }) => {
   const { day } = useDayjs();
+
+  const timeLeft = useMemo(() => {
+    const hour = Math.floor(deadline / 3600);
+    const min = Math.floor(deadline - hour * 3600) / 60;
+    return `${hour}:${min}`;
+  }, [deadline]);
   return (
     <Container>
       <Badge type={category as BadgeType}>{category}</Badge>
@@ -205,7 +218,14 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
           {full && <span>카카오톡 오픈 채팅</span>}
         </KakaoTalk>
         <TimeCount>
-          10:32 <small>후 종료</small>
+          {deadline ? (
+            <>
+              {timeLeft}
+              <small>후 종료</small>
+            </>
+          ) : (
+            <Dead>종료됨</Dead>
+          )}
         </TimeCount>
       </Reactions>
     </Container>

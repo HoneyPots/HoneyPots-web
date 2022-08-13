@@ -22,6 +22,7 @@ const MeController: FC<MeControllerProps> = () => {
     onSuccess: () => {
       dispatch(userActions.setToken(''));
       dispatch(userActions.setUserId(undefined));
+
       router.replace('/auth/login');
     },
   });
