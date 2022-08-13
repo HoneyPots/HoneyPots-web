@@ -115,7 +115,7 @@ const PostDetailControllerController: FC = () => {
       },
       value: comment,
     },
-    onHeaderClick: () => router.push('/'),
+    onHeaderClick: () => router.back(),
   };
   return <PostDetailView {...viewProps} />;
 };

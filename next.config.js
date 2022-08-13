@@ -6,7 +6,7 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ['honeypot-file.s3.ap-northeast-2.amazonaws.com'],
+    domains: ['d1e3ghmypsjap8.cloudfront.net'],
   },
 };
 

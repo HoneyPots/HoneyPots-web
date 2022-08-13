@@ -92,7 +92,9 @@ const MyPostsController: FC = () => {
       onLikeClick: () => toggleLike(item),
     }),
     handleObserver,
-    posts: data ? ([] as PostType[]).concat(...data.pages.map((item) => item.content)) : [],
+    posts: data
+      ? ([] as PostType[]).concat(...data.pages.map((item) => item.content as PostType[]))
+      : [],
   };
   return <MyPostsView {...viewProps} />;
 };
