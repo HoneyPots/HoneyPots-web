@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { AttachFile } from 'types/api/common';
 import useDayjs from 'hooks/useDayjs';
 import CommentSvg from 'assets/svgs/CommentSvg';
@@ -159,6 +160,7 @@ const TradePost: FC<TradePostProps> = ({
   tradeStatus,
 }) => {
   const { day } = useDayjs();
+  const router = useRouter();
   return (
     <Container>
       <Title full={full} onClick={onClick}>
@@ -173,7 +175,10 @@ const TradePost: FC<TradePostProps> = ({
         {images && full && (
           <Images>
             {images.map((item, index) => (
-              <ImageWrapper key={`image_${index.toString()}`}>
+              <ImageWrapper
+                key={`image_${index.toString()}`}
+                onClick={() => router.push(`/image-viewer?src=${item.fileLocationUrl}`)}
+              >
                 <Image src={item.fileLocationUrl} layout="fill" objectFit="cover" />
               </ImageWrapper>
             ))}

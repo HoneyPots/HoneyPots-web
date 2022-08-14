@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
 import { FC, useMemo } from 'react';
@@ -176,6 +177,7 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
   groupBuyingStatus,
 }) => {
   const { day, dayjs } = useDayjs();
+  const router = useRouter();
 
   const diff = useMemo(() => {
     const now = new Date();
@@ -205,7 +207,10 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
         {attachedFiles && full && (
           <Images>
             {attachedFiles.map((item, index) => (
-              <ImageWrapper key={`image ${index.toString()}`}>
+              <ImageWrapper
+                key={`image ${index.toString()}`}
+                onClick={() => router.push(`image-viewer?src=${item.fileLocationUrl}`)}
+              >
                 <Image src={item.fileLocationUrl} layout="fill" objectFit="cover" />
               </ImageWrapper>
             ))}
