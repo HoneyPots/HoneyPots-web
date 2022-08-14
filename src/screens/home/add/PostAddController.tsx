@@ -8,11 +8,7 @@ import { LOADING_MUTATION } from 'pages/_app';
 import PostAddView from './PostAddView';
 import type { PostAddViewProps } from './PostAddView';
 
-interface PostAddControllerControllerProps {
-  examples?: any;
-}
-
-const PostAddControllerController: FC<PostAddControllerControllerProps> = () => {
+const PostAddControllerController: FC = () => {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const { isOpen, onClose, onOpen } = useDisclosure({});

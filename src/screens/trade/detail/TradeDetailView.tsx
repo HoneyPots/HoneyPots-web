@@ -3,6 +3,8 @@ import CommentInput, { CommentInputProps } from 'components/input/CommentInput';
 import { Comment } from 'types/api/common';
 import Comments from 'components/comment/Comments';
 import Observer from 'components/observer/Observer';
+import { MenuItemType } from 'components/header/HeaderRight';
+import Alert, { AlertProps } from 'components/chakra/Alert';
 import Layout from 'components/layout/Layout';
 import TradePost, { TradePostProps } from '../components/TradePost';
 import type { FC } from 'react';
@@ -13,6 +15,8 @@ export interface TradeDetailViewProps {
   comments: Comment[];
   handleObserver: VoidFunction;
   commentInputProps: CommentInputProps;
+  menuLists: MenuItemType[];
+  alertProps: AlertProps;
 }
 
 const TradeDetailView: FC<TradeDetailViewProps> = ({
@@ -21,11 +25,14 @@ const TradeDetailView: FC<TradeDetailViewProps> = ({
   commentInputProps,
   comments,
   handleObserver,
+  menuLists,
+  alertProps,
 }) => (
   <Layout fullWidth>
     <Header>
       <Header.Left iconType="back" onClick={onHeaderClick} />
       <Header.Center title="중고거래" />
+      <Header.Right iconType="ellipsis" menuItemlist={menuLists} />
     </Header>
     {tradePostProps && (
       <>
@@ -35,6 +42,7 @@ const TradeDetailView: FC<TradeDetailViewProps> = ({
         <CommentInput {...commentInputProps} />
       </>
     )}
+    <Alert {...alertProps} />
   </Layout>
 );
 

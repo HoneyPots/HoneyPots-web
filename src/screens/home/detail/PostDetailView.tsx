@@ -3,6 +3,8 @@ import Layout from 'components/layout/Layout';
 import Post, { PostProps } from 'components/post';
 import { Comment } from 'types/api/common';
 import Observer from 'components/observer/Observer';
+import { MenuItemType } from 'components/header/HeaderRight';
+import Alert, { AlertProps } from 'components/chakra/Alert';
 import CommentInput, { CommentInputProps } from 'components/input/CommentInput';
 import Comments from 'components/comment/Comments';
 import type { FC } from 'react';
@@ -13,6 +15,8 @@ export interface PostDetailViewProps {
   handleObserver: VoidFunction;
   commentInputProps: CommentInputProps;
   onHeaderClick: VoidFunction;
+  menuLists: MenuItemType[];
+  alertProps: AlertProps;
 }
 
 const PostDetailView: FC<PostDetailViewProps> = ({
@@ -21,11 +25,14 @@ const PostDetailView: FC<PostDetailViewProps> = ({
   handleObserver,
   commentInputProps,
   onHeaderClick,
+  menuLists,
+  alertProps,
 }) => (
   <Layout fullWidth>
     <Header>
       <Header.Left iconType="back" onClick={onHeaderClick} />
       <Header.Center title="게시글" />
+      <Header.Right iconType="ellipsis" menuItemlist={menuLists} />
     </Header>
     {post ? (
       <>
@@ -35,6 +42,7 @@ const PostDetailView: FC<PostDetailViewProps> = ({
         <CommentInput {...commentInputProps} />
       </>
     ) : null}
+    <Alert {...alertProps} />
   </Layout>
 );
 

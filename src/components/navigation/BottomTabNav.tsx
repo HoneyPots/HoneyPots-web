@@ -37,8 +37,6 @@ const BottomTabNav: FC = () => {
 
   const hasToken = useSelector<RootState, boolean>(({ user: u }) => Boolean(u.accessToken));
 
-  console.log(hasToken);
-
   if (!hasToken) return <div />;
 
   return (

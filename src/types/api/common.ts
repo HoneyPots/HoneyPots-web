@@ -1,3 +1,5 @@
+import { TradeStatus } from './used-trades';
+
 /* eslint-disable @typescript-eslint/no-empty-interface */
 export interface User {
   id: number;
@@ -107,7 +109,7 @@ export interface UsedTradePost {
   lastModifiedAt: string;
   goodsPrice: number;
   tradeType: string;
-  tradeStatus: string;
+  tradeStatus: TradeStatus;
   chatRoomLink: string;
 }
 

@@ -1,10 +1,14 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useDisclosure } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import getPost, { getPostKey } from 'api/community/post/getPost';
 import getComments, { getCommentsKey } from 'api/community/comment/getComments';
 import { Comment, PostType } from 'types/api/common';
 import postComment from 'api/community/comment/postComment';
+import { MenuItemType } from 'components/header/HeaderRight';
+import useMe from 'hooks/useMe';
+import delPost from 'api/community/post/delPost';
 import delLike from 'api/community/reaction/delLike';
 import postLike from 'api/community/reaction/postLike';
 import PostDetailView from './PostDetailView';
@@ -15,6 +19,8 @@ const PostDetailControllerController: FC = () => {
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [comment, setComment] = useState<string>('');
   const queryClient = useQueryClient();
+  const { isMe } = useMe();
+  const { onClose, onOpen, isOpen } = useDisclosure();
 
   const { data, refetch: refetchPost } = useQuery(
     getPostKey({ postId: router.query.postId as string }),
@@ -23,6 +29,12 @@ const PostDetailControllerController: FC = () => {
       enabled: Boolean(router.query.postId),
     },
   );
+
+  const del = useMutation(delPost, {
+    onSuccess: () => {
+      router.push('/');
+    },
+  });
 
   const {
     data: comments,
@@ -96,6 +108,30 @@ const PostDetailControllerController: FC = () => {
       },
     );
 
+  const menuLists: MenuItemType[] = useMemo(() => {
+    if (data) {
+      if (isMe(data.writer.id)) {
+        const result: MenuItemType[] = [
+          { name: '수정', onClick: () => router.push(`/post/edit/${router.query.postId}`) },
+          {
+            name: '삭제',
+            onClick: () => onOpen(),
+          },
+        ];
+        return result;
+      }
+      const result: MenuItemType[] = [
+        {
+          name: '신고하기',
+          onClick: () => {},
+        },
+      ];
+      return result;
+    }
+    const result: MenuItemType[] = [{ name: '신고하기', onClick: () => {} }];
+    return result;
+  }, [data, isMe, router, onOpen]);
+
   const viewProps: PostDetailViewProps = {
     post: data && {
       ...data,
@@ -116,6 +152,16 @@ const PostDetailControllerController: FC = () => {
       value: comment,
     },
     onHeaderClick: () => router.back(),
+    menuLists,
+    alertProps: {
+      isOpen,
+      body: '삭제하시겠습니까?',
+      header: '알림',
+      onClose,
+      buttonColor: '#EB3737',
+      buttonText: '삭제',
+      onButtonClick: () => del.mutate({ postId: router.query.postId as string }),
+    },
   };
   return <PostDetailView {...viewProps} />;
 };

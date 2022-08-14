@@ -18,6 +18,7 @@ const MeView: FC<MeViewProps> = ({ onDeleteAccountClick }) => (
     <Link href="/auth/create-account">
       <MeComponents.SubTitle>닉네임 변경</MeComponents.SubTitle>
     </Link>
+    <MeComponents.SubTitle>로그아웃(아직)</MeComponents.SubTitle>
     <MeComponents.SubTitle onClick={onDeleteAccountClick}>계정 삭제</MeComponents.SubTitle>
     <MeComponents.Title>나의 활동</MeComponents.Title>
     <Link href="/me/posts">

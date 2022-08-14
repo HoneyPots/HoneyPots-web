@@ -173,6 +173,7 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
   thumbnailImageFile,
   chatRoomLink,
   deadline,
+  groupBuyingStatus,
 }) => {
   const { day, dayjs } = useDayjs();
 
@@ -204,7 +205,7 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
         {attachedFiles && full && (
           <Images>
             {attachedFiles.map((item, index) => (
-              <ImageWrapper key={`${index.toString()}`}>
+              <ImageWrapper key={`image ${index.toString()}`}>
                 <Image src={item.fileLocationUrl} layout="fill" objectFit="cover" />
               </ImageWrapper>
             ))}
@@ -226,7 +227,7 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
           {full && <span>카카오톡 오픈 채팅</span>}
         </KakaoTalk>
         <TimeCount>
-          {diff > 0 ? (
+          {diff > 0 && groupBuyingStatus === 'ONGOING' ? (
             <>
               {timeLeft}
               <small>후 종료</small>

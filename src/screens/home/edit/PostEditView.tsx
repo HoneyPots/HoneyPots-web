@@ -31,7 +31,7 @@ const PostEditView: FC<PostEditViewProps> = ({
   <Layout>
     <Header>
       <Header.Left iconType="close" onClick={onHeaderClick} />
-      <Header.Center title="게시글 작성" />
+      <Header.Center title="게시글 수정" />
     </Header>
     {isSuccess && (
       <>

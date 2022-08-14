@@ -29,7 +29,7 @@ const PostEditController: FC = () => {
 
   const edit = useMutation(LOADING_MUTATION, putPost, {
     onSuccess() {
-      router.push('/');
+      router.back();
       queryClient.invalidateQueries(putPostKey({ postId: router.query.postId as string }));
     },
   });
@@ -44,7 +44,7 @@ const PostEditController: FC = () => {
 
   const viewProps: PostEditViewProps = {
     isSuccess,
-    onHeaderClick: () => router.push('/'),
+    onHeaderClick: router.back,
     contentInputProps: {
       onChange: (e) => setContent(e.target.value),
       value: content,

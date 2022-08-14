@@ -51,7 +51,9 @@ const HeaderRight: FC<HeaderRightProps | HeaderRightWithChildrenProps> = (props)
           {menuItemlist?.length && (
             <MenuList>
               {menuItemlist.map((item) => (
-                <MenuItem onClick={item.onClick}>{item.name}</MenuItem>
+                <MenuItem key={item.name} onClick={item.onClick}>
+                  {item.name}
+                </MenuItem>
               ))}
             </MenuList>
           )}

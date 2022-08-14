@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { AttachFile } from 'types/api/common';
 import useDayjs from 'hooks/useDayjs';
 import CommentSvg from 'assets/svgs/CommentSvg';
+import { TradeStatus } from 'types/api/used-trades';
 import kakaoImageOv from 'assets/images/kakaotalk_sharing_btn_medium_ov.png';
 import type { FC } from 'react';
 
@@ -93,11 +94,12 @@ const Reactions = styled.div`
   margin-top: 12px;
 `;
 
-const Price = styled.div`
+const Price = styled.div<{ tradeStatus: TradeStatus }>`
   text-align: end;
   font-weight: bold;
   font-size: 18px;
-  color: ${(props) => props.theme.color.main};
+  color: ${(props) =>
+    props.tradeStatus === 'COMPLETE' ? props.theme.color.red : props.theme.color.main};
 `;
 
 const KakaoTalk = styled.a<Full>`
@@ -139,6 +141,7 @@ export interface TradePostProps {
   commentCount: number;
   images?: AttachFile[];
   thumbnail?: AttachFile;
+  tradeStatus: TradeStatus;
 }
 
 const TradePost: FC<TradePostProps> = ({
@@ -153,6 +156,7 @@ const TradePost: FC<TradePostProps> = ({
   commentCount,
   images,
   thumbnail,
+  tradeStatus,
 }) => {
   const { day } = useDayjs();
   return (
@@ -169,7 +173,7 @@ const TradePost: FC<TradePostProps> = ({
         {images && full && (
           <Images>
             {images.map((item, index) => (
-              <ImageWrapper key={`${index.toString()}`}>
+              <ImageWrapper key={`image_${index.toString()}`}>
                 <Image src={item.fileLocationUrl} layout="fill" objectFit="cover" />
               </ImageWrapper>
             ))}
@@ -200,7 +204,7 @@ const TradePost: FC<TradePostProps> = ({
             </>
           )}
         </ReactLeft>
-        <Price>{cost}</Price>
+        <Price tradeStatus={tradeStatus}>{tradeStatus === 'COMPLETE' ? '판매종료' : cost}</Price>
       </Reactions>
     </Container>
   );

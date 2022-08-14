@@ -10,11 +10,7 @@ import uploadPhotos from 'api/common/uploadPhotos';
 import GroupBuyingAddView, { GBFormType, GroupBuyingAddViewProps } from './GroupBuyingAddView';
 import type { FC } from 'react';
 
-interface GroupBuyingAddControllerProps {
-  examples?: any;
-}
-
-const GroupBuyingAddController: FC<GroupBuyingAddControllerProps> = () => {
+const GroupBuyingAddController: FC = () => {
   const router = useRouter();
 
   const queryClient = useQueryClient();

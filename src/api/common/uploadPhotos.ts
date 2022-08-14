@@ -14,7 +14,6 @@ const uploadPhotos = async ({ photos }: UploadPhotoParams) => {
         fileReader.addEventListener('load', async () => {
           const blob = await fetch(fileReader.result as string).then((res) => res.blob());
 
-          // console.log(blob);
           try {
             if (typeof photo !== 'string') {
               // const formData = new FormData();

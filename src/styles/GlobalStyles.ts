@@ -34,6 +34,7 @@ const GlobalStyles = createGlobalStyle`
   }
   body {
   	line-height: 1;
+    background-color: #fff;
   }
   ol, ul {
   	list-style: none;

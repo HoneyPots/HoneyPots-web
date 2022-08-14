@@ -5,7 +5,7 @@ interface DeleteTradePostParams {
 }
 
 export default async function delTradePost({ postId }: DeleteTradePostParams) {
-  const { data } = await axios.delete(`/api/posts/normal/${postId}`);
+  const { data } = await axios.delete(`/api/posts/used-trades/${postId}`);
 
   return data;
 }
