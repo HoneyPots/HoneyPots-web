@@ -1,9 +1,11 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import { AnyAction, combineReducers, Reducer } from '@reduxjs/toolkit';
 import user, { UserState } from './user';
+import loading, { LoadingState } from './loading';
 
 export interface RootState {
   user: UserState;
+  loading: LoadingState;
 }
 
 const rootReducer: Reducer<RootState, AnyAction> = (
@@ -17,7 +19,7 @@ const rootReducer: Reducer<RootState, AnyAction> = (
         ...action.payload,
       };
     default:
-      return combineReducers({ user })(state, action);
+      return combineReducers({ user, loading })(state, action);
   }
 };
 

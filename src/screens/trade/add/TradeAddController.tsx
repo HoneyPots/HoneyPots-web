@@ -3,6 +3,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { FC, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDisclosure } from '@chakra-ui/react';
+import useLoading from 'hooks/useLoading';
 import { UploadPhotoType } from 'types/api/common';
 import uploadPhotos from 'api/common/uploadPhotos';
 import { getTradePostsKey } from 'api/trade/getTradePosts';
@@ -23,6 +24,7 @@ const TradeAddControllerController: FC = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { startLoading, endLoading } = useLoading();
 
   const {
     control,
@@ -45,6 +47,7 @@ const TradeAddControllerController: FC = () => {
       onOpen();
       return;
     }
+    startLoading();
     uploadPhotos({ photos: fields }).then((ids) => {
       post({
         attachedFiles: ids.map((id) => ({

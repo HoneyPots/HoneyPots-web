@@ -10,6 +10,7 @@ import theme from 'styles/theme';
 import { AppPropsWithLayout } from 'types/nextjs';
 import AuthGuard from 'components/auth/AuthGuard';
 import Loading from 'components/loading/Loading';
+import useLoading from 'hooks/useLoading';
 
 export const LOADING_MUTATION = ['LOADING_MUTATION'];
 
@@ -24,17 +25,18 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
         },
       }),
   );
-
-  const [appLoading, setAppLoading] = useState<boolean>(false);
+  const { appLoading, endLoading, startLoading } = useLoading();
 
   useEffect(() => {
     queryClient.setMutationDefaults(LOADING_MUTATION, {
       onMutate: () => {
-        setAppLoading(true);
+        startLoading();
       },
-      onSettled: () => setAppLoading(false),
+      onSettled: () => {
+        endLoading();
+      },
     });
-  }, [queryClient]);
+  }, [startLoading, endLoading, queryClient]);
 
   const getLayout = Component.getLayout ?? ((page) => page);
 
