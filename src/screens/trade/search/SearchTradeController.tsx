@@ -1,14 +1,9 @@
 import { useRouter } from 'next/router';
 import SearchTradeView from './SearchTradeView';
-
 import type { FC } from 'react';
 import type { SearchTradeViewProps } from './SearchTradeView';
 
-interface SearchTradeControllerProps {
-  examples?: any;
-}
-
-const SearchTradeController: FC<SearchTradeControllerProps> = () => {
+const SearchTradeController: FC = () => {
   const router = useRouter();
 
   const viewProps: SearchTradeViewProps = {

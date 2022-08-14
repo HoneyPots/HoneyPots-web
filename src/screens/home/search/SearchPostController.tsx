@@ -4,11 +4,7 @@ import SearchPostView from './SearchPostView';
 import type { FC } from 'react';
 import type { SearchPostViewProps } from './SearchPostView';
 
-interface SearchPostControllerProps {
-  examples?: any;
-}
-
-const SearchPostController: FC<SearchPostControllerProps> = () => {
+const SearchPostController: FC = () => {
   const router = useRouter();
 
   const viewProps: SearchPostViewProps = {

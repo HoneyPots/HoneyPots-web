@@ -7,13 +7,9 @@ import GroupBuyingControllerView from './GroupBuyingView';
 
 import type { GroupBuyingViewProps } from './GroupBuyingView';
 
-interface GroupBuyingControllerProps {
-  examples?: any;
-}
+// type BadgeType = '양식' | '일식' | '중식' | '한식' | '기타';
 
-type BadgeType = '양식' | '일식' | '중식' | '한식' | '기타';
-
-const GroupBuyingController: FC<GroupBuyingControllerProps> = () => {
+const GroupBuyingController: FC = () => {
   const router = useRouter();
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
 

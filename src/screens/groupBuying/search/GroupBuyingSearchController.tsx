@@ -3,11 +3,7 @@ import GroupBuyingSearch, { GroupBuyingSearchProps } from './GroupBuyingSearchVi
 
 import type { FC } from 'react';
 
-interface GroupBuyingSearchControllerProps {
-  examples?: any;
-}
-
-const GroupBuyingSearchController: FC<GroupBuyingSearchControllerProps> = () => {
+const GroupBuyingSearchController: FC = () => {
   const router = useRouter();
 
   const viewProps: GroupBuyingSearchProps = {
@@ -16,7 +12,6 @@ const GroupBuyingSearchController: FC<GroupBuyingSearchControllerProps> = () => 
       onBackClick: router.back,
       value: '미스터 피자',
     },
-    onClick: () => router.push('/group-buying/1'),
   };
   return <GroupBuyingSearch {...viewProps} />;
 };

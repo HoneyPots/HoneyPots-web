@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, PropsWithChildren, useEffect, useRef } from 'react';
+import { ChangeEventHandler, FC, PropsWithChildren } from 'react';
 import Header from 'components/header';
 import HeaderLeft from 'components/header/HeaderLeft';
 import Layout from 'components/layout/Layout';

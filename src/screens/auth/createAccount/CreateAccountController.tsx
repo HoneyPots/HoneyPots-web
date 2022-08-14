@@ -9,11 +9,7 @@ import CreateAccountView from './CreateAccountView';
 
 import type { CreateAccountViewProps } from './CreateAccountView';
 
-interface CreateAccountControllerControllerProps {
-  examples?: any;
-}
-
-const CreateAccountControllerController: FC<CreateAccountControllerControllerProps> = () => {
+const CreateAccountControllerController: FC = () => {
   const router = useRouter();
   const userId = useSelector<RootState, number | undefined>(({ user }) => user.userId);
   const [inputValue, setInputValue] = useState<string>('');

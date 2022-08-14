@@ -27,7 +27,6 @@ const TradeEditController: FC = () => {
     register,
     formState: { errors },
     setValue,
-    getValues,
     watch,
   } = useForm<FormType>();
 

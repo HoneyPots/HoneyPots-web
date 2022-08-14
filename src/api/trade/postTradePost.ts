@@ -1,5 +1,4 @@
 import axios from 'libs/axios';
-import { TradeType } from 'types/api/used-trades';
 
 import type { UploadAttachFile, UsedTradePost } from 'types/api/common';
 

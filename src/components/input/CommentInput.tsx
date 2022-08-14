@@ -81,10 +81,10 @@ const CommentInput: FC<CommentInputProps> = ({ onChange, onSubmitClick, value })
           placeholder="댓글 달기..."
           ref={textAreaRef}
           onChange={onChange}
-          onFocus={(e) => {
+          onFocus={() => {
             setIsFocused(true);
           }}
-          onBlur={(e) => {
+          onBlur={() => {
             setIsFocused(false);
           }}
           value={value}

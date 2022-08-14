@@ -60,7 +60,7 @@ const GroupBuyingAddView: FC<GroupBuyingAddViewProps> = ({
     <InputLabel>
       카테고리<b> *</b>
     </InputLabel>
-    <Select name="카테고리" defaultValue="카테고리" onChange={onCategoryChange}>
+    <Select name="카테고리" onChange={onCategoryChange}>
       <option value="양식">양식</option>
       <option value="일식">일식</option>
       <option value="중식">중식</option>

@@ -56,6 +56,7 @@ const MyTradesController: FC = () => {
       kakaoLink: item.chatRoomLink,
       commentCount: item.commentCount,
       images: item.attachedFiles,
+      tradeStatus: item.tradeStatus,
     }),
   };
   return <MyTradesView {...viewProps} />;

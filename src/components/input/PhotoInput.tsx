@@ -70,7 +70,9 @@ const XImageWrapper = styled.div`
 `;
 
 export interface PhotoInputProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fields: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   append: (value: any, option?: FieldArrayMethodProps) => void;
   remove: (index?: number | number[]) => void;
 }

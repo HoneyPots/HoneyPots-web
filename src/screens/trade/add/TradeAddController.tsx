@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDisclosure } from '@chakra-ui/react';
 import useLoading from 'hooks/useLoading';
@@ -24,7 +24,7 @@ const TradeAddControllerController: FC = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const { startLoading, endLoading } = useLoading();
+  const { startLoading } = useLoading();
 
   const {
     control,

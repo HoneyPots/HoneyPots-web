@@ -9,11 +9,7 @@ import MeView from './MeView';
 import type { FC } from 'react';
 import type { MeViewProps } from './MeView';
 
-interface MeControllerProps {
-  examples?: any;
-}
-
-const MeController: FC<MeControllerProps> = () => {
+const MeController: FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const userId = useSelector<RootState, number | undefined>(({ user }) => user.userId);

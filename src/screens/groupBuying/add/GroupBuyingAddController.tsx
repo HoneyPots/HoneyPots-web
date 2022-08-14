@@ -5,6 +5,7 @@ import { useDisclosure } from '@chakra-ui/react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import postGBPost from 'api/groupBuying/postGBPost';
 import { getGBPostsKey } from 'api/groupBuying/getGBPosts';
+import useLoading from 'hooks/useLoading';
 import { LOADING_MUTATION } from 'pages/_app';
 import uploadPhotos from 'api/common/uploadPhotos';
 import GroupBuyingAddView, { GBFormType, GroupBuyingAddViewProps } from './GroupBuyingAddView';
@@ -12,6 +13,7 @@ import type { FC } from 'react';
 
 const GroupBuyingAddController: FC = () => {
   const router = useRouter();
+  const { startLoading } = useLoading();
 
   const queryClient = useQueryClient();
   const { isOpen, onClose, onOpen } = useDisclosure({});
@@ -43,7 +45,7 @@ const GroupBuyingAddController: FC = () => {
       onOpen();
       return;
     }
-
+    startLoading();
     uploadPhotos({ photos: fields }).then((ids) => {
       post({
         attachedFiles: ids.map((id) => ({

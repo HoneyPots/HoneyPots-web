@@ -6,11 +6,7 @@ import { UsedTradePost } from 'types/api/common';
 import TradeView from './TradeView';
 import type { TradeViewProps } from './TradeView';
 
-interface TradeControllerControllerProps {
-  examples?: any;
-}
-
-const TradeControllerController: FC<TradeControllerControllerProps> = () => {
+const TradeControllerController: FC = () => {
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
 
   const { data, fetchNextPage } = useInfiniteQuery(
