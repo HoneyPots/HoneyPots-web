@@ -1,9 +1,10 @@
-import { UseFormRegister } from 'react-hook-form';
+import { DeepRequired, FieldErrorsImpl, UseFormRegister } from 'react-hook-form';
 import Header from 'components/header';
 import { InputLabel, TextArea, TextInput } from 'components/input';
 import PhotoInput, { PhotoInputProps } from 'components/input/PhotoInput';
 import Layout from 'components/layout/Layout';
 import { UploadPhotoType } from 'types/api/common';
+import ErrorMsg from 'components/common/ErrorMsg';
 import Alert from 'components/chakra/Alert';
 import Select from 'components/input/Select';
 import GroupBuyingAddComponents from './components';
@@ -17,8 +18,8 @@ export interface GBFormType {
   // tradeType: TradeType;
   category: string;
   chatRoomLink: string;
-  hour: number;
-  min: number;
+  hour?: number;
+  min?: number;
 }
 
 export interface GroupBuyingAddViewProps {
@@ -29,6 +30,7 @@ export interface GroupBuyingAddViewProps {
   isOpen: boolean;
   onClose: VoidFunction;
   onCategoryChange: ChangeEventHandler<HTMLSelectElement>;
+  errors: FieldErrorsImpl<DeepRequired<GBFormType>>;
 }
 
 const GroupBuyingAddView: FC<GroupBuyingAddViewProps> = ({
@@ -39,6 +41,7 @@ const GroupBuyingAddView: FC<GroupBuyingAddViewProps> = ({
   onDoneButtonClick,
   register,
   onCategoryChange,
+  errors,
 }) => (
   <Layout>
     <Header>
@@ -64,29 +67,43 @@ const GroupBuyingAddView: FC<GroupBuyingAddViewProps> = ({
       <option value="한식">한식</option>
       <option value="기타">기타</option>
     </Select>
+    <ErrorMsg>{errors.category?.message}</ErrorMsg>
     <InputLabel>
       구매예정 시간<b> *</b>
     </InputLabel>
     <GroupBuyingAddComponents.TimeInputContainer>
       <GroupBuyingAddComponents.TimeInputWrapper>
         <TextInput
-          placeholder="시간"
+          placeholder="시간(0~100)"
           type="number"
           inputMode="numeric"
-          {...register('hour', { valueAsNumber: true })}
+          {...register('hour', {
+            valueAsNumber: true,
+            max: {
+              value: 100,
+              message: '시간은 100이하 숫자만 입력해주세요',
+            },
+          })}
         />
         <span>시간</span>
       </GroupBuyingAddComponents.TimeInputWrapper>
       <GroupBuyingAddComponents.TimeInputWrapper>
         <TextInput
-          placeholder="분"
+          placeholder="분(0~60)"
           type="number"
           inputMode="numeric"
-          {...register('min', { valueAsNumber: true })}
+          {...register('min', {
+            valueAsNumber: true,
+            max: {
+              value: 60,
+              message: '분은 60이하 숫자만 입력해주세요',
+            },
+          })}
         />
         <span>분 후 </span>
       </GroupBuyingAddComponents.TimeInputWrapper>
     </GroupBuyingAddComponents.TimeInputContainer>
+    <ErrorMsg>{errors.hour?.message ? errors.hour?.message : errors.min?.message}</ErrorMsg>
     <InputLabel>
       제목<b> *</b>
     </InputLabel>
@@ -105,7 +122,13 @@ const GroupBuyingAddView: FC<GroupBuyingAddViewProps> = ({
     <GroupBuyingAddComponents.DoneButton onClick={onDoneButtonClick}>
       완료
     </GroupBuyingAddComponents.DoneButton>
-    <Alert body="필수항목을 입력해주세요" header="알림" isOpen={isOpen} onClose={onClose} />
+    <Alert
+      body="필수항목을 입력해주세요"
+      header="알림"
+      isOpen={isOpen}
+      onClose={onClose}
+      onButtonClick={onClose}
+    />
   </Layout>
 );
 

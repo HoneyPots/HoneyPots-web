@@ -11,7 +11,7 @@ import { AppPropsWithLayout } from 'types/nextjs';
 import AuthGuard from 'components/auth/AuthGuard';
 import Loading from 'components/loading/Loading';
 
-const LOADING_MUTATION = ['LOADING_MUTATION'];
+export const LOADING_MUTATION = ['LOADING_MUTATION'];
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const [queryClient] = useState(

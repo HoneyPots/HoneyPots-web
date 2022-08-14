@@ -9,7 +9,7 @@ export interface PostGBPostParams {
   // goodsPrice: number;
   category: string;
   chatRoomLink: string;
-  deadLine: number;
+  deadline: number;
 }
 
 export default async function postGBPost(body: PostGBPostParams) {

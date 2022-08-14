@@ -33,7 +33,7 @@ function useDayjs() {
     [dayjs],
   );
 
-  return { day };
+  return { day, dayjs };
 }
 
 export default useDayjs;

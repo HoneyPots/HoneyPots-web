@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDisclosure } from '@chakra-ui/react';
 import { getPostsKey } from 'api/community/post/getPosts';
 import postPost from 'api/community/post/postPost';
+import { LOADING_MUTATION } from 'pages/_app';
 import PostAddView from './PostAddView';
 import type { PostAddViewProps } from './PostAddView';
 
@@ -19,7 +20,7 @@ const PostAddControllerController: FC<PostAddControllerControllerProps> = () => 
 
   const router = useRouter();
 
-  const add = useMutation(postPost, {
+  const add = useMutation(LOADING_MUTATION, postPost, {
     onSuccess() {
       router.push('/');
       queryClient.invalidateQueries(getPostsKey());

@@ -174,13 +174,21 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
   chatRoomLink,
   deadline,
 }) => {
-  const { day } = useDayjs();
+  const { day, dayjs } = useDayjs();
+
+  const diff = useMemo(() => {
+    const now = new Date();
+    const oneMin = 1000 * 60;
+
+    const timezoneOffset = new Date().getTimezoneOffset() * oneMin;
+    return Math.floor((dayjs(deadline).valueOf() - now.getTime() - timezoneOffset) / 1000);
+  }, [dayjs, deadline]);
 
   const timeLeft = useMemo(() => {
-    const hour = Math.floor(deadline / 3600);
-    const min = Math.floor(deadline - hour * 3600) / 60;
+    const hour = Math.floor(diff / 3600);
+    const min = Math.floor((diff - hour * 3600) / 60);
     return `${hour}:${min}`;
-  }, [deadline]);
+  }, [diff]);
   return (
     <Container>
       <Badge type={category as BadgeType}>{category}</Badge>
@@ -218,7 +226,7 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
           {full && <span>카카오톡 오픈 채팅</span>}
         </KakaoTalk>
         <TimeCount>
-          {deadline ? (
+          {diff > 0 ? (
             <>
               {timeLeft}
               <small>후 종료</small>

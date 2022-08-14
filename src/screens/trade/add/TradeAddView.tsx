@@ -1,8 +1,9 @@
-import { UseFormRegister } from 'react-hook-form';
+import { DeepRequired, FieldErrorsImpl, UseFormRegister } from 'react-hook-form';
 import Header from 'components/header';
 import { InputLabel, TextArea, TextInput } from 'components/input';
 import PhotoInput, { PhotoInputProps } from 'components/input/PhotoInput';
 import Alert from 'components/chakra/Alert';
+import ErrorMsg from 'components/common/ErrorMsg';
 import { UploadPhotoType } from 'types/api/common';
 import Layout from 'components/layout/Layout';
 import TradeAddComponents from './components';
@@ -24,6 +25,7 @@ export interface TradeAddViewProps {
   isOpen: boolean;
   onClose: VoidFunction;
   // onTradeTypeChange: ChangeEventHandler<HTMLSelectElement>;
+  errors: FieldErrorsImpl<DeepRequired<FormType>>;
 }
 
 const TradeAddView: FC<TradeAddViewProps> = ({
@@ -34,6 +36,7 @@ const TradeAddView: FC<TradeAddViewProps> = ({
   register,
   isOpen,
   onClose,
+  errors,
 }) => (
   <Layout>
     <Header>
@@ -60,8 +63,12 @@ const TradeAddView: FC<TradeAddViewProps> = ({
       placeholder="금액을 입력해 주세요"
       type="number"
       inputMode="numeric"
-      {...register('goodsPrice')}
+      {...register('goodsPrice', {
+        valueAsNumber: true,
+        max: { value: 9999999, message: '천만원까지만 입력할 수 있어요' },
+      })}
     />
+    <ErrorMsg>{errors.goodsPrice?.message}</ErrorMsg>
     <InputLabel>카카오톡 오픈 채팅 링크</InputLabel>
     <TextInput
       placeholder="링크을 입력해 주세요"

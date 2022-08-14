@@ -20,5 +20,5 @@ export interface GroupBuyingPostType {
   category: string;
   groupBuyingStatus: GroupBuyingStatus;
   chatRoomLink: string;
-  deadline: number;
+  deadline: string;
 }

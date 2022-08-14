@@ -6,6 +6,7 @@ import { useDisclosure } from '@chakra-ui/react';
 import { UploadPhotoType } from 'types/api/common';
 import uploadPhotos from 'api/common/uploadPhotos';
 import { getTradePostsKey } from 'api/trade/getTradePosts';
+import { LOADING_MUTATION } from 'pages/_app';
 import postTradePost from 'api/trade/postTradePost';
 import TradeAddView, { TradeAddViewProps } from './TradeAddView';
 
@@ -23,11 +24,16 @@ const TradeAddControllerController: FC = () => {
   const queryClient = useQueryClient();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const { control, handleSubmit, register } = useForm<FormType>();
+  const {
+    control,
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<FormType>();
 
   const { append, fields, remove } = useFieldArray({ control, name: 'photos' });
 
-  const { mutate: post } = useMutation(postTradePost, {
+  const { mutate: post } = useMutation(LOADING_MUTATION, postTradePost, {
     onSuccess: () => {
       router.back();
       queryClient.invalidateQueries(getTradePostsKey());
@@ -61,6 +67,7 @@ const TradeAddControllerController: FC = () => {
     register,
     isOpen,
     onClose,
+    errors,
   };
   return <TradeAddView {...viewProps} />;
 };
