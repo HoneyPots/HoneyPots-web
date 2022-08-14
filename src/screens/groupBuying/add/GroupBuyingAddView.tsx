@@ -50,13 +50,6 @@ const GroupBuyingAddView: FC<GroupBuyingAddViewProps> = ({
     </Header>
     <InputLabel>사진</InputLabel>
     <PhotoInput {...photoInputProps} />
-    {/* <InputLabel>
-      진행유무<b> *</b>
-    </InputLabel>
-    <Select name="진행유무" defaultValue="진행유무" onChange={() => {}}>
-      <option value="진행중">진행중</option>
-      <option value="종료">종료</option>
-    </Select> */}
     <InputLabel>
       카테고리<b> *</b>
     </InputLabel>

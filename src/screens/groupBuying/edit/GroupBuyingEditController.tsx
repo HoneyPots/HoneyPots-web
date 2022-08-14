@@ -57,9 +57,24 @@ const GroupBuyingEditController: FC = () => {
       return;
     }
 
+    const deadline = () => {
+      if (hour && min) {
+        return Math.floor(new Date().getTime() / 1000) + (Number(hour) * 60 + Number(min)) * 60;
+      }
+
+      if (!hour && min) {
+        return Math.floor(new Date().getTime() / 1000) + Number(min) * 60;
+      }
+
+      if (hour && !min) {
+        return Math.floor(new Date().getTime() / 1000) + Number(hour) * 60 * 60;
+      }
+      return 0;
+    };
+
     put({
       body: {
-        deadline: Math.floor(new Date().getTime() / 1000) + (Number(hour) * 60 + Number(min)) * 60,
+        deadline: deadline(),
         ...data,
       },
       postId: router.query.postId as string,

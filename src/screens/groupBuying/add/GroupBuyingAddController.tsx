@@ -37,7 +37,7 @@ const GroupBuyingAddController: FC = () => {
     },
   });
 
-  const onDoneButtonClick = handleSubmit(({ photos, hour = 0, min = 0, ...data }) => {
+  const onDoneButtonClick = handleSubmit(({ photos, hour, min, ...data }) => {
     if (!data.category) {
       setError('category', { message: '카테고리를 선택해주세요', type: 'required' });
     }
@@ -45,6 +45,22 @@ const GroupBuyingAddController: FC = () => {
       onOpen();
       return;
     }
+
+    const deadline = () => {
+      if (hour && min) {
+        return Math.floor(new Date().getTime() / 1000) + (Number(hour) * 60 + Number(min)) * 60;
+      }
+
+      if (!hour && min) {
+        return Math.floor(new Date().getTime() / 1000) + Number(min) * 60;
+      }
+
+      if (hour && !min) {
+        return Math.floor(new Date().getTime() / 1000) + Number(hour) * 60 * 60;
+      }
+      return 0;
+    };
+
     startLoading();
     uploadPhotos({ photos: fields }).then((ids) => {
       post({
@@ -52,7 +68,7 @@ const GroupBuyingAddController: FC = () => {
           fileId: id,
           willBeUploaded: true,
         })),
-        deadline: Math.floor(new Date().getTime() / 1000) + (Number(hour) * 60 + Number(min)) * 60,
+        deadline: deadline(),
         ...data,
       });
     });

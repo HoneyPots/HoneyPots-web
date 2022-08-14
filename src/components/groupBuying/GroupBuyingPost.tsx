@@ -83,6 +83,8 @@ const ImageWrapper = styled.div`
   border-radius: 10px;
   background-color: #e9e9e9;
   display: inline-block;
+  position: relative;
+  overflow: hidden;
 `;
 
 const Content = styled.p<Full>`
@@ -208,8 +210,8 @@ const GroupBuyingPost: FC<GroupBuyingPostProps> = ({
           <Images>
             {attachedFiles.map((item, index) => (
               <ImageWrapper
-                key={`image ${index.toString()}`}
-                onClick={() => router.push(`image-viewer?src=${item.fileLocationUrl}`)}
+                key={`image adsf${index.toString()}`}
+                onClick={() => router.push(`/image-viewer?src=${item.fileLocationUrl}`)}
               >
                 <Image src={item.fileLocationUrl} layout="fill" objectFit="cover" />
               </ImageWrapper>
