@@ -6,6 +6,8 @@ interface PutPostRequest {
   content: string;
 }
 
+export const putPostKey = ({ postId }: { postId: string }) => ['/api/posts/normal/', postId];
+
 export default async function putPost({ postId, content, title }: PutPostRequest) {
   const { data } = await axios.put(
     `/api/posts/normal/${postId}`,

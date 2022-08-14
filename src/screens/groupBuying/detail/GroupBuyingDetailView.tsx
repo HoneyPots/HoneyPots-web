@@ -1,3 +1,4 @@
+import Alert, { AlertProps } from 'components/chakra/Alert';
 import GroupBuyingPost, { GroupBuyingPostProps } from 'components/groupBuying/GroupBuyingPost';
 import Header from 'components/header';
 import HeaderCenter from 'components/header/HeaderCenter';
@@ -10,12 +11,14 @@ export interface GroupBuyingDetailViewProps {
   onBackClick: VoidFunction;
   groupBuyingPostProps?: GroupBuyingPostProps;
   menuLists: MenuItemType[];
+  alertProps: AlertProps;
 }
 
 const GroupBuyingDetailView: FC<GroupBuyingDetailViewProps> = ({
   onBackClick,
   groupBuyingPostProps,
   menuLists,
+  alertProps,
 }) => (
   <Layout fullWidth>
     <Header>
@@ -24,6 +27,7 @@ const GroupBuyingDetailView: FC<GroupBuyingDetailViewProps> = ({
       <HeaderRight iconType="ellipsis" menuItemlist={menuLists} />
     </Header>
     {groupBuyingPostProps && <GroupBuyingPost {...groupBuyingPostProps} full />}
+    <Alert {...alertProps} />
   </Layout>
 );
 
