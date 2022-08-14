@@ -22,7 +22,7 @@ const KakaoLoginController: FC<KakaoLoginPageProps> = ({ code }) => {
         ...axios.defaults.headers,
         Authorization: `Bearer ${res.accessToken}`,
       } as HeadersDefaults;
-      router.replace('/');
+      setTimeout(() => router.replace('/'), 1000);
     });
   }, [router, code, dispatch]);
 

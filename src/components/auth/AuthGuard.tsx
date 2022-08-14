@@ -9,6 +9,7 @@ import axios from 'libs/axios';
 import postToken from 'api/auth/token';
 import Layout from 'components/layout/Layout';
 import logoimg from 'assets/images/logo.png';
+import Loading from 'components/loading/Loading';
 
 const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -29,15 +30,16 @@ const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
               ...axios.defaults.headers,
               Authorization: `Bearer ${newToken}`,
             } as HeadersDefaults;
-            setLoading(false);
+            setTimeout(() => setLoading(false), 1000);
           } catch {
+            setTimeout(() => setLoading(false), 1000);
             router.replace('/auth/login');
           }
         };
 
         init();
       } else {
-        setLoading(false);
+        setTimeout(() => setLoading(false), 1000);
       }
     }
 
@@ -47,12 +49,7 @@ const AuthGuard: FC<PropsWithChildren> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken, router.pathname, loading, dispatch]);
 
-  if (loading)
-    return (
-      <Layout>
-        <Image priority src={logoimg} />
-      </Layout>
-    );
+  if (loading) return <Loading />;
 
   if (!loading || accessToken || router.pathname.startsWith('/auth')) return <div>{children}</div>;
 

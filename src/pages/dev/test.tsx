@@ -8,6 +8,7 @@ import Layout from 'components/layout/Layout';
 import { UploadPhotoType } from 'types/api/common';
 import postTradePost from 'api/trade/postTradePost';
 import uploadPhotos from 'api/common/uploadPhotos';
+import Loading from 'components/loading/Loading';
 
 interface FormType {
   photos: UploadPhotoType[];
@@ -23,18 +24,19 @@ const DevTest: NextPage = () => {
    * 4. 중고거래 api {title, dfdsf , photoName? }
    */
 
-  const { append, remove, fields } = useFieldArray({ control, name: 'photos' });
+  // const { append, remove, fields } = useFieldArray({ control, name: 'photos' });
 
   //   onchange (e => e.current.value.forEach((item)=>))
 
-  const { mutate: post } = useMutation(postTradePost);
+  // const { mutate: post } = useMutation(postTradePost);
 
   return (
     <Layout>
       <Header>
         <Header.Center title="테스트" />
       </Header>
-      <PhotoInput append={append} remove={remove} fields={fields} />
+      <Loading />
+      {/* <PhotoInput append={append} remove={remove} fields={fields} />
       <Button
         marginTop={10}
         bgColor="cyan.400"
@@ -55,7 +57,7 @@ const DevTest: NextPage = () => {
         }}
       >
         getPresignedUrl
-      </Button>
+      </Button> */}
     </Layout>
   );
 };
