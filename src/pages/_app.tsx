@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'styled-components';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -9,6 +9,9 @@ import { wrapper } from 'libs/store';
 import theme from 'styles/theme';
 import { AppPropsWithLayout } from 'types/nextjs';
 import AuthGuard from 'components/auth/AuthGuard';
+import Loading from 'components/loading/Loading';
+
+const LOADING_MUTATION = ['LOADING_MUTATION'];
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   const [queryClient] = useState(
@@ -21,6 +24,18 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
         },
       }),
   );
+
+  const [appLoading, setAppLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    queryClient.setMutationDefaults(LOADING_MUTATION, {
+      onMutate: () => {
+        setAppLoading(true);
+      },
+      onSettled: () => setAppLoading(false),
+    });
+  }, [queryClient]);
+
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return getLayout(
@@ -42,6 +57,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
             <AuthGuard>
               <Component {...pageProps} />
             </AuthGuard>
+            {appLoading && <Loading />}
           </ChakraProvider>
         </ThemeProvider>
       </Hydrate>
