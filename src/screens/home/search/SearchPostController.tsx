@@ -120,6 +120,7 @@ const SearchPostController: FC = () => {
       ...post,
     }),
     handleObserver,
+    keyword,
   };
   return <SearchPostView {...viewProps} />;
 };

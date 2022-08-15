@@ -2,6 +2,7 @@ import Post, { PostProps } from 'components/post';
 import Observer from 'components/observer/Observer';
 import { PostType } from 'types/api/common';
 import SearchView, { SearchViewProps } from 'screens/common/SearchView';
+import EmptyResult from 'components/search/EmptyResult';
 import type { FC } from 'react';
 
 export interface SearchPostViewProps {
@@ -9,6 +10,7 @@ export interface SearchPostViewProps {
   each(post: PostType): PostProps;
   posts: PostType[];
   handleObserver: VoidFunction;
+  keyword: string | null;
 }
 
 const SearchPostView: FC<SearchPostViewProps> = ({
@@ -16,11 +18,12 @@ const SearchPostView: FC<SearchPostViewProps> = ({
   each,
   handleObserver,
   posts,
+  keyword,
 }) => (
   <SearchView {...searchViewProps}>
-    {posts.map((item) => (
-      <Post {...each(item)} key={item.postId} />
-    ))}
+    {posts.length
+      ? posts.map((item) => <Post {...each(item)} key={item.postId} />)
+      : keyword && <EmptyResult keyword={keyword} />}
     <Observer onObserve={handleObserver} height="55px" />
   </SearchView>
 );

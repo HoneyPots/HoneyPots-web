@@ -84,6 +84,7 @@ const SearchTradeController: FC = () => {
       data && keyword
         ? ([] as UsedTradePost[]).concat(...data.pages.map((item) => item.content))
         : [],
+    keyword,
   };
   return <SearchTradeView {...viewProps} />;
 };

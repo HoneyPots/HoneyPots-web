@@ -75,6 +75,7 @@ const GroupBuyingSearchController: FC = () => {
       ...item,
     }),
     handleObserver,
+    keyword,
   };
   return <GroupBuyingSearch {...viewProps} />;
 };
