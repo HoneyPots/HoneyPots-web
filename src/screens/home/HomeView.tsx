@@ -20,8 +20,8 @@ const HomeView: FC<HomeViewProps> = ({ posts, handleObserver, each, onSearchClic
       <Header.Center title="게시글" subtitle="인하대 헤리움 메트로 타워" />
       <Header.Right iconType="search" onClick={onSearchClick} />
     </Header>
-    {posts.map((item, index) => (
-      <Post {...each(item)} key={`${index.toString()}`} />
+    {posts.map((item) => (
+      <Post {...each(item)} key={item.postId} />
     ))}
     <Link href="/post/add" passHref>
       <HomeComponents.WriteButton>글작성</HomeComponents.WriteButton>

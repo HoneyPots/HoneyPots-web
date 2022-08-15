@@ -1,4 +1,5 @@
 import axios from 'libs/axios';
+import { GroupBuyingPostType } from 'types/api/group-buying';
 import type { Page, PostType, UsedTradePost } from 'types/api/common';
 
 interface GetMyPostsParameter {
@@ -13,8 +14,14 @@ export const getMyPostsKey = (
   postType: 'NORMAL' | 'USED_TRADE' | 'GROUP_BUYING',
 ): [string, 'NORMAL' | 'USED_TRADE' | 'GROUP_BUYING'] => ['/api/members/posts', postType];
 
-const getMyPosts = async ({ page, size, postType, sortField, sortOption }: GetMyPostsParameter) => {
-  const { data } = await axios.get<Page<PostType | UsedTradePost>>('/api/members/posts', {
+async function getMyPosts<T extends PostType | UsedTradePost | GroupBuyingPostType>({
+  page,
+  size,
+  postType,
+  sortField,
+  sortOption,
+}: GetMyPostsParameter) {
+  const { data } = await axios.get<Page<T>>('/api/members/posts', {
     params: {
       page,
       size,
@@ -24,6 +31,6 @@ const getMyPosts = async ({ page, size, postType, sortField, sortOption }: GetMy
   });
 
   return data;
-};
+}
 
 export default getMyPosts;

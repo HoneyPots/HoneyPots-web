@@ -119,3 +119,5 @@ export interface UploadPhotoType {
   photo: File | string;
   url: string;
 }
+
+export type PostEnum = 'NORMAL' | 'USED_TRADE' | 'GROUP_BUYING';
