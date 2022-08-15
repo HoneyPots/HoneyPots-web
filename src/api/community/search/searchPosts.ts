@@ -13,7 +13,11 @@ interface SearchPostsParams {
 
 type ALLPost = PostType | UsedTradePost | GroupBuyingPostType;
 
-export const searchPostsKey = (type: PostEnum, keyword: string) => ['/api/posts', type, keyword];
+export const searchPostsKey = (type: PostEnum, keyword: string | null) => [
+  '/api/posts',
+  type,
+  keyword,
+];
 
 async function searchPosts<T extends ALLPost>({
   keyword,

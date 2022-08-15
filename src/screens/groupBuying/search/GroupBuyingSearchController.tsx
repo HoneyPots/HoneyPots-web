@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import searchPosts, { searchPostsKey } from 'api/community/search/searchPosts';
 import { GroupBuyingPostType } from 'types/api/group-buying';
@@ -7,14 +7,14 @@ import GroupBuyingSearch, { GroupBuyingSearchProps } from './GroupBuyingSearchVi
 
 const GroupBuyingSearchController: FC = () => {
   const router = useRouter();
-  const [keyword, setKeyword] = useState<string>('');
+  const [keyword, setKeyword] = useState<string | null>(null);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
 
   const { data, fetchNextPage } = useInfiniteQuery(
     searchPostsKey('GROUP_BUYING', keyword),
     ({ pageParam }) =>
       searchPosts<GroupBuyingPostType>({
-        keyword,
+        keyword: keyword as string,
         page: pageParam,
         postType: 'GROUP_BUYING',
         size: 20,
@@ -28,8 +28,19 @@ const GroupBuyingSearchController: FC = () => {
           setIsLastPage(true);
         }
       },
+      enabled: Boolean(keyword),
     },
   );
+
+  useEffect(() => {
+    const queryKeyword = router.query.keyword;
+
+    if (queryKeyword && typeof queryKeyword === 'string') {
+      setKeyword(queryKeyword);
+    } else {
+      setKeyword(null);
+    }
+  }, [router]);
 
   const handleObserver = useCallback(() => {
     if (data && data.pages[data.pages.length - 1]?.content) {
@@ -45,13 +56,20 @@ const GroupBuyingSearchController: FC = () => {
       onBackClick: router.back,
       onSubmit: (e) => {
         e.preventDefault();
-        setKeyword((e.target as HTMLFormElement).keyword.value);
+        setKeyword(e.currentTarget.keyword.value);
+        router.push({
+          pathname: router.pathname,
+          query: {
+            keyword: e.currentTarget.keyword.value,
+          },
+        });
       },
       placeholder: '공동구매 검색',
     },
-    posts: data
-      ? ([] as GroupBuyingPostType[]).concat(...data.pages.map((item) => item.content))
-      : [],
+    posts:
+      data && keyword
+        ? ([] as GroupBuyingPostType[]).concat(...data.pages.map((item) => item.content))
+        : [],
     each: (item) => ({
       onClick: () => router.push(`/group-buying/${item.postId}`),
       ...item,

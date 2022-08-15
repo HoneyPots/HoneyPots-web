@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import searchPosts, { searchPostsKey } from 'api/community/search/searchPosts';
 import { UsedTradePost } from 'types/api/common';
@@ -7,14 +7,14 @@ import SearchTradeView, { SearchTradeViewProps } from './SearchTradeView';
 
 const SearchTradeController: FC = () => {
   const router = useRouter();
-  const [keyword, setKeyword] = useState<string>('');
+  const [keyword, setKeyword] = useState<string | null>(null);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
 
   const { data, fetchNextPage } = useInfiniteQuery(
     searchPostsKey('USED_TRADE', keyword),
     ({ pageParam }) =>
       searchPosts<UsedTradePost>({
-        keyword,
+        keyword: keyword as string,
         page: pageParam,
         postType: 'USED_TRADE',
         size: 20,
@@ -28,8 +28,19 @@ const SearchTradeController: FC = () => {
           setIsLastPage(true);
         }
       },
+      enabled: Boolean(keyword),
     },
   );
+
+  useEffect(() => {
+    const queryKeyword = router.query.keyword;
+
+    if (queryKeyword && typeof queryKeyword === 'string') {
+      setKeyword(queryKeyword);
+    } else {
+      setKeyword(null);
+    }
+  }, [router]);
 
   const handleObserver = useCallback(() => {
     if (data && data.pages[data.pages.length - 1]?.content) {
@@ -45,7 +56,13 @@ const SearchTradeController: FC = () => {
       onBackClick: router.back,
       onSubmit: (e) => {
         e.preventDefault();
-        setKeyword((e.target as HTMLFormElement).keyword.value);
+        setKeyword(e.currentTarget.keyword.value);
+        router.push({
+          pathname: router.pathname,
+          query: {
+            keyword: e.currentTarget.keyword.value,
+          },
+        });
       },
       placeholder: '중고거래 검색',
     },
@@ -63,7 +80,10 @@ const SearchTradeController: FC = () => {
       tradeStatus: item.tradeStatus,
     }),
     handleObserver,
-    posts: data ? ([] as UsedTradePost[]).concat(...data.pages.map((item) => item.content)) : [],
+    posts:
+      data && keyword
+        ? ([] as UsedTradePost[]).concat(...data.pages.map((item) => item.content))
+        : [],
   };
   return <SearchTradeView {...viewProps} />;
 };

@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { InfiniteData, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import searchPosts, { searchPostsKey } from 'api/community/search/searchPosts';
@@ -11,7 +11,7 @@ import type { SearchPostViewProps } from './SearchPostView';
 
 const SearchPostController: FC = () => {
   const router = useRouter();
-  const [keyword, setKeyword] = useState<string>('');
+  const [keyword, setKeyword] = useState<string | null>(null);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const queryClient = useQueryClient();
 
@@ -19,7 +19,7 @@ const SearchPostController: FC = () => {
     searchPostsKey('NORMAL', keyword),
     ({ pageParam }) =>
       searchPosts<PostType>({
-        keyword,
+        keyword: keyword as string,
         page: pageParam,
         postType: 'NORMAL',
         size: 20,
@@ -33,8 +33,19 @@ const SearchPostController: FC = () => {
           setIsLastPage(true);
         }
       },
+      enabled: Boolean(keyword),
     },
   );
+
+  useEffect(() => {
+    const queryKeyword = router.query.keyword;
+
+    if (queryKeyword && typeof queryKeyword === 'string') {
+      setKeyword(queryKeyword);
+    } else {
+      setKeyword(null);
+    }
+  }, [router]);
 
   const handleObserver = useCallback(() => {
     if (data && data.pages[data.pages.length - 1]?.content) {
@@ -90,11 +101,18 @@ const SearchPostController: FC = () => {
       onBackClick: router.back,
       onSubmit: (e) => {
         e.preventDefault();
-        setKeyword((e.target as HTMLFormElement).keyword.value);
+        setKeyword(e.currentTarget.keyword.value);
+        router.push({
+          pathname: router.pathname,
+          query: {
+            keyword: e.currentTarget.keyword.value,
+          },
+        });
       },
       placeholder: '게시글 검색',
     },
-    posts: data ? ([] as PostType[]).concat(...data.pages.map((item) => item.content)) : [],
+    posts:
+      data && keyword ? ([] as PostType[]).concat(...data.pages.map((item) => item.content)) : [],
     each: (post) => ({
       onClick: () => router.push(`/post/${post.postId}`),
       full: false,
