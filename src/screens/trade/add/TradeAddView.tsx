@@ -71,11 +71,17 @@ const TradeAddView: FC<TradeAddViewProps> = ({
     <ErrorMsg>{errors.goodsPrice?.message}</ErrorMsg>
     <InputLabel>카카오톡 오픈 채팅 링크</InputLabel>
     <TextInput
-      placeholder="링크을 입력해 주세요"
+      placeholder="https://open.kakao.com/o/examples"
       type="url"
       inputMode="url"
-      {...register('chatRoomLink')}
+      {...register('chatRoomLink', {
+        pattern: {
+          value: /^(https?:\/\/)([^/]*)(open\.kakao\.com\/.*)\w+/g,
+          message: '올바른 링크를 입력해주세요',
+        },
+      })}
     />
+    <ErrorMsg>{errors.chatRoomLink?.message}</ErrorMsg>
     <InputLabel>
       부가 설명<b> *</b>
     </InputLabel>
