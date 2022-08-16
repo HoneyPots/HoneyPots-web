@@ -1,9 +1,10 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDisclosure } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import patchNickname from 'api/members/patchNickname';
+import getNicknameCheck from 'api/members/getNicknameCheck';
 import { RootState } from 'libs/store/modules';
 import CreateAccountView from './CreateAccountView';
 
@@ -14,10 +15,21 @@ const CreateAccountControllerController: FC = () => {
   const userId = useSelector<RootState, number | undefined>(({ user }) => user.userId);
   const [inputValue, setInputValue] = useState<string>('');
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { isOpen: isNoOpen, onClose: onNoClose, onOpen: onNoOpen } = useDisclosure();
 
   const { mutate } = useMutation(patchNickname, {
     onSuccess: () => router.back(),
   });
+
+  const onButtonClick = useCallback(() => {
+    getNicknameCheck({ nickname: inputValue })
+      .then(() => {
+        onNoOpen();
+      })
+      .catch(() => {
+        onOpen();
+      });
+  }, [onNoOpen, onOpen, inputValue]);
 
   const viewProps: CreateAccountViewProps = {
     onBackClick: router.back,
@@ -32,11 +44,19 @@ const CreateAccountControllerController: FC = () => {
         }
       },
     },
+    noAlertProps: {
+      isOpen: isNoOpen,
+      onClose: onNoClose,
+      body: '이미 사용중인 닉네임 입니다',
+      header: '사용이 불가능한 닉네임 입니다',
+      onButtonClick: onNoClose,
+    },
     inputProps: {
       onChange: (event) => setInputValue(event.currentTarget.value),
       value: inputValue,
     },
-    onButtonClick: onOpen,
+    onButtonClick,
+    buttonDisabled: inputValue.length > 10,
   };
   return <CreateAccountView {...viewProps} />;
 };
