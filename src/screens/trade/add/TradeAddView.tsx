@@ -60,7 +60,7 @@ const TradeAddView: FC<TradeAddViewProps> = ({
       금액<b> *</b>
     </InputLabel>
     <TextInput
-      placeholder="금액을 입력해 주세요"
+      placeholder="금액을 입력해 주세요 (원)"
       type="number"
       inputMode="numeric"
       {...register('goodsPrice', {

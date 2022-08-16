@@ -26,7 +26,11 @@ const GroupBuyingAddController: FC = () => {
     formState: { errors },
     setError,
     clearErrors,
-  } = useForm<GBFormType>({});
+  } = useForm<GBFormType>({
+    defaultValues: {
+      category: '양식',
+    },
+  });
 
   const { append, fields, remove } = useFieldArray({ control, name: 'photos' });
 
