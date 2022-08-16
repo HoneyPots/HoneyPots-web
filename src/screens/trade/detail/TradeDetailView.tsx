@@ -2,6 +2,7 @@ import Header from 'components/header';
 import CommentInput, { CommentInputProps } from 'components/input/CommentInput';
 import { Comment } from 'types/api/common';
 import Comments from 'components/comment/Comments';
+import ReportAlert, { ReportAlertProps } from 'components/chakra/ReportAlert';
 import Observer from 'components/observer/Observer';
 import { MenuItemType } from 'components/header/HeaderRight';
 import Alert, { AlertProps } from 'components/chakra/Alert';
@@ -17,6 +18,7 @@ export interface TradeDetailViewProps {
   commentInputProps: CommentInputProps;
   menuLists: MenuItemType[];
   alertProps: AlertProps;
+  reportAlertProps: ReportAlertProps;
 }
 
 const TradeDetailView: FC<TradeDetailViewProps> = ({
@@ -27,6 +29,7 @@ const TradeDetailView: FC<TradeDetailViewProps> = ({
   handleObserver,
   menuLists,
   alertProps,
+  reportAlertProps,
 }) => (
   <Layout fullWidth>
     <Header>
@@ -43,6 +46,7 @@ const TradeDetailView: FC<TradeDetailViewProps> = ({
       </>
     )}
     <Alert {...alertProps} />
+    <ReportAlert {...reportAlertProps} />
   </Layout>
 );
 

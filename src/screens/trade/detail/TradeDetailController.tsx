@@ -27,6 +27,7 @@ const TradeDetailController: FC = () => {
   );
   const { isMe } = useMe();
   const { onClose, onOpen, isOpen } = useDisclosure();
+  const { onClose: onReportClose, onOpen: onReportOpen, isOpen: isReportOpen } = useDisclosure();
 
   const del = useMutation(delTradePost, {
     onSuccess: () => {
@@ -94,14 +95,16 @@ const TradeDetailController: FC = () => {
       const result: MenuItemType[] = [
         {
           name: '신고하기',
-          onClick: () => {},
+          onClick: () => {
+            onReportOpen();
+          },
         },
       ];
       return result;
     }
     const result: MenuItemType[] = [{ name: '신고하기', onClick: () => {} }];
     return result;
-  }, [data, isMe, router, onOpen]);
+  }, [data, isMe, router, onOpen, onReportOpen]);
 
   const tradePostProps: TradePostProps | undefined = useMemo(() => {
     if (!data) return undefined;
@@ -145,6 +148,11 @@ const TradeDetailController: FC = () => {
       buttonColor: '#EB3737',
       buttonText: '삭제',
       onButtonClick: () => del.mutate({ postId: router.query.postId as string }),
+    },
+    reportAlertProps: {
+      isOpen: isReportOpen,
+      onClose: onReportClose,
+      targetId: router.query.postId as string,
     },
   };
   return <TradeDetailView {...viewProps} />;

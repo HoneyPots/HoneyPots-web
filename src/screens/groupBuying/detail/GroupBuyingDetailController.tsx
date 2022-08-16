@@ -21,6 +21,7 @@ const GroupBuyingDetailControllerController: FC = () => {
       enabled: Boolean(router.query.postId),
     },
   );
+  const { onClose: onReportClose, onOpen: onReportOpen, isOpen: isReportOpen } = useDisclosure();
 
   const del = useMutation(delGBPost, {
     onSuccess: () => {
@@ -38,12 +39,12 @@ const GroupBuyingDetailControllerController: FC = () => {
         ];
         return result;
       }
-      const result: MenuItemType[] = [{ name: '신고하기', onClick: () => {} }];
+      const result: MenuItemType[] = [{ name: '신고하기', onClick: () => onReportOpen() }];
       return result;
     }
     const result: MenuItemType[] = [{ name: '신고하기', onClick: () => {} }];
     return result;
-  }, [data, isMe, onOpen, router]);
+  }, [data, isMe, onOpen, router, onReportOpen]);
 
   const viewProps: GroupBuyingDetailViewProps = {
     onBackClick: router.back,
@@ -57,6 +58,11 @@ const GroupBuyingDetailControllerController: FC = () => {
       buttonColor: '#EB3737',
       buttonText: '삭제',
       onButtonClick: () => del.mutate({ postId: router.query.postId as string }),
+    },
+    reportAlertProps: {
+      isOpen: isReportOpen,
+      onClose: onReportClose,
+      targetId: router.query.postId as string,
     },
   };
   return <GroupBuyingDetailView {...viewProps} />;

@@ -1,4 +1,5 @@
 import Alert, { AlertProps } from 'components/chakra/Alert';
+import ReportAlert, { ReportAlertProps } from 'components/chakra/ReportAlert';
 import GroupBuyingPost, { GroupBuyingPostProps } from 'components/groupBuying/GroupBuyingPost';
 import Header from 'components/header';
 import HeaderCenter from 'components/header/HeaderCenter';
@@ -12,6 +13,7 @@ export interface GroupBuyingDetailViewProps {
   groupBuyingPostProps?: GroupBuyingPostProps;
   menuLists: MenuItemType[];
   alertProps: AlertProps;
+  reportAlertProps: ReportAlertProps;
 }
 
 const GroupBuyingDetailView: FC<GroupBuyingDetailViewProps> = ({
@@ -19,6 +21,7 @@ const GroupBuyingDetailView: FC<GroupBuyingDetailViewProps> = ({
   groupBuyingPostProps,
   menuLists,
   alertProps,
+  reportAlertProps,
 }) => (
   <Layout fullWidth>
     <Header>
@@ -28,6 +31,7 @@ const GroupBuyingDetailView: FC<GroupBuyingDetailViewProps> = ({
     </Header>
     {groupBuyingPostProps && <GroupBuyingPost {...groupBuyingPostProps} full />}
     <Alert {...alertProps} />
+    <ReportAlert {...reportAlertProps} />
   </Layout>
 );
 

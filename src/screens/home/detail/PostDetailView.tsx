@@ -4,6 +4,7 @@ import Post, { PostProps } from 'components/post';
 import { Comment } from 'types/api/common';
 import Observer from 'components/observer/Observer';
 import { MenuItemType } from 'components/header/HeaderRight';
+import ReportAlert, { ReportAlertProps } from 'components/chakra/ReportAlert';
 import Alert, { AlertProps } from 'components/chakra/Alert';
 import CommentInput, { CommentInputProps } from 'components/input/CommentInput';
 import Comments from 'components/comment/Comments';
@@ -17,6 +18,7 @@ export interface PostDetailViewProps {
   onHeaderClick: VoidFunction;
   menuLists: MenuItemType[];
   alertProps: AlertProps;
+  reportAlertProps: ReportAlertProps;
 }
 
 const PostDetailView: FC<PostDetailViewProps> = ({
@@ -27,6 +29,7 @@ const PostDetailView: FC<PostDetailViewProps> = ({
   onHeaderClick,
   menuLists,
   alertProps,
+  reportAlertProps,
 }) => (
   <Layout fullWidth>
     <Header>
@@ -43,6 +46,7 @@ const PostDetailView: FC<PostDetailViewProps> = ({
       </>
     ) : null}
     <Alert {...alertProps} />
+    <ReportAlert {...reportAlertProps} />
   </Layout>
 );
 
