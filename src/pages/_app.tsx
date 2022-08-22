@@ -11,10 +11,11 @@ import { AppPropsWithLayout } from 'types/nextjs';
 import AuthGuard from 'components/auth/AuthGuard';
 import Loading from 'components/loading/Loading';
 import useLoading from 'hooks/useLoading';
+import * as gtag from '../utills/gtags';
 
 export const LOADING_MUTATION = ['LOADING_MUTATION'];
 
-const App = ({ Component, pageProps }: AppPropsWithLayout) => {
+const App = ({ Component, pageProps, router }: AppPropsWithLayout) => {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -37,6 +38,16 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
       },
     });
   }, [startLoading, endLoading, queryClient]);
+
+  useEffect(() => {
+    const handleRouteChange = (url: URL) => {
+      gtag.pageview(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
 
   const getLayout = Component.getLayout ?? ((page) => page);
 
