@@ -20,7 +20,10 @@ const HomeController: FC = () => {
     {
       getNextPageParam: (lastpage) => lastpage.pageable.pageNumber + 1,
       onSuccess(res) {
-        if (res.pages[res.pages.length - 1].last) {
+        if (
+          res.pages[res.pages.length - 1].totalPages ===
+          res.pages[res.pages.length - 1].pageable.pageNumber
+        ) {
           setIsLastPage(true);
         }
       },
