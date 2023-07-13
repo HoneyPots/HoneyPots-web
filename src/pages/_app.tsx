@@ -67,9 +67,10 @@ const App = ({ Component, pageProps, router }: AppPropsWithLayout) => {
                 content="width=device-width, initial-scale=1.0, user-scalable=0, maximum-scale=1.0"
               />
             </Head>
-            <AuthGuard>
+            {/* <AuthGuard>
               <Component {...pageProps} />
-            </AuthGuard>
+            </AuthGuard> */}
+            <Component {...pageProps} />
             {appLoading && <Loading />}
           </ChakraProvider>
         </ThemeProvider>
